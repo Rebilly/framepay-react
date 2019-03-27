@@ -1,0 +1,46 @@
+{
+  "name": "framepay-react",
+  "version": "1.0.0",
+  "description": "TODO",
+  "main": "build/index.js",
+  "peerDependencies": {},
+  "scripts": {
+    "start": "webpack --watch --mode production",
+    "build": "webpack --mode production"
+  },
+  "author": {
+    "name": "<your npm name>"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/Rebilly/framepay-react/master/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Rebilly/framepay-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Rebilly/framepay-react.git"
+  },
+  "keywords": [
+    "vue",
+    "framepay",
+    "payment cards"
+  ],
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.5",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "webpack-cli": "^3.3.0"
+  }
+}
