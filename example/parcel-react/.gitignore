@@ -1,8 +1,7 @@
 .idea
 .cache
 dist
+.eslintcache
 /node_modules
-yarn-error.log
+*.log
 /dist/
-/test/reports/
-/test/e2e/screenshots/*.png

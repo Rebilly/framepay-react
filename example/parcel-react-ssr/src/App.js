@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+// import './App.css';
 import { FramePayProvider } from 'framepay-react';
 import Card from './Card';
 import settings from './settings';
-
 
 class App extends Component {
   render() {

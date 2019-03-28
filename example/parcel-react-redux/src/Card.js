@@ -1,6 +1,7 @@
 import React from 'react';
 import './Card.css';
 import { injectFramePayCard } from 'framepay-react';
+import ConnectedCardChild from './ConnectedCardChildLevel-4';
 
 class Card extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Card extends React.Component {
           <div className="field">
             {this.props.CardComponent}
           </div>
+          <ConnectedCardChild/>
         </fieldset>
         <button>Make Payment</button>
       </form>

@@ -4,6 +4,6 @@ import injectFramePayCard from './inject';
 import FramePayProvider from './provider';
 
 export {
-    injectFramePayCard,
-    FramePayProvider,
+  injectFramePayCard,
+  FramePayProvider,
 };

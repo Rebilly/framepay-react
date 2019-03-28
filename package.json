@@ -2,11 +2,13 @@
   "name": "framepay-react",
   "version": "1.0.0",
   "description": "TODO",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "peerDependencies": {},
   "scripts": {
     "start": "webpack --watch --mode production",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache --ignore-pattern node_modules/",
+    "lint:fix": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache --ignore-pattern node_modules/ --fix"
   },
   "author": {
     "name": "<your npm name>"
@@ -31,16 +33,22 @@
     "payment cards"
   ],
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "webpack": "^4.29.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
     "webpack-cli": "^3.3.0"
   }
 }
