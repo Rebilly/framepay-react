@@ -88,6 +88,7 @@ export default class Card extends React.Component {
       mounted: true,
       card,
     });
+    // TODO component will unmount
     card.on('ready', () => {
       this.setState({ ready: true }, () => {
         if (this.props.onReady) {

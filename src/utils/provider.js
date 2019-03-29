@@ -70,6 +70,8 @@ export default class Provider extends React.Component {
            * wait while FramePay api will be Ready
            */
 
+          // TODO component will unmount
+
           /**
            * Cached timeout
            * @type {number|null}
