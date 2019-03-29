@@ -21,6 +21,9 @@
   "globals": {
     "Rebilly": false
   },
+  "plugins": [
+    "jsdoc"
+  ],
   "settings": {
     "react": {
       "pragma": "React",

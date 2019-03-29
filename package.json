@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "TODO",
   "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
   "peerDependencies": {},
   "scripts": {
     "start": "webpack --watch --mode production",
@@ -33,6 +37,7 @@
     "payment cards"
   ],
   "dependencies": {
+    "eslint-plugin-jsdoc": "^4.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "webpack": "^4.29.6"
