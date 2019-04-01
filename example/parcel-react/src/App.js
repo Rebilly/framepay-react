@@ -1,21 +1,47 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {BrowserRouter as Router, IndexLink, NavLink, Route} from 'react-router-dom';
 
-import { FramePayProvider } from 'framepay-react';
+import {Provider as FramePayProvider} from 'framepay-react-ts';
 
 import './App.css';
+import './examples.css';
 
 import Guide from './Guide';
-import CheckoutBank from './checkout-bank/Page';
-import CheckoutCombined from './checkout-combined/Page';
-import CheckoutMultiple from './checkout-multiple/Page';
-import CheckoutSeparate from './checkout-separate/Page';
 
+import * as elements from './elements';
+
+
+const unCamelCase = (word) => {
+  return word
+  // insert a space between lower & upper
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    // space before last upper in a sequence followed by lower
+    .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+    // uppercase the first character
+    .replace(/^./, str => str.toUpperCase());
+};
+
+const routes = Object.keys(elements).map((name) => {
+  const title = unCamelCase(name);
+  const path = title.split(' ').map(s => s.toLowerCase()).join('-');
+  return {
+    Component: elements[name],
+    name,
+    title,
+    path,
+  };
+});
+
+const routeComponents = routes.map((route) => <Route
+  key={`route-${route.name}`}
+  path={`/${route.path}`}
+  render={(props) => <route.Component {...props} title={route.title} exact={true}/>}
+/>);
 
 const params = {
   injectScript: true,
   injectStyle: true,
-  config: {
+  settings: {
     publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
     style: {
       base: {
@@ -55,16 +81,57 @@ class App extends Component {
     return (
       // Don't forget to add the FramePayProvider
       <FramePayProvider {...params}>
-        <div className="App">
-          <Router>
-            <Route path="/" exact component={Guide}/>
-            <Route path="/guide/" exact component={Guide}/>
-            <Route path="/checkout-bank/" component={CheckoutBank}/>
-            <Route path="/checkout-combined/" component={CheckoutCombined}/>
-            <Route path="/checkout-multiple/" component={CheckoutMultiple}/>
-            <Route path="/checkout-separate/" component={CheckoutSeparate}/>
-          </Router>
-        </div>
+        <Router>
+          <header className="navbar">
+            <div className="sidebar-button">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"
+                   className="icon">
+
+              </svg>
+            </div>
+            <a target="_blank" href="https://rebilly.github.io/framepay-docs" className="home-link router-link-active">
+              <span className="site-name">Rebilly FramePay</span>
+            </a>
+          </header>
+          <div className="sidebar-mask"/>
+          <div className="sidebar">
+            <ul className="sidebar-links">
+              <li>
+                <div className="sidebar-group first">
+                  <p className="sidebar-heading open">
+                    ReactJS Examples
+                  </p>
+                  <ul className="sidebar-group-items">
+                    <li>
+                      <NavLink
+                        exact
+                        className="sidebar-link"
+                        activeClassName="active"
+                        to="/guide">Guide</NavLink>
+                    </li>
+                    <hr/>
+                    {routes.map((route) =>
+                      <li key={`link-${route.name}`}>
+                        <NavLink
+                          exact
+                          className="sidebar-link"
+                          activeClassName="active"
+                          to={route.path}>{route.title}</NavLink>
+                      </li>)}
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="page">
+            <div className="content">
+
+              <Route path="/" exact component={Guide}/>
+              <Route path="/guide/" exact component={Guide}/>
+              {routeComponents}
+            </div>
+          </div>
+        </Router>
       </FramePayProvider>
     );
   }

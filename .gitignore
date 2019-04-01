@@ -1,7 +1,9 @@
 .idea
 .cache
+build
 dist
 .eslintcache
+.nyc_output
 /node_modules
 *.log
 /dist/
