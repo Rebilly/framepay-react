@@ -4,6 +4,9 @@ build
 dist
 .eslintcache
 .nyc_output
-/node_modules
+coverage
+node_modules
 *.log
-/dist/
+
+package-lock.json
+

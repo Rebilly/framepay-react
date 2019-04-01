@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PaymentElementComponentProps, PaymentMethodComponentState } from '../../../types/internal/payment-method';
+import {PaymentElementComponentProps, PaymentMethodComponentState} from '../../../types/internal/payment-method';
 
 export default class BaseElement<T extends PaymentElementComponentProps, S extends PaymentMethodComponentState> extends React.Component<T, S> {
 
@@ -56,7 +56,7 @@ export default class BaseElement<T extends PaymentElementComponentProps, S exten
     /**
      * Setup field
      */
-    this.setState({ mounted: true }, this.setupElement);
+    this.setState({mounted: true}, this.setupElement);
   }
 
   shouldComponentUpdate() {

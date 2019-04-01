@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ContextProvider } from '../context';
-import { injectScript, injectStyle } from '../dom-util';
+import {ContextProvider} from '../context';
+import {injectScript, injectStyle} from '../dom-util';
 import FramePayApi from '../FramePayApi';
 
 interface ProviderProps {
@@ -38,14 +38,14 @@ export default class Provider extends React.Component<ProviderProps, ProviderSta
   }
 
   onApiError() {
-    return this.setState({ ready: false } as ProviderState, () => {
+    return this.setState({ready: false} as ProviderState, () => {
       throw new Error(`api error`);
     });
   }
 
   async onApiReady() {
     await this.state.api.initialize(this.props.settings);
-    this.setState({ ready: true } as ProviderState);
+    this.setState({ready: true} as ProviderState);
   }
 
   render() {

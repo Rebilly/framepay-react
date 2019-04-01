@@ -1,7 +1,7 @@
 import React from 'react';
-import {withFramePayBankComponent} from 'framepay-react-ts';
+import { withFramePayBankComponent } from 'framepay-react';
 
-class CardComponent extends React.Component {
+class BankElement extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,6 +11,11 @@ class CardComponent extends React.Component {
       email: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    console.log('BankElement.constructor');
+  }
+
+  componentDidMount() {
+    console.log('BankElement.componentDidMount');
   }
 
   handleSubmit(e) {
@@ -20,7 +25,7 @@ class CardComponent extends React.Component {
      * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
      *
      */
-    this.props.framePay.createToken(this.formNode, {billingAddress: {...this.state}})
+    this.props.framePay.createToken(this.formNode, { billingAddress: { ...this.state } })
       .then(data => {
         console.log('createToken.data', data);
         alert(JSON.stringify(data, null, 2));
@@ -47,7 +52,7 @@ class CardComponent extends React.Component {
                   placeholder="John"
                   defaultValue={this.state.firstName}
                   onChange={e => {
-                    this.setState({firstName: e.target.value});
+                    this.setState({ firstName: e.target.value });
                   }}/>
               </div>
               <div className="field">
@@ -58,7 +63,7 @@ class CardComponent extends React.Component {
                   placeholder="Doe"
                   defaultValue={this.state.lastName}
                   onChange={e => {
-                    this.setState({lastName: e.target.value});
+                    this.setState({ lastName: e.target.value });
                   }}/>
               </div>
               <div className="field">
@@ -69,7 +74,7 @@ class CardComponent extends React.Component {
                   placeholder="johnd@example.com"
                   defaultValue={this.state.email}
                   onChange={e => {
-                    this.setState({email: e.target.value});
+                    this.setState({ email: e.target.value });
                   }}/>
               </div>
               <div className="field">
@@ -88,11 +93,9 @@ class CardComponent extends React.Component {
         <div>
           <pre>{JSON.stringify(this.state, null, 2)}</pre>
         </div>
-
       </div>
-
     </div>);
   }
 }
 
-export default withFramePayBankComponent(CardComponent);
+export default withFramePayBankComponent(BankElement);

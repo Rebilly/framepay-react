@@ -6,9 +6,9 @@ import PayPal from './PayPal';
 
 
 export {
-    BankElement,
-    CardElement,
-    MultipleElements,
-    CardElementSeparated,
-    PayPal,
+  BankElement,
+  CardElement,
+  MultipleElements,
+  CardElementSeparated,
+  PayPal,
 };

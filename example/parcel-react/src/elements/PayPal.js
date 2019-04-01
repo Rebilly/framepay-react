@@ -1,7 +1,7 @@
 import React from 'react';
-import {withFramePayCardComponent} from 'framepay-react-ts';
+import { withFramePayCardComponent } from 'framepay-react';
 
-class CardComponent extends React.Component {
+class PayPal extends React.Component {
 
   constructor(props) {
     super(props);
@@ -36,4 +36,4 @@ class CardComponent extends React.Component {
   }
 }
 
-export default withFramePayCardComponent(CardComponent);
+export default withFramePayCardComponent(PayPal);

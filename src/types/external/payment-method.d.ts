@@ -1,21 +1,21 @@
 type PaymentElementEvents = 'ready' | 'change' | 'focus' | 'blur'
 
 interface PaymentElementOnChangeEventData {
-  readonly valid?: boolean
-  readonly error?: object
-  readonly source: string
+    readonly valid?: boolean
+    readonly error?: object
+    readonly source: string
 }
 
 interface PaymentElement {
-  // todo declare callback data object
-  readonly on: (eventType: PaymentElementEvents, callback: (data: PaymentElementOnChangeEventData | undefined) => void) => void
-  readonly unmount: () => void
-  readonly destroy: () => void
+    // todo declare callback data object
+    readonly on: (eventType: PaymentElementEvents, callback: (data: PaymentElementOnChangeEventData | undefined) => void) => void
+    readonly unmount: () => void
+    readonly destroy: () => void
 }
 
 
 interface PaymentMethod {
-  readonly mount: (node: HTMLElement | HTMLDivElement) => PaymentElement
+    readonly mount: (node: HTMLElement | HTMLDivElement) => PaymentElement
 }
 
 /**
@@ -32,7 +32,7 @@ interface PaymentMethod {
 declare type CardPaymentElementTypes = 'cardNumber' | 'cardNumber' | 'cardNumber'
 
 interface CardPaymentMethod extends PaymentMethod {
-  readonly mount: (node: HTMLElement | HTMLDivElement, elementType?: CardPaymentElementTypes) => PaymentElement
+    readonly mount: (node: HTMLElement | HTMLDivElement, elementType?: CardPaymentElementTypes) => PaymentElement
 }
 
 /**
@@ -49,5 +49,5 @@ interface CardPaymentMethod extends PaymentMethod {
 declare type BankPaymentElementTypes = 'bankAccountType' | 'bankAccountNumber' | 'bankRoutingNumber'
 
 interface BankPaymentMethod extends PaymentMethod {
-  readonly mount: (node: HTMLElement | HTMLDivElement, elementType?: BankPaymentElementTypes) => PaymentElement
+    readonly mount: (node: HTMLElement | HTMLDivElement, elementType?: BankPaymentElementTypes) => PaymentElement
 }

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {BrowserRouter as Router, IndexLink, NavLink, Route} from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, IndexLink, NavLink, Route } from 'react-router-dom';
 
-import {Provider as FramePayProvider} from 'framepay-react-ts';
+import { Provider as FramePayProvider } from 'framepay-react';
 
 import './App.css';
 import './examples.css';
@@ -21,16 +21,19 @@ const unCamelCase = (word) => {
     .replace(/^./, str => str.toUpperCase());
 };
 
-const routes = Object.keys(elements).map((name) => {
-  const title = unCamelCase(name);
-  const path = title.split(' ').map(s => s.toLowerCase()).join('-');
-  return {
-    Component: elements[name],
-    name,
-    title,
-    path,
-  };
-});
+const routes = Object.keys(elements)
+  .map((name) => {
+    const title = unCamelCase(name);
+    const path = title.split(' ')
+      .map(s => s.toLowerCase())
+      .join('-');
+    return {
+      Component: elements[name],
+      name,
+      title,
+      path,
+    };
+  });
 
 const routeComponents = routes.map((route) => <Route
   key={`route-${route.name}`}

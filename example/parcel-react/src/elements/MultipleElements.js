@@ -1,5 +1,5 @@
 import React from 'react';
-import {withFramePayBankComponent, withFramePayCardComponent} from 'framepay-react-ts';
+import { withFramePayBankComponent, withFramePayCardComponent } from 'framepay-react';
 
 class CardComponent extends React.Component {
 
@@ -58,7 +58,7 @@ const Bank4 = withFramePayBankComponent(BankComponent);
 const Bank5 = withFramePayBankComponent(BankComponent);
 const Bank6 = withFramePayBankComponent(BankComponent);
 
-export default class MultipleCards extends React.Component {
+export default class MultipleElements extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);

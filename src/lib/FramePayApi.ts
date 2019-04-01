@@ -3,20 +3,7 @@
  */
 export default class FramePayApi {
 
-  static remoteApi(): RemoteFramePayApi {
-    // @ts-ignore
-    return typeof window !== 'undefined' ? window.Rebilly : undefined;
-  };
-
-  static getInstance(): FramePayApi {
-    return FramePayApi.instance;
-  }
-
   private static readonly instance = new FramePayApi();
-
-  async initialize(settings: FramePaySettings) {
-    FramePayApi.remoteApi().initialize(settings);
-  }
 
   get card(): CardPaymentMethod {
     return {
@@ -32,6 +19,19 @@ export default class FramePayApi {
         return FramePayApi.remoteApi().bankAccount.mount(node, elementType);
       }
     };
+  }
+
+  static remoteApi(): RemoteFramePayApi {
+    // @ts-ignore
+    return typeof window !== 'undefined' ? window.Rebilly : undefined;
+  };
+
+  static getInstance(): FramePayApi {
+    return FramePayApi.instance;
+  }
+
+  async initialize(settings: FramePaySettings) {
+    FramePayApi.remoteApi().initialize(settings);
   }
 
   // TODO extraData specification

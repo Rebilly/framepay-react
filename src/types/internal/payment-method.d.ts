@@ -1,4 +1,4 @@
-import { ProviderState } from '../../lib/components/Provider';
+import {ProviderState} from '../../lib/components/Provider';
 
 interface PaymentMethodComponentState {
   readonly element: null | PaymentElement | PaymentElement

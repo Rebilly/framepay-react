@@ -1,11 +1,11 @@
-import { FRAMEPAY_SCRIPT_LINK, FRAMEPAY_STYLE_LINK } from './constants';
+import {FRAMEPAY_SCRIPT_LINK, FRAMEPAY_STYLE_LINK} from './constants';
 
 interface ScriptProperties {
   readonly onReady: () => void,
   readonly onError: () => void
 }
 
-export const injectScript = ({ onReady, onError }: ScriptProperties) => {
+export const injectScript = ({onReady, onError}: ScriptProperties) => {
   // tslint:disable:no-expression-statement
   const script = document.createElement('script');
   script.async = true;

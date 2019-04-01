@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import {createContext} from 'react';
 import FramePayApi from './FramePayApi';
 
 interface FramePayContext {
@@ -8,7 +8,7 @@ interface FramePayContext {
 const {
   Provider: ContextProvider,
   Consumer: ContextConsumer
-} = createContext<FramePayContext>({ api: new FramePayApi() });
+} = createContext<FramePayContext>({api: new FramePayApi()});
 
 export {
   ContextProvider,

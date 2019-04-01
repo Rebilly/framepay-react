@@ -1,7 +1,7 @@
 import React from 'react';
-import {withFramePayCardComponent} from 'framepay-react-ts';
+import { withFramePayCardComponent } from 'framepay-react';
 
-class CardComponent extends React.Component {
+class CardElementSeparated extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class CardComponent extends React.Component {
      * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
      *
      */
-    this.props.framePay.createToken(this.formNode, {billingAddress: {...this.state}})
+    this.props.framePay.createToken(this.formNode, { billingAddress: { ...this.state } })
       .then(data => {
         console.log('createToken.data', data);
         alert(JSON.stringify(data, null, 2));
@@ -46,7 +46,7 @@ class CardComponent extends React.Component {
               placeholder="First Name"
               defaultValue={this.state.firstName}
               onChange={e => {
-                this.setState({firstName: e.target.value});
+                this.setState({ firstName: e.target.value });
               }}/>
           </div>
           <div className="field">
@@ -56,7 +56,7 @@ class CardComponent extends React.Component {
               placeholder="Last Name"
               defaultValue={this.state.lastName}
               onChange={e => {
-                this.setState({lastName: e.target.value});
+                this.setState({ lastName: e.target.value });
               }}/>
           </div>
           <div className="field">
@@ -66,7 +66,7 @@ class CardComponent extends React.Component {
               placeholder="Email"
               defaultValue={this.state.email}
               onChange={e => {
-                this.setState({email: e.target.value});
+                this.setState({ email: e.target.value });
               }}/>
           </div>
           <div className="field">
@@ -76,7 +76,7 @@ class CardComponent extends React.Component {
               placeholder="Phone"
               defaultValue={this.state.country}
               onChange={e => {
-                this.setState({country: e.target.value});
+                this.setState({ country: e.target.value });
               }}/>
           </div>
           <div className="field">
@@ -109,4 +109,4 @@ class CardComponent extends React.Component {
   }
 }
 
-export default withFramePayCardComponent(CardComponent);
+export default withFramePayCardComponent(CardElementSeparated);

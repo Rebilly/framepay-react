@@ -1,23 +1,12 @@
+sudo: false
 language: node_js
-
 node_js:
-- "node"
-- '10'
-- '8'
-- '6'
-
+  - '10'
+  - '11'
+# keep the npm cache to speed up installs
 cache:
-  yarn: true
   directories:
-  - node_modules
-
-branches:
-  only:
-  - master
-  - "/^v\\d+\\./"
-
-install:
-- npm install
-
-before_script:
-- "npm run test"
+    - '$HOME/.npm'
+after_success:
+  - npx nyc report --reporter=lcov | npx codecov
+  - npm run cov:check

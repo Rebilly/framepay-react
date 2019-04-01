@@ -2131,7 +2131,7 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-"framepay-react-ts@file:../..":
+"framepay-react@file:../..":
   version "1.0.0"
   dependencies:
     react "^16.8.6"

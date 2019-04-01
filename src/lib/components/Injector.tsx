@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ContextConsumer } from '../context';
+import {ContextConsumer} from '../context';
 import FramePayApi from '../FramePayApi';
 import BankElement from './elements/BankElement';
 import CardElement from './elements/CardElement';
-import { ProviderState } from './Provider';
+import {ProviderState} from './Provider';
 
 interface WrappedComponentProps {
   readonly framePay: FramePayApi,
@@ -18,7 +18,7 @@ function Hoc<P extends object>(WrappedComponent: React.ComponentType<P>, provide
     render() {
       return <ContextConsumer>
         {(data) => {
-          return <WrappedComponent {...{ ...this.props, ...provider(data) }}/>;
+          return <WrappedComponent {...{...this.props, ...provider(data)}}/>;
         }}
       </ContextConsumer>;
     }
@@ -26,40 +26,51 @@ function Hoc<P extends object>(WrappedComponent: React.ComponentType<P>, provide
 }
 
 export function withFramePayCardComponent<P extends object>(WrappedComponent: React.ComponentType<P>) {
+  const elements = {
+    CardCvvElement: Hoc(CardElement, (data: ProviderState) => ({...data, elementType: 'cardCvv'}) as object),
+    CardElement: Hoc(CardElement, (data: ProviderState) => ({...data}) as object),
+    CardExpiryElement: Hoc(CardElement, (data: ProviderState) => ({
+      ...data,
+      elementType: 'cardExpiry'
+    }) as object),
+    CardNumberElement: Hoc(CardElement, (data: ProviderState) => ({
+      ...data,
+      elementType: 'cardNumber'
+    }) as object),
+  };
   return Hoc(
     WrappedComponent,
     (data: any) => ({
-      CardCvvElement: Hoc(CardElement, (data: ProviderState) => ({ ...data, elementType: 'cardCvv' }) as object),
-      CardElement: Hoc(CardElement, (data: ProviderState) => ({ ...data }) as object),
-      CardExpiryElement: Hoc(CardElement, (data: ProviderState) => ({ ...data, elementType: 'cardExpiry' }) as object),
-      CardNumberElement: Hoc(CardElement, (data: ProviderState) => ({
-        ...data,
-        elementType: 'cardNumber'
-      }) as object),
-      framePay: data.api
+      framePay: data.api,
+      ...elements
     })
   );
 };
 
 
 export function withFramePayBankComponent<P extends object>(WrappedComponent: React.ComponentType<P>) {
+
+  const elements = {
+    BankAccountNumberElement: Hoc(BankElement, (data: ProviderState) => ({
+      ...data,
+      elementType: 'bankAccountNumber'
+    }) as object),
+    BankAccountTypeElement: Hoc(BankElement, (data: ProviderState) => ({
+      ...data,
+      elementType: 'bankAccountType'
+    }) as object),
+    BankElement: Hoc(BankElement, (data: ProviderState) => ({...data}) as object),
+    BankRoutingNumberElement: Hoc(BankElement, (data: ProviderState) => ({
+      ...data,
+      elementType: 'bankRoutingNumber'
+    }) as object),
+  };
+
   return Hoc(
     WrappedComponent,
     (data: any) => ({
-      BankAccountNumberElement: Hoc(BankElement, (data: ProviderState) => ({
-        ...data,
-        elementType: 'bankAccountNumber'
-      }) as object),
-      BankAccountTypeElement: Hoc(BankElement, (data: ProviderState) => ({
-        ...data,
-        elementType: 'bankAccountType'
-      }) as object),
-      BankElement: Hoc(BankElement, (data: ProviderState) => ({ ...data }) as object),
-      BankRoutingNumberElement: Hoc(BankElement, (data: ProviderState) => ({
-        ...data,
-        elementType: 'bankRoutingNumber'
-      }) as object),
-      framePay: data.api
+      framePay: data.api,
+      ...elements
     })
   );
 };
