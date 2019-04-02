@@ -58,7 +58,7 @@ class CardElement extends React.Component {
               <div className="field">
                 <input
                   type="text"
-                  name="field1"
+                  name="lastName"
                   placeholder="Last Name"
                   defaultValue={this.state.lastName}
                   onChange={e => {
@@ -68,7 +68,7 @@ class CardElement extends React.Component {
               <div className="field">
                 <input
                   type="text"
-                  name="field2"
+                  name="email"
                   placeholder="Email"
                   defaultValue={this.state.email}
                   onChange={e => {
@@ -78,11 +78,11 @@ class CardElement extends React.Component {
               <div className="field">
                 <input
                   type="text"
-                  name="field3"
+                  name="phone"
                   placeholder="Phone"
-                  defaultValue={this.state.country}
+                  defaultValue={this.state.phone}
                   onChange={e => {
-                    this.setState({ country: e.target.value });
+                    this.setState({ phone: e.target.value });
                   }}/>
               </div>
               <div className="field">

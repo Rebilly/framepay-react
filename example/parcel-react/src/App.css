@@ -1615,4 +1615,18 @@ p {
 
 .flex-wrapper {
     display: flex;
+    width: 100%;
+}
+
+.flex-wrapper > div:first-child {
+    width: 70%;
+}
+
+.flex-wrapper > div:last-child {
+    width: 30%;
+}
+
+.flex-wrapper > div:last-child pre {
+    font-size: 70%;
+    line-height: normal;
 }
