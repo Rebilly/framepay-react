@@ -9,6 +9,7 @@ export default class BankElement extends BaseElement<BankElementComponentProps, 
 
         // @ts-ignore
         const element = this.props.api.bankAccount.mount(this.elementNode, elementType);
+
         element.on('ready', () => {
             this.setState({ready: true}, () => {
                 if (onReady) {
@@ -34,6 +35,8 @@ export default class BankElement extends BaseElement<BankElementComponentProps, 
                 onBlur();
             }
         });
+
+        this.setState({element});
     }
 
 

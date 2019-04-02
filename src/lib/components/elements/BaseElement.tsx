@@ -11,13 +11,16 @@ export default class BaseElement<T extends PaymentElementComponentProps, S exten
         ready: false
     };
 
+    /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
+    /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {
-        if (this.state.element) {
-            this.state.element.unmount();
-            this.state.element.destroy();
+        if (!this.state.element) {
+            throw new Error(`Element does not exists, please fix the setupElement method and add setState({element})`)
         }
+        this.state.element.unmount();
+        this.state.element.destroy();
     }
 
     componentDidMount() {
