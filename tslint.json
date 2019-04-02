@@ -30,7 +30,7 @@
     "readonly-keyword": true,
     "readonly-array": true,
     "no-let": true,
-    "no-object-mutation": true,
+    "no-object-mutation": false,
     "no-delete": true,
     "no-method-signature": true,
     "no-object-literal-type-assertion": false,
