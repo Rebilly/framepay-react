@@ -22,13 +22,15 @@ export default class BaseElement<
     /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {
-        if (!this.state.element) {
+        if (this.state.mounted && !this.state.element) {
             throw new Error(
                 `Element does not exists, please fix the setupElement method and add setState({element})`
             );
         }
-        this.state.element.unmount();
-        this.state.element.destroy();
+        if (this.state.element) {
+            this.state.element.unmount();
+            this.state.element.destroy();
+        }
     }
 
     componentDidMount() {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FramePayContext } from '../../types/context';
 import { ContextProvider } from '../context';
 import { injectScript, injectStyle } from '../dom-util';
+import FramePayError from '../FramePayError';
 import getFramePayApi from '../get-framepay-api';
 
 interface ProviderProps {
@@ -34,16 +35,22 @@ export default class Provider extends React.Component<
 
     onApiError() {
         return this.setState({ ready: false }, () => {
-            // throw FramePayError({
-            //     code: FramePayError.codes.remoteScriptError
-            // });
+            throw FramePayError({
+                code: FramePayError.codes.remoteScriptError
+            });
         });
     }
 
     async onApiReady() {
         const api = getFramePayApi();
-        api.initialize(this.props.settings);
-        this.setState({ ready: true, api });
+        try {
+            api.initialize(this.props.settings);
+            this.setState({ ready: true, api });
+        } catch (e) {
+            throw FramePayError({
+                code: FramePayError.codes.initializeError
+            });
+        }
     }
 
     render() {
