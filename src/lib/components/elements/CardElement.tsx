@@ -1,30 +1,41 @@
 import * as React from 'react';
-import {CardElementComponentProps, CardElementComponentState} from '../../../types/internal/payment-method';
+import {
+    CardElementComponentProps,
+    CardElementComponentState
+} from '../../../types/payment-method-elements';
 import BaseElement from './BaseElement';
 
-export default class CardElement extends BaseElement<CardElementComponentProps, CardElementComponentState> {
-
+export default class CardElement extends BaseElement<
+    CardElementComponentProps,
+    CardElementComponentState
+> {
     setupElement() {
-        const {onReady, onChange, onFocus, onBlur, elementType} = this.props;
+        const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
-        // @ts-ignore
-        const element = this.props.api.card.mount(this.elementNode, elementType);
+        // elementNode already checked in BaseElement.handleSetupElement
+        // just ts checks fix
+        if (this.elementNode === null) {
+            return;
+        }
+        const element = this.props.api.card.mount(
+            this.elementNode,
+            elementType
+        );
 
         element.on('ready', () => {
-            this.setState({ready: true}, () => {
+            this.setState({ ready: true }, () => {
                 if (onReady) {
                     onReady();
                 }
             });
         });
 
-        // TODO fix callback data types
-        // @ts-ignore
-        element.on('change', (data: CardPaymentElementChangeData) => {
+        element.on('change', (data: PaymentElementOnChangeEventData) => {
             if (onChange) {
                 onChange(data);
             }
         });
+
         element.on('focus', () => {
             if (onFocus) {
                 onFocus();
@@ -36,10 +47,10 @@ export default class CardElement extends BaseElement<CardElementComponentProps, 
             }
         });
 
-        this.setState({element});
+        this.setState({ element });
     }
 
     render() {
-        return <div ref={(node) => this.elementNode = node}/>;
+        return <div ref={node => (this.elementNode = node)} />;
     }
 }

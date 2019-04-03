@@ -1,27 +1,22 @@
 import * as React from 'react';
-import {ContextProvider} from '../context';
-import {injectScript, injectStyle} from '../dom-util';
-import FramePayApi from '../FramePayApi';
+import { FramePayContext } from '../../types/context';
+import { ContextProvider } from '../context';
+import { injectScript, injectStyle } from '../dom-util';
+import getFramePayApi from '../get-framepay-api';
 
 interface ProviderProps {
-    readonly injectScript: boolean,
-    readonly injectStyle: boolean,
-    readonly settings: FramePaySettings,
-    readonly children: React.Component
+    readonly injectScript: boolean;
+    readonly injectStyle: boolean;
+    readonly settings: FramePaySettings;
+    readonly children: React.Component;
 }
 
-/**
- * Provider state
- */
-export interface ProviderState {
-    readonly api: FramePayApi,
-    readonly ready: boolean
-}
-
-export default class Provider extends React.Component<ProviderProps, ProviderState> {
-
-    readonly state: ProviderState = {
-        api: FramePayApi.getInstance(),
+export default class Provider extends React.Component<
+    ProviderProps,
+    FramePayContext
+> {
+    readonly state: FramePayContext = {
+        api: getFramePayApi(),
         ready: false
     };
 
@@ -38,19 +33,24 @@ export default class Provider extends React.Component<ProviderProps, ProviderSta
     }
 
     onApiError() {
-        return this.setState({ready: false} as ProviderState, () => {
-            throw new Error(`api error`);
+        return this.setState({ ready: false }, () => {
+            // throw FramePayError({
+            //     code: FramePayError.codes.remoteScriptError
+            // });
         });
     }
 
     async onApiReady() {
-        await this.state.api.initialize(this.props.settings);
-        this.setState({ready: true} as ProviderState);
+        const api = getFramePayApi();
+        api.initialize(this.props.settings);
+        this.setState({ ready: true, api });
     }
 
     render() {
-        return (<ContextProvider value={this.state}>
-            {this.props.children}
-        </ContextProvider>);
+        return (
+            <ContextProvider value={this.state}>
+                {this.props.children}
+            </ContextProvider>
+        );
     }
 }

@@ -1,8 +1,13 @@
 import * as React from 'react';
-import {PaymentElementComponentProps, PaymentMethodComponentState} from '../../../types/internal/payment-method';
+import {
+    PaymentElementComponentProps,
+    PaymentMethodComponentState
+} from '../../../types/payment-method-elements';
 
-export default class BaseElement<T extends PaymentElementComponentProps, S extends PaymentMethodComponentState> extends React.Component<T, S> {
-
+export default class BaseElement<
+    T extends PaymentElementComponentProps,
+    S extends PaymentMethodComponentState
+> extends React.Component<T, S> {
     // TODO
     // @ts-ignore
     readonly state: PaymentMethodComponentState = {
@@ -13,11 +18,14 @@ export default class BaseElement<T extends PaymentElementComponentProps, S exten
 
     /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
+
     /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {
         if (!this.state.element) {
-            throw new Error(`Element does not exists, please fix the setupElement method and add setState({element})`)
+            throw new Error(
+                `Element does not exists, please fix the setupElement method and add setState({element})`
+            );
         }
         this.state.element.unmount();
         this.state.element.destroy();
@@ -59,7 +67,7 @@ export default class BaseElement<T extends PaymentElementComponentProps, S exten
         /**
          * Setup field
          */
-        this.setState({mounted: true}, this.setupElement);
+        this.setState({ mounted: true }, this.setupElement);
     }
 
     shouldComponentUpdate() {
@@ -67,6 +75,6 @@ export default class BaseElement<T extends PaymentElementComponentProps, S exten
     }
 
     render() {
-        return <div ref={(node) => this.elementNode = node}/>;
+        return <div ref={node => (this.elementNode = node)} />;
     }
 }
