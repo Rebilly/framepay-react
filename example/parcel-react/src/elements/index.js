@@ -2,7 +2,7 @@ import BankElement from './BankElement';
 import CardElement from './CardElement';
 import MultipleElements from './MultipleElements';
 import CardElementSeparated from './CardElementSeparated';
-import PayPal from './PayPal';
+import OtherMethods from './OtherMethods';
 
 
 export {
@@ -10,5 +10,5 @@ export {
   CardElement,
   MultipleElements,
   CardElementSeparated,
-  PayPal,
+  OtherMethods
 };

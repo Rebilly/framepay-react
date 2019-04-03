@@ -61,6 +61,10 @@ const Bank6 = withFramePayBankComponent(BankComponent);
 export default class MultipleElements extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      method: '',
+      methods: []
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -74,7 +78,7 @@ export default class MultipleElements extends React.Component {
       this.b3Node,
       this.b4Node,
       this.b5Node,
-      this.b6Node,
+      this.b6Node
     ];
   }
 

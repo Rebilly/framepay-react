@@ -1,23 +1,14 @@
 import React from 'react';
 import { withFramePayCardComponent } from 'framepay-react';
+import './OtherMethods.css';
 
-class CardElement extends React.Component {
+class OtherMethods extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      address: '',
-      country: '',
-      region: ''
-    };
+    this.state = { firstName: '', lastName: '', method: 'paypal' };
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log('CardElement.constructor');
-  }
-
-  componentDidMount() {
-    console.log('CardElement.componentDidMount');
+    this.handleChangeMethod = this.handleChangeMethod.bind(this);
   }
 
   handleSubmit(e) {
@@ -27,7 +18,8 @@ class CardElement extends React.Component {
      * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
      *
      */
-    this.props.framePay.createToken(this.formNode, { billingAddress: { ...this.state } })
+    const { method, ...billingAddress } = this.state;
+    this.props.framePay.createToken(this.formNode, { method, billingAddress })
       .then(data => {
         console.log('createToken.data', data);
         alert(JSON.stringify(data, null, 2));
@@ -38,9 +30,14 @@ class CardElement extends React.Component {
       });
   }
 
+  handleChangeMethod(e) {
+    this.setState({ method: e.target.value });
+  }
+
   render() {
     return (<div>
       <h2>{this.props.title}</h2>
+
       <div className="flex-wrapper">
         <div className="example-2">
           <form ref={node => this.formNode = node} method="post" onSubmit={this.handleSubmit}>
@@ -65,36 +62,33 @@ class CardElement extends React.Component {
                     this.setState({ lastName: e.target.value });
                   }}/>
               </div>
-              <div className="field">
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  defaultValue={this.state.email}
-                  onChange={e => {
-                    this.setState({ email: e.target.value });
-                  }}/>
-              </div>
-              <div className="field">
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Phone"
-                  defaultValue={this.state.phone}
-                  onChange={e => {
-                    this.setState({ phone: e.target.value });
-                  }}/>
-              </div>
-              <div className="field">
-                {/* Render the CardComponent */}
-                <this.props.CardElement
-                  onReady={() => console.log('CardElement ready callback')}
-                  onChange={(data) => console.log('CardElement change callback', data)}
-                  onFocus={(data) => console.log('CardElement focus callback', data)}
-                  onBlur={(data) => console.log('CardElement blur callback', data)}
-                />
-              </div>
+
+
             </fieldset>
+            <hr/>
+            <fieldset>
+              <p>
+                <input
+                  checked={this.state.method === 'paypal'}
+                  id="checkbox-paypal"
+                  type="radio"
+                  name="radio-group"
+                  defaultValue="paypal"
+                  onChange={this.handleChangeMethod}/>
+                <label htmlFor="checkbox-paypal">PayPal</label>
+              </p>
+              <p>
+                <input
+                  checked={this.state.method === 'bitcoin'}
+                  id="checkbox-bitcoin"
+                  type="radio"
+                  name="radio-group"
+                  defaultValue="bitcoin"
+                  onChange={this.handleChangeMethod}/>
+                <label htmlFor="checkbox-bitcoin">Bitcoin</label>
+              </p>
+            </fieldset>
+
             <button>Make Payment</button>
           </form>
         </div>
@@ -106,4 +100,4 @@ class CardElement extends React.Component {
   }
 }
 
-export default withFramePayCardComponent(CardElement);
+export default withFramePayCardComponent(OtherMethods);
