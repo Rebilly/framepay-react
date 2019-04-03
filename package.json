@@ -55,6 +55,8 @@
         "jest-pnp-resolver": "^1.2.1",
         "jest-resolve": "^24.6.0",
         "jest-watch-typeahead": "^0.3.0",
+        "jsdom": "^14.0.0",
+        "jsdom-global": "^3.0.2",
         "npm-run-all": "^4.1.5",
         "opn-cli": "^4.0.0",
         "prettier": "^1.15.2",

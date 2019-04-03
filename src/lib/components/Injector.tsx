@@ -39,9 +39,9 @@ function Hoc<P extends object>(
 /**
  * Returns the PaymentMethod elements.
  *
- * @param type {string} PaymentMethodTypes
+ * @param type {string} PaymentElements
  */
-const elementsFabric = (type: PaymentMethodTypes): object => {
+const elementsFabric = (type: PaymentElements): object => {
     if (type === 'bankAccount') {
         /**
          * Default Bank Element
