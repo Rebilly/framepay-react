@@ -1,53 +1,36 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-config-prettier",
-    "tslint-immutable"
-  ],
-  "rules": {
-    "interface-name": [
-      true,
-      "never-prefix"
-    ],
-    // TODO: allow devDependencies only in **/*.spec.ts files:
-    // waiting on https://github.com/palantir/tslint/pull/3708
-    "no-implicit-dependencies": [
-      true,
-      "dev"
-    ],
-    "member-access": [
-      true,
-      "no-public"
-    ],
-    /* tslint-immutable rules */
-    // Recommended built-in rules
-    "no-var-keyword": true,
-    "no-parameter-reassignment": true,
-    "typedef": [
-      true
-    ],
-    // Immutability rules
-    "readonly-keyword": true,
-    "readonly-array": true,
-    "no-let": true,
-    "no-object-mutation": false,
-    "no-delete": true,
-    "no-method-signature": true,
-    "no-object-literal-type-assertion": false,
-    // Functional style rules
-    "no-this": false,
-    "no-class": false,
-    "no-mixed-interface": true,
-    "no-expression-statement": [
-      false,
-      {
-        "ignore-prefix": [
-          "console.",
-          "process.exit"
-        ]
-      }
-    ],
-    "no-if-statement": false
-    /* end tslint-immutable rules */
-  }
+    "extends": ["tslint:latest", "tslint-config-prettier", "tslint-immutable"],
+    "rules": {
+        "no-submodule-imports": [false],
+        "interface-name": [true, "never-prefix"],
+        // TODO: allow devDependencies only in **/*.spec.ts files:
+        // waiting on https://github.com/palantir/tslint/pull/3708
+        "no-implicit-dependencies": [false, "dev"],
+        "member-access": [true, "no-public"],
+        /* tslint-immutable rules */
+        // Recommended built-in rules
+        "no-var-keyword": true,
+        "no-parameter-reassignment": true,
+        "typedef": [true],
+        // Immutability rules
+        "readonly-keyword": true,
+        "readonly-array": true,
+        "no-let": true,
+        "no-object-mutation": false,
+        "no-delete": true,
+        "no-method-signature": true,
+        "no-object-literal-type-assertion": false,
+        // Functional style rules
+        "no-this": false,
+        "no-class": false,
+        "no-mixed-interface": true,
+        "no-expression-statement": [
+            false,
+            {
+                "ignore-prefix": ["console.", "process.exit"]
+            }
+        ],
+        "no-if-statement": false
+        /* end tslint-immutable rules */
+    }
 }
