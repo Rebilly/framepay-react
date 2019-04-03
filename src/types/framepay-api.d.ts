@@ -1,4 +1,5 @@
 type PaymentElementEvents = 'ready' | 'change' | 'focus' | 'blur';
+type PaymentMethodTypes = 'bankAccount' | 'card';
 
 interface PaymentElementOnChangeEventData {
     readonly valid?: boolean;
@@ -7,10 +8,13 @@ interface PaymentElementOnChangeEventData {
 }
 
 interface PaymentElement {
-    // todo declare callback data object
-    readonly on: (
-        eventType: PaymentElementEvents,
-        callback: (data: PaymentElementOnChangeEventData | undefined) => void
+    readonly on: <T extends PaymentElementEvents, TR>(
+        eventType: T,
+        callback: (
+            data: T extends 'change'
+                ? PaymentElementOnChangeEventData
+                : undefined
+        ) => void
     ) => void;
     readonly unmount: () => void;
     readonly destroy: () => void;
@@ -64,4 +68,17 @@ interface BankPaymentMethod extends PaymentMethod {
         node: HTMLElement | HTMLDivElement,
         elementType?: BankPaymentElementTypes
     ) => PaymentElement;
+}
+
+/**
+ * The FramePay api interface (external api)
+ */
+interface FramePayApi {
+    readonly initialize: (settings: FramePaySettings) => void;
+    readonly card: CardPaymentMethod;
+    readonly bankAccount: BankPaymentMethod;
+    readonly createToken: (
+        form: HTMLElement | HTMLFormElement,
+        extraData: object
+    ) => void;
 }

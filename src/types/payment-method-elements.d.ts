@@ -1,4 +1,4 @@
-import { ProviderState } from '../../lib/components/Provider';
+import { FramePayContext } from './context';
 
 interface PaymentMethodComponentState {
     readonly element: null | PaymentElement | PaymentElement;
@@ -6,7 +6,7 @@ interface PaymentMethodComponentState {
     readonly ready: boolean;
 }
 
-interface PaymentElementComponentProps extends ProviderState {
+interface PaymentElementComponentProps extends FramePayContext {
     readonly onReady?: () => void;
     readonly onChange?: (data: PaymentElementOnChangeEventData) => void;
     readonly onFocus?: () => void;
