@@ -2,9 +2,8 @@
     "name": "framepay-react",
     "version": "1.0.0",
     "description": "description",
-    "main": "build/main/index.js",
-    "typings": "build/main/index.d.ts",
-    "module": "build/module/index.js",
+    "main": "build/index.js",
+    "typings": "build/index.d.ts",
     "repository": "https://github.com/Rebilly/framepay-react",
     "license": "MIT",
     "keywords": [
@@ -15,17 +14,16 @@
         "src"
     ],
     "scripts": {
-        "build": "run-s clean && run-p build:*",
-        "build:main": "tsc -p tsconfig.json",
-        "build:module": "tsc -p tsconfig.module.json",
+        "build": "run-s clean && tsc -p tsconfig.json",
+        "build:e2e": "cross-env NODE_ENV=development parcel build ./test/e2e/fixtures/* --no-minify --no-cache",
         "fix": "run-s fix:*",
         "fix:prettier": "prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\"  --write",
         "fix:tslint": "tslint --fix --project .",
         "test": "run-s test:*",
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
-        "test:unit": "jest --env=node --colors --coverage test",
-        "watch:main": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
-        "watch:module": "run-s clean build:module && run-p \"build:module -- -w\" \"test:unit -- --watch\"",
+        "test:e2e": "yarn build && yarn build:e2e && jest --env=node --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
+        "test:unit": "jest --env=node --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
+        "watch": "run-s clean build && run-p \"build -- -w\" \"test:unit -- --watch\"",
         "clean": "trash build",
         "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('framepay-react must be installed with Yarn: https://yarnpkg.com/')\"",
         "precommit": "yarn fix",
@@ -42,48 +40,57 @@
     "devDependencies": {
         "@fluffy-spoon/substitute": "^1.86.0",
         "@types/enzyme": "^3.9.1",
+        "@types/expect-puppeteer": "^3.3.1",
         "@types/jest": "^24.0.11",
+        "@types/jest-environment-puppeteer": "^4.0.0",
         "@types/node": "^11.13.0",
+        "@types/puppeteer": "^1.12.3",
         "@types/react": "^16.8.10",
         "@types/react-dom": "^16.8.3",
         "cross-env": "^5.2.0",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
+        "express": "^4.16.4",
         "gh-pages": "^2.0.1",
         "husky": "^1.3.1",
         "jest": "^24.6.0",
         "jest-pnp-resolver": "^1.2.1",
+        "jest-puppeteer": "^4.1.0",
         "jest-resolve": "^24.6.0",
         "jest-watch-typeahead": "^0.3.0",
         "jsdom": "^14.0.0",
         "jsdom-global": "^3.0.2",
         "npm-run-all": "^4.1.5",
         "opn-cli": "^4.0.0",
+        "parcel": "^1.12.3",
+        "portfinder": "^1.0.20",
         "prettier": "^1.15.2",
+        "puppeteer": "^1.14.0",
         "react-dom": "^16.8.6",
         "trash-cli": "^1.4.0",
         "ts-jest": "^24.0.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
         "tslint-immutable": "^5.0.0",
-        "typemoq": "^2.1.0",
         "typescript": "^3.1.6"
     },
     "jest": {
+        "globals": {
+            "ts-jest": {
+                "tsConfig": "tsconfig.spec.json"
+            }
+        },
+        "restoreMocks": true,
         "transform": {
             ".(ts|tsx)": "ts-jest"
         },
-        "testMatch": [
-            "<rootDir>/test/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
-        ],
         "moduleFileExtensions": [
+            "json",
             "ts",
             "tsx",
             "js"
         ],
-        "setupFilesAfterEnv": [
-            "<rootDir>/test/setup.js"
-        ]
+        "preset": "jest-puppeteer"
     },
     "prettier": {
         "singleQuote": true

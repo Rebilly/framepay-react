@@ -1,6 +1,6 @@
 {
     "extends": "./tsconfig",
     "compilerOptions": {
-        "types": ["node_modules/@types", "jest", "node", "src/types"]
+        "strictNullChecks": false
     }
 }
