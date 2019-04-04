@@ -16,11 +16,16 @@ const defaultErrorMessages = {
 
 class ErrorBuilder {
     // @ts-ignore
-    make({ code, details }) {
+    make({ code, details, trace }) {
         return {
             code,
             details,
-            message: defaultErrorMessages[code]
+            message: defaultErrorMessages[code],
+            trace:
+                process.env.NODE_ENV === 'development' ||
+                process.env.NODE_ENV === 'test'
+                    ? trace
+                    : null
         };
     }
 }
@@ -28,10 +33,11 @@ class ErrorBuilder {
 const handler = new ErrorBuilder();
 
 // @ts-ignore
-const FramePayError = ({ code, details = '' }) =>
+const FramePayError = ({ code, details = '', trace = '' }) =>
     handler.make({
         code,
-        details
+        details,
+        trace
     });
 
 FramePayError.codes = ERROR_CODES;
