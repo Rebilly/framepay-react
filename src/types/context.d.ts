@@ -1,4 +1,4 @@
-export interface FramePayContext {
+interface FramePayContext {
     readonly api: FramePayApi;
     readonly ready: boolean;
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FramePayContext } from '../../types/context';
 import { ContextProvider } from '../context';
 import { injectScript, injectStyle } from '../dom-util';
 import FramePayError from '../FramePayError';

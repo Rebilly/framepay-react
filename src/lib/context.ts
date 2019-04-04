@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { FramePayContext } from '../types/context';
 import getFramePayApi from './get-framepay-api';
 
 const { Provider: ContextProvider, Consumer: ContextConsumer } = createContext<

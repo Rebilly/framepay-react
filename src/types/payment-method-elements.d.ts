@@ -1,5 +1,3 @@
-import { FramePayContext } from './context';
-
 interface PaymentMethodComponentState {
     readonly element: null | PaymentElement | PaymentElement;
     readonly mounted: boolean;

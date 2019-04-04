@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FramePayContext } from '../../types/context';
 import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
