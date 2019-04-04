@@ -1,7 +1,46 @@
-import React from 'react';
-import { withFramePayCardComponent } from 'framepay-react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Provider as FramePayProvider, withFramePayCardComponent } from '../../../build';
 
-class CardElement extends React.Component {
+const params = {
+    injectScript: true,
+    injectStyle: true,
+    settings: {
+        publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
+        style: {
+            base: {
+                color: 'green',
+                fontSize: '12px',
+                webkitFontSmoothing: 'auto',
+                fontFeatureSettings: 'test',
+                fontStyle: 'italic',
+                fontVariant: 'normal',
+                fontStretch: 'none',
+                fontSomething: 'not-included',
+                fontOtherThing: 'not-included',
+                lineHeight: '20px'
+            },
+            invalid: {
+                fontWeight: 'bold'
+            }
+        },
+        classes: {
+            base: 'rebilly-framepay',
+            focus: 'rebilly-framepay-focus',
+            valid: 'rebilly-framepay-valid',
+            invalid: 'rebilly-framepay-invalid',
+            buttons: 'rebilly-framepay-buttons',
+            webkitAutofill: 'rebilly-framepay-webkit-autofill'
+        },
+        icon: {
+            foobar: 123,
+            display: true,
+            color: 'blue'
+        }
+    }
+};
+
+class CardElementComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -10,12 +49,9 @@ class CardElement extends React.Component {
             lastName: '',
             address: '',
             country: '',
-            region: '',
+            region: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        // window.parent.addEventListener('message', evt => {
-        //     alert(evt);
-        // }, false);
         console.log('CardElement.constructor');
     }
 
@@ -61,7 +97,7 @@ class CardElement extends React.Component {
                             <div className="field">
                                 <input
                                     type="text"
-                                    name="field1"
+                                    name="lastName"
                                     placeholder="Last Name"
                                     defaultValue={this.state.lastName}
                                     onChange={e => {
@@ -71,7 +107,7 @@ class CardElement extends React.Component {
                             <div className="field">
                                 <input
                                     type="text"
-                                    name="field2"
+                                    name="email"
                                     placeholder="Email"
                                     defaultValue={this.state.email}
                                     onChange={e => {
@@ -81,11 +117,11 @@ class CardElement extends React.Component {
                             <div className="field">
                                 <input
                                     type="text"
-                                    name="field3"
+                                    name="phone"
                                     placeholder="Phone"
-                                    defaultValue={this.state.country}
+                                    defaultValue={this.state.phone}
                                     onChange={e => {
-                                        this.setState({ country: e.target.value });
+                                        this.setState({ phone: e.target.value });
                                     }}/>
                             </div>
                             <div className="field">
@@ -109,4 +145,17 @@ class CardElement extends React.Component {
     }
 }
 
-export default withFramePayCardComponent(CardElement);
+const CardElement = withFramePayCardComponent(CardElementComponent);
+
+class App extends Component {
+
+    render() {
+        return (<FramePayProvider {...params}>
+            <div>
+                <CardElement/>
+            </div>
+        </FramePayProvider>);
+    }
+}
+
+ReactDOM.render(<App/>, document.getElementById('app'));
