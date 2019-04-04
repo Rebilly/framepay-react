@@ -1,4 +1,4 @@
-import * as lib from '../src/index';
+import * as lib from '../../../src/index';
 
 const exportKeys: ReadonlyArray<string> = [
     'Provider',
@@ -6,8 +6,8 @@ const exportKeys: ReadonlyArray<string> = [
     'withFramePayBankComponent'
 ].sort();
 
-describe('Simple expression tests', () => {
-    test('Check literal value', () => {
+describe('lib/index', () => {
+    it('Library exports list correctly', () => {
         expect(Object.keys(lib).sort()).toEqual(exportKeys);
     });
 });
