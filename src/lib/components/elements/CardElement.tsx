@@ -1,8 +1,4 @@
 import * as React from 'react';
-import {
-    CardElementComponentProps,
-    CardElementComponentState
-} from '../../../types/payment-method-elements';
 import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
@@ -13,19 +9,19 @@ export default class CardElement extends BaseElement<
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
-        // elementNode already checked in BaseElement.handleSetupElement
-        // just ts checks fix
-        if (!this.elementNode) {
-            return;
-        }
-
         const makeElement = () => {
+            // elementNode already checked in BaseElement.handleSetupElement
+            // just ts checks fix
+            if (!this.elementNode) {
+                throw FramePayError({
+                    code: FramePayError.codes.elementMountError,
+                    details: `BankElement elementType: ${elementType ||
+                        'default'}`
+                });
+            }
+
             try {
-                return this.props.api.card.mount(
-                    // @ts-ignore
-                    this.elementNode,
-                    elementType
-                );
+                return this.props.api.card.mount(this.elementNode, elementType);
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
@@ -37,32 +33,39 @@ export default class CardElement extends BaseElement<
 
         const element = makeElement();
 
-        element.on('ready', () => {
-            this.setState({ ready: true }, () => {
-                if (onReady) {
-                    onReady();
+        try {
+            element.on('ready', () => {
+                this.setState({ ready: true }, () => {
+                    if (onReady) {
+                        onReady();
+                    }
+                });
+            });
+
+            element.on('change', (data: PaymentElementOnChangeEventData) => {
+                if (onChange) {
+                    onChange(data);
                 }
             });
-        });
 
-        element.on('change', (data: PaymentElementOnChangeEventData) => {
-            if (onChange) {
-                onChange(data);
-            }
-        });
+            element.on('focus', () => {
+                if (onFocus) {
+                    onFocus();
+                }
+            });
+            element.on('blur', () => {
+                if (onBlur) {
+                    onBlur();
+                }
+            });
 
-        element.on('focus', () => {
-            if (onFocus) {
-                onFocus();
-            }
-        });
-        element.on('blur', () => {
-            if (onBlur) {
-                onBlur();
-            }
-        });
-
-        this.setState({ element });
+            this.setState({ element });
+        } catch (e) {
+            throw FramePayError({
+                code: FramePayError.codes.elementMountError,
+                details: `CardElement elementType: ${elementType || 'default'}`
+            });
+        }
     }
 
     render() {

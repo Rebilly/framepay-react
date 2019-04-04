@@ -1,8 +1,4 @@
 import * as React from 'react';
-import {
-    PaymentElementComponentProps,
-    PaymentMethodComponentState
-} from '../../../types/payment-method-elements';
 
 export default class BaseElement<
     T extends PaymentElementComponentProps,
@@ -28,7 +24,6 @@ export default class BaseElement<
             );
         }
         if (this.state.element) {
-            this.state.element.unmount();
             this.state.element.destroy();
         }
     }

@@ -1,8 +1,4 @@
 import * as React from 'react';
-import {
-    BankElementComponentProps,
-    BankElementComponentState
-} from '../../../types/payment-method-elements';
 import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
@@ -13,16 +9,19 @@ export default class BankElement extends BaseElement<
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
-        // elementNode already checked in BaseElement.handleSetupElement
-        // just ts checks fix
-        if (!this.elementNode) {
-            return;
-        }
-
         const makeElement = () => {
+            // elementNode already checked in BaseElement.handleSetupElement
+            // just ts checks fix
+            if (!this.elementNode) {
+                throw FramePayError({
+                    code: FramePayError.codes.elementMountError,
+                    details: `BankElement elementType: ${elementType ||
+                        'default'}`
+                });
+            }
+
             try {
                 return this.props.api.bankAccount.mount(
-                    // @ts-ignore
                     this.elementNode,
                     elementType
                 );
@@ -30,40 +29,49 @@ export default class BankElement extends BaseElement<
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
                     details: `BankElement elementType: ${elementType ||
-                        'default'}`
+                        'default'}`,
+                    trace: e
                 });
             }
         };
 
         const element = makeElement();
 
-        element.on('ready', () => {
-            this.setState({ ready: true }, () => {
-                if (onReady) {
-                    onReady();
+        try {
+            element.on('ready', () => {
+                this.setState({ ready: true }, () => {
+                    if (onReady) {
+                        onReady();
+                    }
+                });
+            });
+
+            element.on('change', (data: PaymentElementOnChangeEventData) => {
+                if (onChange) {
+                    onChange(data);
                 }
             });
-        });
 
-        element.on('change', (data: PaymentElementOnChangeEventData) => {
-            if (onChange) {
-                onChange(data);
-            }
-        });
+            element.on('focus', () => {
+                if (onFocus) {
+                    onFocus();
+                }
+            });
 
-        element.on('focus', () => {
-            if (onFocus) {
-                onFocus();
-            }
-        });
+            element.on('blur', () => {
+                if (onBlur) {
+                    onBlur();
+                }
+            });
 
-        element.on('blur', () => {
-            if (onBlur) {
-                onBlur();
-            }
-        });
-
-        this.setState({ element });
+            this.setState({ element });
+        } catch (e) {
+            throw FramePayError({
+                code: FramePayError.codes.elementMountError,
+                details: `BankElement elementType: ${elementType || 'default'}`,
+                trace: e
+            });
+        }
     }
 
     render() {
