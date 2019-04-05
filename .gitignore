@@ -6,6 +6,7 @@ dist
 .nyc_output
 coverage
 node_modules
+test/e2e/screenshots/*.png
 *.log
 
 package-lock.json

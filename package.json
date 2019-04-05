@@ -2,32 +2,36 @@
     "name": "framepay-react",
     "version": "1.0.0",
     "description": "description",
-    "main": "build/index.js",
-    "typings": "build/index.d.ts",
+    "main": "build/package/index.js",
+    "typings": "build/package/index.d.ts",
     "repository": "https://github.com/Rebilly/framepay-react",
     "license": "MIT",
     "keywords": [
         "framepay"
     ],
     "files": [
-        "build",
+        "build/package",
         "src"
     ],
     "scripts": {
-        "build": "run-s clean && tsc -p tsconfig.json",
-        "build:e2e": "cross-env NODE_ENV=development parcel build ./test/e2e/fixtures/* --no-minify --no-cache",
+        "build": "run-s build:*",
+        "build:package": "run-s clean && tsc -p tsconfig.json",
+        "build:e2e": "cross-env NODE_ENV=development parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir build/e2e",
+        "dev:e2e": "cross-env NODE_ENV=development parcel ./test/e2e/fixtures/* --no-cache --out-dir build/e2e",
+        "serve:e2e": "run-s build:* && node test/e2e/local-server.js",
         "fix": "run-s fix:*",
         "fix:prettier": "prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\"  --write",
         "fix:tslint": "tslint --fix --project .",
         "test": "run-s test:*",
-        "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
-        "test:e2e": "yarn build && yarn build:e2e && jest --env=node --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
+        "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
+        "test:e2e": "run-s build:* && jest --env=node --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
         "test:unit": "jest --env=node --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
-        "watch": "run-s clean build && run-p \"build -- -w\" \"test:unit -- --watch\"",
+        "watch": "run-s clean build:package && run-p \"build -- -w\" \"test:unit -- --watch\"",
         "clean": "trash build",
         "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('framepay-react must be installed with Yarn: https://yarnpkg.com/')\"",
         "precommit": "yarn fix",
-        "prepush": "yarn fix && yarn test"
+        "prepush": "yarn fix && yarn test",
+        "all": "run-s fix:* test:* build:package"
     },
     "engines": {
         "node": ">=11.0",
