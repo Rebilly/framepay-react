@@ -26,7 +26,7 @@
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:e2e": "run-s build:* && jest --env=node --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
         "test:unit": "jest --env=node --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
-        "watch": "run-s clean build:package && run-p \"build -- -w\" \"test:unit -- --watch\"",
+        "watch": "run-s clean build:package && run-p \"build:package -- --w\" \"test:unit -- --watch\"",
         "clean": "trash build",
         "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('framepay-react must be installed with Yarn: https://yarnpkg.com/')\"",
         "precommit": "yarn fix",
