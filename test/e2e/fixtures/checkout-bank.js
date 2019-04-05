@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayCardComponent } from '../../../build/package';
+import { FramePayProvider, withFramePayBankComponent } from '../../../build/package';
 import { deepMerge, prettyDebugRender } from './util';
 import './style.css';
 
@@ -9,7 +9,7 @@ const params = {
     injectScript: true,
     injectStyle: true,
     settings: {
-        publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
+        publishableKey: 'pk_sandbox_1234567890',
         style: {
             base: {
                 color: 'green',
@@ -43,7 +43,7 @@ const params = {
     }
 };
 
-class CardElementComponent extends Component {
+class BankElementComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -81,10 +81,10 @@ class CardElementComponent extends Component {
             { billingAddress: this.state.billingAddress }
         )
             .then(data => {
-                this.deepUpdateState({ token: { error: false, data } });
+                this.setState({ token: { error: false, data } });
             })
             .catch(err => {
-                this.deepUpdateState({ token: { error: true, data: err } });
+                this.setState({ token: { error: true, data: err } });
             });
     }
 
@@ -141,7 +141,7 @@ class CardElementComponent extends Component {
                                     }}/>
                             </div>
                             <div className="field">
-                                <this.props.CardElement
+                                <this.props.BankElement
                                     onReady={() => this.deepUpdateState({ events: { onReady: true } })}
                                     onChange={(data) => this.deepUpdateState({ events: { onChange: data } })}
                                     onFocus={() => this.deepUpdateState({ events: { onReady: true } })}
@@ -157,14 +157,14 @@ class CardElementComponent extends Component {
     }
 }
 
-const CardElement = withFramePayCardComponent(CardElementComponent);
+const BankElement = withFramePayBankComponent(BankElementComponent);
 
 class App extends Component {
 
     render() {
         return (<FramePayProvider {...params}>
             <div>
-                <CardElement/>
+                <BankElement/>
             </div>
         </FramePayProvider>);
     }

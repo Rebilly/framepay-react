@@ -1,17 +1,17 @@
 describe('GoTest Checkout Page Combined', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/checkout-combined`);
+        await page.goto(`${location}/checkout-bank`);
     });
 
     it('should load the page', async () => {
         await expect(page.title()).resolves.toMatch(
-            'Test Checkout Page Combined Field'
+            'Test Checkout Page Bank Account'
         );
     });
 
     it('should inject the card iframe into the page', async () => {
-        const card = await page.$('.rebilly-framepay > iframe');
-        expect(card).not.toEqual(null);
+        const bank = await page.$('.rebilly-framepay > iframe');
+        expect(bank).not.toEqual(null);
     });
 
     it('should be call the on-ready hook', async () => {
@@ -26,7 +26,7 @@ describe('GoTest Checkout Page Combined', () => {
         expect(isReady).toEqual('true');
     });
 
-    it('should handle the error on empty card number', async () => {
+    it('should handle the error on empty value', async () => {
         await page.$('#events-onReady');
         const btn = await page.$('#submit');
 
@@ -37,9 +37,9 @@ describe('GoTest Checkout Page Combined', () => {
 
         // @ts-ignore
         const isInvalidPaymentCardError = await page.getAttributeOf(
-            '#token-data-code-invalid-payment-card',
+            '#token-data-code-invalid-bank-account',
             'data-value'
         );
-        expect(isInvalidPaymentCardError).toEqual('invalid-payment-card');
+        expect(isInvalidPaymentCardError).toEqual('invalid-bank-account');
     });
 });
