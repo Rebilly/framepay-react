@@ -2,5 +2,6 @@
     "extends": "./tsconfig",
     "compilerOptions": {
         "strictNullChecks": false
-    }
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"]
 }
