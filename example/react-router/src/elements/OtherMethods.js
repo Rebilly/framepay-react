@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFramePayCardComponent } from 'framepay-react';
+import { withFramePayCardComponent } from '../../../../build/package';
 import './OtherMethods.css';
 
 class OtherMethods extends React.Component {

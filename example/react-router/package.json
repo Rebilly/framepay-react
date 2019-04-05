@@ -4,11 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel ./src/index.html --no-cache",
-    "build": "parcel build ./src/index.html/ --no-cache"
+    "dev": "parcel ./src/index.html --no-cache --out-dir ./build",
+    "build": "parcel build ./src/index.html/ --no-minify --no-cache --out-dir ./build"
   },
   "dependencies": {
-    "framepay-react": "file:../../",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-router-dom": "^5.0.0"

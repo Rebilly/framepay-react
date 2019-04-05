@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, IndexLink, NavLink, Route } from 'react-router-dom';
 
-import { Provider as FramePayProvider } from 'framepay-react';
+import { FramePayProvider } from '../../../build/package';
 
 import './App.css';
 import './examples.css';
-
-import Guide from './Guide';
 
 import * as elements from './elements';
 
@@ -34,6 +32,8 @@ const routes = Object.keys(elements)
       path
     };
   });
+
+console.log('routes', routes);
 
 const routeComponents = routes.map((route) => <Route
   key={`route-${route.name}`}
@@ -106,14 +106,6 @@ class App extends Component {
                     ReactJS Examples
                   </p>
                   <ul className="sidebar-group-items">
-                    <li>
-                      <NavLink
-                        exact
-                        className="sidebar-link"
-                        activeClassName="active"
-                        to="/guide">Guide</NavLink>
-                    </li>
-                    <hr/>
                     {routes.map((route) =>
                       <li key={`link-${route.name}`}>
                         <NavLink
@@ -129,9 +121,7 @@ class App extends Component {
           </div>
           <div className="page">
             <div className="content">
-
-              <Route path="/" exact component={Guide}/>
-              <Route path="/guide/" exact component={Guide}/>
+              <Route path="/" exact component={routes.find(r => r.name === 'CardElement').Component}/>
               {routeComponents}
             </div>
           </div>
