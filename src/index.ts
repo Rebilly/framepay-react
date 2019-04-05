@@ -2,6 +2,10 @@ import {
     withFramePayBankComponent,
     withFramePayCardComponent
 } from './lib/components/Injector';
-import Provider from './lib/components/Provider';
+import FramePayProvider from './lib/components/Provider';
 
-export { Provider, withFramePayCardComponent, withFramePayBankComponent };
+export {
+    FramePayProvider,
+    withFramePayCardComponent,
+    withFramePayBankComponent
+};

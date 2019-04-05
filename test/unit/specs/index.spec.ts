@@ -1,7 +1,7 @@
 import * as lib from '../../../src/index';
 
 const exportKeys: ReadonlyArray<string> = [
-    'Provider',
+    'FramePayProvider',
     'withFramePayCardComponent',
     'withFramePayBankComponent'
 ].sort();
