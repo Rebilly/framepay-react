@@ -13,16 +13,19 @@ function Hoc<P extends object>(
     WrappedComponent: React.ComponentType<P>,
     provider: (data: FramePayContext) => object
 ) {
+    console.log('Hoc create');
     return class extends React.Component<WrappedComponentProps & P, {}> {
         static readonly displayName = `FramePayInjector(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
         render() {
+            console.log('hoc.render');
             return (
                 <ContextConsumer>
                     {data => {
                         const providedElements = provider(data);
+                        console.log('ContextConsumer');
                         return (
                             <WrappedComponent
                                 {...{ ...this.props, ...providedElements }}
@@ -41,6 +44,7 @@ function Hoc<P extends object>(
  * @param type {string} PaymentElements
  */
 const elementsFabric = (type: PaymentElements): object => {
+    console.log('elementsFabric');
     if (type === 'bankAccount') {
         /**
          * Default Bank Element
