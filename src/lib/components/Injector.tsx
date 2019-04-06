@@ -5,30 +5,26 @@ import CardElementComponent from './elements/CardElement';
 
 interface WrappedComponentProps {
     readonly framePay: FramePayApi;
-    // readonly BankComponent?: BankElement,
-    // readonly CardComponent?: CardElement,
 }
 
 function Hoc<P extends object>(
+    name: string,
     WrappedComponent: React.ComponentType<P>,
     provider: (data: FramePayContext) => object
 ) {
-    console.log('Hoc create');
     return class extends React.Component<WrappedComponentProps & P, {}> {
-        static readonly displayName = `FramePayInjector(${WrappedComponent.displayName ||
+        static readonly displayName = `withFramePay${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
         render() {
-            console.log('hoc.render');
             return (
                 <ContextConsumer>
                     {data => {
-                        const providedElements = provider(data);
-                        console.log('ContextConsumer');
+                        const provided = provider(data);
                         return (
                             <WrappedComponent
-                                {...{ ...this.props, ...providedElements }}
+                                {...{ ...this.props, ...provided }}
                             />
                         );
                     }}
@@ -44,15 +40,15 @@ function Hoc<P extends object>(
  * @param type {string} PaymentElements
  */
 const elementsFabric = (type: PaymentElements): object => {
-    console.log('elementsFabric');
     if (type === 'bankAccount') {
         /**
          * Default Bank Element
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-bankaccount-mount
          */
         const BankElement = Hoc(
+            'BankElement',
             BankElementComponent,
-            (data: FramePayContext) => ({ ...data })
+            (data: FramePayContext): BankElementComponentProps => ({ ...data })
         );
 
         /**
@@ -60,8 +56,9 @@ const elementsFabric = (type: PaymentElements): object => {
          * ype Element
          */
         const BankAccountTypeElement = Hoc(
+            'BankAccountTypeElement',
             BankElementComponent,
-            (data: FramePayContext) => ({
+            (data: FramePayContext): BankElementComponentProps => ({
                 ...data,
                 elementType: 'bankAccountType'
             })
@@ -71,8 +68,9 @@ const elementsFabric = (type: PaymentElements): object => {
          * BankRoutingNumber Element
          */
         const BankRoutingNumberElement = Hoc(
+            'BankRoutingNumberElement',
             BankElementComponent,
-            (data: FramePayContext) => ({
+            (data: FramePayContext): BankElementComponentProps => ({
                 ...data,
                 elementType: 'bankRoutingNumber'
             })
@@ -82,8 +80,9 @@ const elementsFabric = (type: PaymentElements): object => {
          * Bank AccountNumber Element
          */
         const BankAccountNumberElement = Hoc(
+            'BankAccountNumberElement',
             BankElementComponent,
-            (data: FramePayContext) => ({
+            (data: FramePayContext): BankElementComponentProps => ({
                 ...data,
                 elementType: 'bankAccountNumber'
             })
@@ -103,32 +102,45 @@ const elementsFabric = (type: PaymentElements): object => {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-card-mount
          */
         const CardElement = Hoc(
+            'CardElement',
             CardElementComponent,
-            (data: FramePayContext) => ({ ...data })
+            (data: FramePayContext): CardElementComponentProps => ({ ...data })
         );
 
         /**
          * Card CVV Element
          */
         const CardCvvElement = Hoc(
+            'CardCvvElement',
             CardElementComponent,
-            (data: FramePayContext) => ({ ...data, elementType: 'cardCvv' })
+            (data: FramePayContext): CardElementComponentProps => ({
+                ...data,
+                elementType: 'cardCvv'
+            })
         );
 
         /**
          * Card Expiry Element
          */
         const CardExpiryElement = Hoc(
+            'CardExpiryElement',
             CardElementComponent,
-            (data: FramePayContext) => ({ ...data, elementType: 'cardExpiry' })
+            (data: FramePayContext): CardElementComponentProps => ({
+                ...data,
+                elementType: 'cardExpiry'
+            })
         );
 
         /**
          * Card Number Element
          */
         const CardNumberElement = Hoc(
+            'CardNumberElement',
             CardElementComponent,
-            (data: FramePayContext) => ({ ...data, elementType: 'cardNumber' })
+            (data: FramePayContext): CardElementComponentProps => ({
+                ...data,
+                elementType: 'cardNumber'
+            })
         );
 
         return {
@@ -150,17 +162,19 @@ const elementsFabric = (type: PaymentElements): object => {
 export function withFramePayCardComponent<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
-    return Hoc(WrappedComponent, (data: any) => ({
+    const elements = elementsFabric('card');
+    return Hoc('CardComponent', WrappedComponent, (data: any) => ({
         framePay: data.api,
-        ...elementsFabric('card')
+        ...elements
     }));
 }
 
 export function withFramePayBankComponent<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
-    return Hoc(WrappedComponent, (data: any) => ({
+    const elements = elementsFabric('bankAccount');
+    return Hoc('BankComponent', WrappedComponent, (data: any) => ({
         framePay: data.api,
-        ...elementsFabric('bankAccount')
+        ...elements
     }));
 }
