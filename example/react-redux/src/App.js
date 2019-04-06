@@ -110,7 +110,7 @@ class CardElementComponent extends Component {
 
     render() {
         return (<div>
-            <h2>SSR form example</h2>
+            <h2>React with Redux example</h2>
             <div className="flex-wrapper">
                 <div>
                     <div>
@@ -166,6 +166,9 @@ class CardElementComponent extends Component {
                                     onChange={e => {
                                         this.deepUpdateState({ billingAddress: { phone: e.target.value } });
                                     }}/>
+                            </div>
+                            <div>
+                                <h2>Increment value: {this.props.redux.increments.increment_1}</h2>
                             </div>
                             <div className="field">
                                 <this.props.CardElement
