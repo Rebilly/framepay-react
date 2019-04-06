@@ -15,7 +15,7 @@ export default class CardElement extends BaseElement<
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `BankElement elementType: ${elementType ||
+                    details: `CardElement elementType: ${elementType ||
                         'default'}`
                 });
             }

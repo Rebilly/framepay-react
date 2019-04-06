@@ -21,7 +21,6 @@ export default class Provider extends React.Component<
     };
 
     componentDidMount() {
-        console.log('Provider.componentDidMount');
         if (this.props.injectScript) {
             injectScript({
                 onError: () => this.onApiError(),
@@ -54,7 +53,6 @@ export default class Provider extends React.Component<
     }
 
     render() {
-        console.log('11111 Provider.render');
         return (
             <ContextProvider value={this.state}>
                 {this.props.children}
