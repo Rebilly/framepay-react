@@ -2,65 +2,6 @@ type PaymentElementEvents = 'ready' | 'change' | 'focus' | 'blur';
 
 type PaymentElements = 'card' | 'bankAccount';
 
-/**
- * @see https://rebilly.github.io/RebillyAPI/#operation/paymentTokenCreation
- */
-type PaymentMethods =
-    | 'payment-card'
-    | 'ach'
-    | 'bank-account'
-    | 'cash'
-    | 'paypal'
-    | 'Alipay'
-    | 'AstroPay Card'
-    | 'bank-transfer'
-    | 'bitcoin'
-    | 'Boleto'
-    | 'cash-deposit'
-    | 'CASHlib'
-    | 'CashToCode'
-    | 'China UnionPay'
-    | 'domestic-cards'
-    | 'echeck'
-    | 'ecoPayz'
-    | 'ecoVoucher'
-    | 'EPS'
-    | 'ePay.bg'
-    | 'Flexepin'
-    | 'Giropay'
-    | 'Gpaysafe'
-    | 'iDebit'
-    | 'iDEAL'
-    | 'InstaDebit'
-    | 'instant-bank-transfer'
-    | 'Interac-online'
-    | 'Interac-eTransfer'
-    | 'invoice'
-    | 'Jeton'
-    | 'Klarna'
-    | 'miscellaneous'
-    | 'Neteller'
-    | 'Nordea-Solo'
-    | 'OchaPay'
-    | 'online-bank-transfer'
-    | 'Onlineueberweisen'
-    | 'Paysafecard'
-    | 'Pay4Fun'
-    | 'phone'
-    | 'POLi'
-    | 'Przelewy24'
-    | 'QQPay'
-    | 'Resurs'
-    | 'SEPA'
-    | 'Skrill'
-    | 'Skrill Rapid Transfer'
-    | 'SMSVoucher'
-    | 'SparkPay'
-    | 'Trustly'
-    | 'UPayCard'
-    | 'voucher'
-    | 'WeChat Pay';
-
 interface PaymentElementOnChangeEventData {
     readonly valid?: boolean;
     readonly error?: object;
@@ -95,10 +36,7 @@ interface PaymentMethod {
 /**
  * Card Payment method
  */
-declare type CardPaymentElementTypes =
-    | 'cardNumber'
-    | 'cardNumber'
-    | 'cardNumber';
+declare type CardPaymentElementTypes = 'cardNumber' | 'cardCvv' | 'cardExpiry';
 
 interface CardPaymentMethod extends PaymentMethod {
     readonly mount: (
