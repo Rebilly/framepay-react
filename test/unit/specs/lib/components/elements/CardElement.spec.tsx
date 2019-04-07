@@ -30,7 +30,7 @@ describe('lib/components/elements/CardElement', () => {
         );
 
         process.nextTick(() => {
-            expect(spy).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalledTimes(1);
             expect(wrapper.state('element')).toBeDefined();
             expect(wrapper.state('mounted')).toEqual(true);
             done();
@@ -40,8 +40,9 @@ describe('lib/components/elements/CardElement', () => {
     it('should fail the element mount on remote error', () => {
         const props = Substitute.for<CardElementComponentProps>();
         props.ready.returns(true);
+
         // @ts-ignore
-        props.api.bankAccount.mount(Arg.any()).returns(new Error(`any error`));
+        props.api.card.mount(Arg.any()).returns(null);
 
         try {
             mount(<CardElement ready={props.ready} api={props.api} />);
