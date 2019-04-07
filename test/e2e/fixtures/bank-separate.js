@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayCardComponent } from '../../../build/package';
+import { FramePayProvider, withFramePayBankComponent } from '../../../build/package';
 import { deepMerge, prettyDebugRender } from './util';
 import './style.css';
 
@@ -9,7 +9,7 @@ const params = {
     injectScript: true,
     injectStyle: true,
     settings: {
-        publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
+        publishableKey: 'pk_sandbox_1234567890',
         style: {
             base: {
                 color: 'green',
@@ -49,10 +49,24 @@ class CardElementComponent extends Component {
         super(props);
         this.state = {
             events: {
-                onReady: null,
-                onChange: null,
-                onFocus: null,
-                onBlur: null
+                bankAccountType: {
+                    onReady: null,
+                    onChange: null,
+                    onFocus: null,
+                    onBlur: null
+                },
+                bankAccountNumber: {
+                    onReady: null,
+                    onChange: null,
+                    onFocus: null,
+                    onBlur: null
+                },
+                bankRoutingNumber: {
+                    onReady: null,
+                    onChange: null,
+                    onFocus: null,
+                    onBlur: null
+                }
             },
             billingAddress: {
                 firstName: 'first-name-value',
@@ -89,9 +103,7 @@ class CardElementComponent extends Component {
     }
 
     deepUpdateState(data) {
-        this.setState(prevState => {
-            return deepMerge(prevState, data)
-        })
+        this.setState(deepMerge(this.state, data));
     }
 
     render() {
@@ -143,11 +155,29 @@ class CardElementComponent extends Component {
                                     }}/>
                             </div>
                             <div className="field">
-                                <this.props.CardElement
-                                    onReady={() => this.deepUpdateState({ events: { onReady: true } })}
-                                    onChange={(data) => this.deepUpdateState({ events: { onChange: data } })}
-                                    onFocus={() => this.deepUpdateState({ events: { onFocus: true } })}
-                                    onBlur={() => this.deepUpdateState({ events: { onBlur: true } })}
+                                <this.props.BankAccountTypeElement
+                                    onReady={() => this.deepUpdateState({ events: { bankAccountType: { onReady: true } } })}
+                                    onChange={(data) => this.deepUpdateState({ events: { bankAccountType: { onChange: data } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { bankAccountType: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { bankAccountType: { onBlur: true } } })}
+                                />
+                            </div>
+
+                            <div className="field">
+                                <this.props.BankAccountNumberElement
+                                    onReady={() => this.deepUpdateState({ events: { bankAccountNumber: { onReady: true } } })}
+                                    onChange={(data) => this.deepUpdateState({ events: { bankAccountNumber: { onChange: data } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { bankAccountNumber: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { bankAccountNumber: { onBlur: true } } })}
+                                />
+                            </div>
+
+                            <div className="field">
+                                <this.props.BankRoutingNumberElement
+                                    onReady={() => this.deepUpdateState({ events: { bankRoutingNumber: { onReady: true } } })}
+                                    onChange={(data) => this.deepUpdateState({ events: { bankRoutingNumber: { onChange: data } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { bankRoutingNumber: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { bankRoutingNumber: { onBlur: true } } })}
                                 />
                             </div>
                         </fieldset>
@@ -159,14 +189,14 @@ class CardElementComponent extends Component {
     }
 }
 
-const CardElement = withFramePayCardComponent(CardElementComponent);
+const BankElement = withFramePayBankComponent(CardElementComponent);
 
 class App extends Component {
 
     render() {
         return (<FramePayProvider {...params}>
             <div>
-                <CardElement/>
+                <BankElement/>
             </div>
         </FramePayProvider>);
     }

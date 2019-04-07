@@ -144,8 +144,8 @@ class BankElementComponent extends Component {
                                 <this.props.BankElement
                                     onReady={() => this.deepUpdateState({ events: { onReady: true } })}
                                     onChange={(data) => this.deepUpdateState({ events: { onChange: data } })}
-                                    onFocus={() => this.deepUpdateState({ events: { onReady: true } })}
-                                    onBlur={() => this.deepUpdateState({ events: { onReady: true } })}
+                                    onFocus={() => this.deepUpdateState({ events: { onFocus: true } })}
+                                    onBlur={() => this.deepUpdateState({ events: { onBlur: true } })}
                                 />
                             </div>
                         </fieldset>

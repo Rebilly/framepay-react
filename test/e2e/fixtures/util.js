@@ -45,19 +45,18 @@ export const prettyDebugRender = (state) => {
     </div>);
 };
 
-export const deepMerge = (x, y) => {
-    return Object.keys(y)
-        .reduce((acc, k) => {
-            if (typeof y[k] !== 'object') {
-                return {
-                    ...acc,
-                    ...{ [k]: y[k] }
-                };
-            }
 
-            return {
-                ...acc,
-                ...{ [k]: { ...acc[k], ...deepMerge(acc[k] || {}, y[k] || {}) } }
-            };
-        }, Object.create(x));
+export const deepMerge = (target, source) => {
+    for (const key of Object.keys(source)) {
+        if (source[key] instanceof Object) {
+            source[key] = source[key] || {};
+            target[key] = target[key] || {};
+            Object.assign(
+                source[key],
+                deepMerge(target[key], source[key])
+            );
+        }
+    }
+
+    return Object.assign(target || {}, source);
 };

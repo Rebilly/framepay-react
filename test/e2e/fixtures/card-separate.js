@@ -103,9 +103,7 @@ class CardElementComponent extends Component {
     }
 
     deepUpdateState(data) {
-        const r = deepMerge(this.state, data);
-        console.log('r >>> ', JSON.parse(JSON.stringify(r)));
-        this.setState({ ...deepMerge(this.state, data) });
+        this.setState(deepMerge(this.state, data));
     }
 
     render() {
@@ -160,26 +158,26 @@ class CardElementComponent extends Component {
                                 <this.props.CardNumberElement
                                     onReady={() => this.deepUpdateState({ events: { number: { onReady: true } } })}
                                     onChange={(data) => this.deepUpdateState({ events: { number: { onChange: data } } })}
-                                    onFocus={() => this.deepUpdateState({ events: { number: { onReady: true } } })}
-                                    onBlur={() => this.deepUpdateState({ events: { number: { onReady: true } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { number: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { number: { onBlur: true } } })}
                                 />
                             </div>
 
                             <div className="field">
                                 <this.props.CardCvvElement
-                                    onReady={() => this.setState({ events: { cvv: { onReady: true } } })}
-                                    onChange={(data) => this.setState({ events: { cvv: { onChange: data } } })}
-                                    onFocus={() => this.setState({ events: { cvv: { onReady: true } } })}
-                                    onBlur={() => this.setState({ events: { cvv: { onReady: true } } })}
+                                    onReady={() => this.deepUpdateState({ events: { cvv: { onReady: true } } })}
+                                    onChange={(data) => this.deepUpdateState({ events: { cvv: { onChange: data } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { cvv: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { cvv: { onBlur: true } } })}
                                 />
                             </div>
 
                             <div className="field">
                                 <this.props.CardExpiryElement
-                                    onReady={() => this.setState({ events: { expiry: { onReady: true } } })}
-                                    onChange={(data) => this.setState({ events: { expiry: { onChange: data } } })}
-                                    onFocus={() => this.setState({ events: { expiry: { onReady: true } } })}
-                                    onBlur={() => this.setState({ events: { expiry: { onReady: true } } })}
+                                    onReady={() => this.deepUpdateState({ events: { expiry: { onReady: true } } })}
+                                    onChange={(data) => this.deepUpdateState({ events: { expiry: { onChange: data } } })}
+                                    onFocus={() => this.deepUpdateState({ events: { expiry: { onFocus: true } } })}
+                                    onBlur={() => this.deepUpdateState({ events: { expiry: { onBlur: true } } })}
                                 />
                             </div>
                         </fieldset>

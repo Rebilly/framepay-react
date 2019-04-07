@@ -1,4 +1,4 @@
-describe('GoTest Checkout Page Combined', () => {
+describe('checkout-bank', () => {
     beforeAll(async () => {
         await page.goto(`${location}/checkout-bank`);
     });
@@ -24,6 +24,24 @@ describe('GoTest Checkout Page Combined', () => {
 
         expect(onReady).not.toEqual(null);
         expect(isReady).toEqual('true');
+    });
+
+    it('should call the on-change hook', async () => {
+        await page.$('#events-onReady');
+        const btn = await page.$('#submit');
+        await page.$('#events-onChange');
+
+        await btn.click();
+
+        // wait iframepay validation calls
+        await page.waitFor(100);
+
+        // @ts-ignore
+        const isInvalidPaymentCardError = await page.getAttributeOf(
+            '#token-data-code-invalid-bank-account',
+            'data-value'
+        );
+        expect(isInvalidPaymentCardError).toEqual('invalid-bank-account');
     });
 
     it('should handle the error on empty value', async () => {
