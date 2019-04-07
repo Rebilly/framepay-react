@@ -15,7 +15,7 @@ export default class BankElement extends BaseElement<
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `BankElement elementType: ${elementType ||
+                    details: `BankElement invalid elementNode, elementType: ${elementType ||
                         'default'}`
                 });
             }
@@ -28,7 +28,7 @@ export default class BankElement extends BaseElement<
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `BankElement elementType: ${elementType ||
+                    details: `BankElement error in remote api call, elementType: ${elementType ||
                         'default'}`,
                     trace: e
                 });
@@ -68,7 +68,8 @@ export default class BankElement extends BaseElement<
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.elementMountError,
-                details: `BankElement elementType: ${elementType || 'default'}`,
+                details: `BankElement events binding error, elementType: ${elementType ||
+                    'default'}`,
                 trace: e
             });
         }

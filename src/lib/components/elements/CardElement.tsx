@@ -15,7 +15,7 @@ export default class CardElement extends BaseElement<
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `CardElement elementType: ${elementType ||
+                    details: `CardElement invalid elementNode, elementType: ${elementType ||
                         'default'}`
                 });
             }
@@ -25,8 +25,9 @@ export default class CardElement extends BaseElement<
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `CardElement elementType: ${elementType ||
-                        'default'}`
+                    details: `CardElement error in remote api call, elementType: ${elementType ||
+                        'default'}`,
+                    trace: e
                 });
             }
         };
@@ -63,7 +64,9 @@ export default class CardElement extends BaseElement<
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.elementMountError,
-                details: `CardElement elementType: ${elementType || 'default'}`
+                details: `CardElement events binding error, elementType: ${elementType ||
+                    'default'}`,
+                trace: e
             });
         }
     }
