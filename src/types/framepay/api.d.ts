@@ -29,10 +29,6 @@ interface PaymentMethod {
  * Card Payment element
  */
 
-// interface CardPaymentElementChangeData {
-//   readonly error?: boolean
-// }
-
 /**
  * Card Payment method
  */
@@ -48,10 +44,6 @@ interface CardPaymentMethod extends PaymentMethod {
 /**
  * Bank Payment element
  */
-
-// interface BankPaymentElementChangeData {
-//   readonly error?: boolean
-// }
 
 /**
  * Bank Payment Method
