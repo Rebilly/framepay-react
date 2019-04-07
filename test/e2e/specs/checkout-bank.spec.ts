@@ -34,7 +34,7 @@ describe('checkout-bank', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(100);
+        await page.waitFor(200);
 
         // @ts-ignore
         const isInvalidPaymentCardError = await page.getAttributeOf(
@@ -51,7 +51,7 @@ describe('checkout-bank', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(100);
+        await page.waitFor(200);
 
         // @ts-ignore
         const isInvalidPaymentCardError = await page.getAttributeOf(
