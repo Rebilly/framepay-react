@@ -26,11 +26,11 @@ The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-doc
 ### Demos
 - [Tiny example codesandbox](https://codesandbox.io)  
 - [Redux example codesandbox](https://codesandbox.io)      
-- [Use with react-redux](gh-pages)    
-- [Use with react-router](gh-pages)   
-- [Use with ServerSide rendering](gh-pages)   
-- [Example from README file](gh-pages)   
-- [More examples e2e test directory](https://github.com/Rebilly/framepay-react/tree/master/test/e2e/fixtures)    
+- [Use with react-redux](tree/master/example/react-redux)    
+- [Use with react-router](tree/master/example/react-router)   
+- [Use with ServerSide rendering](tree/master/example/react-ssr)   
+- [Examples from README file](tree/master/example/readme-example)   
+- [More examples e2e test directory](tree/master/test/e2e/fixtures)    
 
 ### Installation
 Install the latest version of the SDK with [Yarn](https://yarnpkg.com/en/):
@@ -47,12 +47,12 @@ npm install framepay-react --save
 
 #### The FramePay context (`FramePayProvider`)
 FramePayProvider provides the settings to the FramePay api, see [framepay-initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
-See [react-card-example](/tree/master/example/react-card-example)  
+See [readme-example](/tree/master/example/readme-example)  
 ```jsx harmony
 // index.js
 import React from 'react';
 import { render } from 'react-dom';
-import { FramePayProvider } from '../../build/package';
+import { FramePayProvider } from 'framepay-react';
 
 import MyCardPageComponent from './MyCardPageComponent';
 
@@ -74,27 +74,19 @@ render(<App/>, document.getElementById('root'));
 ```jsx harmony
 // MyCardPageComponent.js
 import React from 'react';
-import { withFramePayCardComponent } from '../../build/package';
+import { withFramePayCardComponent } from 'framepay-react';
 
 
 class MyCardPageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.formNode = null;
-        this.state = {
-            firstName: '',
-            lastName: ''
-        };
+        this.state = { firstName: '', lastName: '' };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit(e) {
         e.preventDefault();
-        /**
-         *
-         * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
-         *
-         */
         this.props.framePay.createToken(
             this.formNode,
             { billingAddress: { ...this.state } }
@@ -142,6 +134,66 @@ export default withFramePayCardComponent(MyCardPageComponent);
 ```
 
 ##### Bank elements (`withFramePayBankComponent`) HOC
+```jsx harmony
+import React from 'react';
+import { withFramePayBankComponent } from '../../build/package';
+
+
+class MyBankPageComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.formNode = null;
+        this.state = { firstName: '', lastName: '' };
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        this.props.framePay.createToken(
+            this.formNode,
+            { billingAddress: { ...this.state } }
+        )
+            .then(data => {
+                alert(JSON.stringify(data, null, 2));
+            })
+            .catch(err => {
+                alert(JSON.stringify(err, null, 2));
+            });
+    }
+
+    render() {
+        return (<form
+            ref={node => this.formNode = node}
+            onSubmit={this.onSubmit}>
+            <div>
+                <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    defaultValue={this.state.firstName}
+                    onChange={(e) => this.setState({ firstName: e.target.value })}/>
+            </div>
+            <br/>
+            <div>
+                <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    defaultValue={this.state.lastName}
+                    onChange={(e) => this.setState({ lastName: e.target.value })}/>
+            </div>
+
+            <this.props.BankElement/>
+
+            <hr/>
+
+            <button>Make Payment</button>
+        </form>);
+    }
+}
+
+export default withFramePayBankComponent(MyBankPageComponent); 
+```
 
 ### Advanced options
 
