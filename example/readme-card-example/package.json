@@ -1,0 +1,20 @@
+{
+    "name": "framepay-react-readme-card-example",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "parcel ./index.html --no-cache --out-dir ./build",
+        "build": "parcel build ./index.html/ --no-minify --no-cache --out-dir ./build"
+    },
+    "dependencies": {
+        "react": "^16.8.5",
+        "react-dom": "^16.8.5"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.0",
+        "@babel/preset-env": "^7.4.2",
+        "@babel/preset-react": "^7.0.0",
+        "parcel-bundler": "^1.12.3"
+    }
+}
