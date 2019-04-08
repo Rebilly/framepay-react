@@ -29,7 +29,7 @@
         "test": "run-s test:*",
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
-        "test:e2e": "run-s dotenv build:e2e && jest --env=node --no-cache --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
+        "test:e2e": "run-s dotenv build:e2e && node test/e2e/jest.js",
         "watch": "run-s clean build && run-p \"build -- --w\" \"test:unit -- --watch\"",
         "clean": "trash build",
         "clean:e2e": "trash test/e2e/build",

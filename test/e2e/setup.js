@@ -1,6 +1,6 @@
 require('../../env');
+
 const puppeteer = require('puppeteer');
-const runServer = require('./server');
 
 // puppeteer options
 const opts = {
@@ -9,14 +9,11 @@ const opts = {
     timeout: 10000
 };
 
+
 beforeAll(async () => {
-    const { port, server } = await runServer();
-    global.location = `http://localhost:${port}`;
-    global.server = server;
+    global.location = `http://localhost:${process.env.PORT}`;
     global.browser = await puppeteer.launch(opts);
     global.page = await browser.newPage();
-
-    global.mocks = {};
 
     /**
      * Returns dom element attribute value selector + attribute name
@@ -36,7 +33,6 @@ beforeAll(async () => {
 
 
 afterAll(() => {
-    global.server.close();
     global.browser.close();
     delete global.page;
     delete global.browser;
