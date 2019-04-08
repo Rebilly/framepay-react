@@ -6,7 +6,6 @@
 > React components for FramePay.js
 
 ## Table of Contents
-- [PCI Compliance Note](#pci-compliance-note)
 - [FramePay documentation](#framepay-documentation)
 - [Demos](#demos)
 - [Installation](#installation)
@@ -16,9 +15,9 @@
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
 - [Advanced options](#advanced-options)
-
-### PCI Compliance Note
-If you need to handle raw payment card data, you should use [Rebilly FramePay](https://rebilly.github.io/framepay-docs/) to generate tokens for your server-side logic.
+    - [Initialize settings](#initialize-settings)
+    - [Create Token params](#create-token-params)
+- [Development](#development)
 
 ### FramePay documentation
 The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-docs/)
@@ -185,3 +184,12 @@ export default withFramePayBankComponent(MyBankPageComponent);
 
 ### Advanced options
 
+#### Initialize settings
+The **framepay-react** package supports all the [FramePay](https://rebilly.github.io/framepay-docs) settings.
+See [rebilly-initialize section](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)
+
+And, one custom setting **injectStyle** - will add the default framepay style link    
+in header section of your app, see [adding-default-element-styles](https://rebilly.github.io/framepay-docs/guide/#adding-default-element-styles)
+
+#### Create Token params
+Supports all FramePay arguments, see [FramePay createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken)
