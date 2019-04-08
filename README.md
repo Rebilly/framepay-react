@@ -24,10 +24,12 @@ If you need to handle raw payment card data, you should use [Rebilly FramePay](h
 The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-docs/)
 
 ### Demos
-[Tiny example codesandbox](https://codesandbox.io)  
-[Redux example codesandbox](https://codesandbox.io)      
-[Use with react-redux](gh-pages)    
-[Use with react-router](gh-pages)    
+- [Tiny example codesandbox](https://codesandbox.io)  
+- [Redux example codesandbox](https://codesandbox.io)      
+- [Use with react-redux](gh-pages)    
+- [Use with react-router](gh-pages)   
+- [Use with ServerSide rendering](gh-pages)   
+- [More examples e2e test directory](https://github.com/Rebilly/framepay-react/tree/master/test/e2e/fixtures)    
 
 ### Installation
 Install the latest version of the SDK with [Yarn](https://yarnpkg.com/en/):
