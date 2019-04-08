@@ -1,7 +1,6 @@
 import React from 'react';
 import { withFramePayBankComponent } from '../../build/package';
 
-
 class MyBankPageComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -12,16 +11,13 @@ class MyBankPageComponent extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
+        // @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
         this.props.framePay.createToken(
             this.formNode,
             { billingAddress: { ...this.state } }
         )
-            .then(data => {
-                alert(JSON.stringify(data, null, 2));
-            })
-            .catch(err => {
-                alert(JSON.stringify(err, null, 2));
-            });
+            .then(data => alert(JSON.stringify(data, null, 2)))
+            .catch(err => alert(JSON.stringify(err, null, 2)));
     }
 
     render() {
@@ -45,11 +41,9 @@ class MyBankPageComponent extends React.Component {
                     defaultValue={this.state.lastName}
                     onChange={(e) => this.setState({ lastName: e.target.value })}/>
             </div>
-
+            <br/>
             <this.props.BankElement/>
-
             <hr/>
-
             <button>Make Payment</button>
         </form>);
     }
