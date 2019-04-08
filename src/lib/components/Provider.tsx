@@ -4,10 +4,9 @@ import { injectScript, injectStyle } from '../dom-util';
 import FramePayError from '../FramePayError';
 import getFramePayApi from '../get-framepay-api';
 
-interface ProviderProps {
-    readonly injectScript: boolean;
+interface ProviderProps extends FramePaySettings {
     readonly injectStyle: boolean;
-    readonly settings: FramePaySettings;
+    readonly injectScript: boolean;
     readonly children: React.Component;
 }
 
@@ -21,12 +20,10 @@ export default class Provider extends React.Component<
     };
 
     componentDidMount() {
-        if (this.props.injectScript) {
-            injectScript({
-                onError: () => this.onApiError(),
-                onReady: () => this.onApiReady()
-            });
-        }
+        injectScript({
+            onError: () => this.onApiError(),
+            onReady: () => this.onApiReady()
+        });
         if (this.props.injectStyle) {
             injectStyle();
         }
@@ -43,7 +40,10 @@ export default class Provider extends React.Component<
     async onApiReady() {
         const api = getFramePayApi();
         try {
-            api.initialize(this.props.settings);
+            // tslint:disable:no-shadowed-variable
+            const { injectStyle, children, ...settings } = this.props;
+            // tslint:enable:no-shadowed-variable
+            api.initialize(settings);
             this.setState({ ready: true, api });
         } catch (e) {
             throw FramePayError({

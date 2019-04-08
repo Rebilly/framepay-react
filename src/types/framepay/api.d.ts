@@ -60,8 +60,29 @@ interface BankPaymentMethod extends PaymentMethod {
     ) => PaymentElement;
 }
 
+interface BillingAddress {
+    readonly firstName: string;
+    readonly lastName: string;
+    readonly organization?: string;
+    readonly address?: string;
+    readonly address2?: string;
+    readonly city?: string;
+    readonly region?: string;
+    readonly country?: string;
+    readonly postalCode?: string;
+    readonly phoneNumbers?: ReadonlyArray<{
+        readonly label: string;
+        readonly value: string;
+    }>;
+    readonly emails?: ReadonlyArray<{
+        readonly label: string;
+        readonly value: string;
+    }>;
+}
+
 interface TokenExtraData {
-    readonly method?: PaymentMethods;
+    readonly method?: PaymentMethods; // @see https://rebilly.github.io/RebillyAPI/#operation/paymentTokenCreation
+    readonly billingAddress: BillingAddress;
 }
 
 /**
