@@ -5,7 +5,7 @@ const portfinder = require('portfinder');
 
 const app = express();
 
-const staticFiles = path.resolve(__dirname, '../../build/e2e');
+const staticFiles = path.resolve(__dirname, './build');
 
 app.use(express.static(staticFiles));
 
@@ -19,7 +19,7 @@ const addDirRoutes = (dir, category) => {
         });
 };
 
-addDirRoutes(path.resolve(__dirname, '../../build/e2e'), '');
+addDirRoutes(path.resolve(__dirname, './build'), '');
 
 module.exports = function() {
     return new Promise((resolve) => {

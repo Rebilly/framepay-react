@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { FramePayProvider, withFramePayCardComponent } from './../../../build/package';
+import { FramePayProvider, withFramePayCardComponent } from './../../../build';
 import { deepMerge, prettyDebugRender } from './util';
 
 const params = {

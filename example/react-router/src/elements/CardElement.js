@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFramePayCardComponent } from '../../../../build/package';
+import { withFramePayCardComponent } from '../../../../build';
 
 class CardElement extends React.Component {
 

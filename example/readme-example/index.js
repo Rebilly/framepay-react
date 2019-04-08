@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { FramePayProvider } from '../../build/package';
+import { FramePayProvider } from '../../build';
 
 import MyCardPageComponent from './MyCardPageComponent';
 import MyBankPageComponent from './MyBankPageComponent';

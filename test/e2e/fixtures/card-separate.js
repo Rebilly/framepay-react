@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayCardComponent } from '../../../build/package';
+import { FramePayProvider, withFramePayCardComponent } from '../../../build';
 import { deepMerge, prettyDebugRender } from './util';
 import './style.css';
 
@@ -190,7 +190,7 @@ const CardElement = withFramePayCardComponent(CardElementComponent);
 class App extends Component {
 
     render() {
-        return (<FramePayProvider {...params}>
+        return (<FramePayProvider injectStyle {...params}>
             <div>
                 <CardElement/>
             </div>

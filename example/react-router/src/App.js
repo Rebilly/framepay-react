@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, IndexLink, NavLink, Route } from 'react-router-dom';
 
-import { FramePayProvider } from '../../../build/package';
+import { FramePayProvider } from '../../../build';
 
 import './App.css';
 import './examples.css';
