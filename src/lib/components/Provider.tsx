@@ -48,7 +48,8 @@ export default class Provider extends React.Component<
             this.setState({ ready: true, api });
         } catch (e) {
             throw FramePayError({
-                code: FramePayError.codes.initializeError
+                code: FramePayError.codes.initializeError,
+                trace: e
             });
         }
     }
