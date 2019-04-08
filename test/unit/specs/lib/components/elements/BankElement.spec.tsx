@@ -52,6 +52,27 @@ describe('lib/components/elements/BankElement', () => {
         }
     });
 
+    it('should destroy the element on component unmount', done => {
+        const props = Substitute.for<BankElementComponentProps>();
+        const element = Substitute.for<PaymentElement>();
+
+        element.destroy().mimicks(() => {
+            done();
+        });
+
+        // @ts-ignore
+        props.api.bankAccount.mount(Arg.any(), Arg.any()).returns(element);
+
+        class TmpComponent extends React.Component {
+            render() {
+                return <BankElement ready={true} api={props.api} />;
+            }
+        }
+
+        const wrapper = mount(<TmpComponent />);
+        wrapper.unmount();
+    });
+
     it('should render the empty div element', () => {
         const props = Substitute.for<BankElementComponentProps>();
         const wrapper = shallow(

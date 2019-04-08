@@ -21,15 +21,16 @@ describe('lib/components/elements/CardElement', () => {
 
     it('should setup the element when api is ready', done => {
         const props = Substitute.for<CardElementComponentProps>();
-        props.ready.returns(true);
-
         const spy = jest.spyOn(CardElement.prototype, 'setupElement');
 
-        const wrapper = mount(
-            <CardElement ready={props.ready} api={props.api} />
-        );
+        const wrapper = mount(<CardElement ready={false} api={props.api} />);
 
         process.nextTick(() => {
+            expect(spy).toHaveBeenCalledTimes(0);
+            expect(wrapper.state('mounted')).toEqual(false);
+
+            wrapper.setProps({ ready: true });
+
             expect(spy).toHaveBeenCalledTimes(1);
             expect(wrapper.state('element')).toBeDefined();
             expect(wrapper.state('mounted')).toEqual(true);
@@ -51,6 +52,27 @@ describe('lib/components/elements/CardElement', () => {
         } catch (error) {
             expect(error.code).toEqual(FramePayError.codes.elementMountError);
         }
+    });
+
+    it('should destroy the element on component unmount', done => {
+        const props = Substitute.for<CardElementComponentProps>();
+        const element = Substitute.for<PaymentElement>();
+
+        element.destroy().mimicks(() => {
+            done();
+        });
+
+        // @ts-ignore
+        props.api.card.mount(Arg.any(), Arg.any()).returns(element);
+
+        class TmpComponent extends React.Component {
+            render() {
+                return <CardElement ready={true} api={props.api} />;
+            }
+        }
+
+        const wrapper = mount(<TmpComponent />);
+        wrapper.unmount();
     });
 
     it('should render the empty div element', () => {

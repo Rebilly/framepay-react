@@ -1,3 +1,4 @@
+require('./../env');
 const puppeteer = require('puppeteer');
 const runServer = require('./server');
 

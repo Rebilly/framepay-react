@@ -112,13 +112,19 @@ describe('Mock functionality works correctly', () => {
             readonly api: Api;
         }
 
-        class TmpParentComponent extends React.Component<ComponentProps, {}> {
+        interface ComponentState {
+            readonly element: Element;
+        }
+
+        class TmpParentComponent extends React.Component<
+            ComponentProps,
+            ComponentState
+        > {
             componentDidMount() {
                 this.setState({ element: this.props.api.child1.mount() });
             }
 
             componentWillUnmount() {
-                // @ts-ignore
                 this.state.element.destroy();
             }
 

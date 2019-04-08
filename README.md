@@ -28,6 +28,7 @@ The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-doc
 - [Use with react-redux](example/react-redux)    
 - [Use with react-router](example/react-router)   
 - [Use with ServerSide rendering](example/react-ssr)   
+- [Use with TypeSCript](example/react-typescript)   
 - [Examples from README file](example/readme-example)   
 - [More examples e2e test directory](test/e2e/fixtures)    
 
