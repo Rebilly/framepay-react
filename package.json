@@ -35,7 +35,7 @@
         "clean:e2e": "trash test/e2e/build",
         "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('framepay-react must be installed with Yarn: https://yarnpkg.com/')\"",
         "precommit": "yarn fix",
-        "prepush": "yarn fix && yarn test",
+        "prepush": "run-s fix test",
         "all": "run-s fix:* test:* build"
     },
     "engines": {
