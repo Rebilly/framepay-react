@@ -6,20 +6,12 @@ class MyCardPageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.formNode = null;
-        this.state = {
-            firstName: '',
-            lastName: ''
-        };
+        this.state = { firstName: '', lastName: '' };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit(e) {
         e.preventDefault();
-        /**
-         *
-         * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
-         *
-         */
         this.props.framePay.createToken(
             this.formNode,
             { billingAddress: { ...this.state } }
