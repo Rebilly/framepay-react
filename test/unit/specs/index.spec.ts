@@ -2,6 +2,7 @@ import * as lib from '../../../src/index';
 
 const exportKeys: ReadonlyArray<string> = [
     'FramePayProvider',
+    'withFramePay',
     'withFramePayCardComponent',
     'withFramePayBankComponent'
 ].sort();

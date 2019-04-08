@@ -159,6 +159,14 @@ const elementsFabric = (type: PaymentElements): object => {
     );
 };
 
+export function withFramePay<P extends object>(
+    WrappedComponent: React.ComponentType<P>
+) {
+    return Hoc('BankComponent', WrappedComponent, (data: any) => ({
+        framePay: data.api
+    }));
+}
+
 export function withFramePayCardComponent<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
