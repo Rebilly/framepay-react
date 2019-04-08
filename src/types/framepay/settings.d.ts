@@ -36,8 +36,8 @@ interface FramePaySettingsPlaceholders {
 
 interface FramePaySettings {
     readonly publishableKey: string;
-    readonly style: FramePaySettingsStyles;
-    readonly classes: FramePaySettingsClasses;
-    readonly icon: FramePaySettingsIcon;
-    readonly placeholders: FramePaySettingsPlaceholders;
+    readonly style?: FramePaySettingsStyles;
+    readonly classes?: FramePaySettingsClasses;
+    readonly icon?: FramePaySettingsIcon;
+    readonly placeholders?: FramePaySettingsPlaceholders;
 }
