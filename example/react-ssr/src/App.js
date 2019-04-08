@@ -4,7 +4,7 @@ import { FramePayProvider, withFramePayCardComponent } from './../../../build';
 import { deepMerge, prettyDebugRender } from './util';
 
 const params = {
-    publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
+    publishableKey: 'pk_sandbox_1234567890',
     style: {
         base: {
             color: 'green',
@@ -166,7 +166,7 @@ const CardElement = withFramePayCardComponent(CardElementComponent);
 export default class App extends Component {
 
     render() {
-        return (<FramePayProvider {...params}>
+        return (<FramePayProvider injectStyle {...params}>
             <div>
                 <CardElement/>
             </div>

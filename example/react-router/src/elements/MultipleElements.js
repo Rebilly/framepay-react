@@ -1,101 +1,157 @@
 import React from 'react';
-import { withFramePayBankComponent, withFramePayCardComponent } from '../../../../build';
+import { withFramePay, withFramePayBankComponent, withFramePayCardComponent } from '../../../../build';
+import './MultipleElements.css';
 
 class CardComponent extends React.Component {
 
-  render() {
-    return (<div>
-      <form method="post">
-        <div className="field">
-          {/* Render passed props */}
-          <h4>{this.props.title}</h4>
-
-          {/* Render the CardComponent */}
-          <this.props.CardElement
-            onReady={() => console.log('checkout-combined ready callback')}
-            onChange={(data) => console.log('checkout-combined change callback', data)}
-            onFocus={(data) => console.log('checkout-combined focus callback', data)}
-            onBlur={(data) => console.log('checkout-combined blur callback', data)}
-          />
-
-          <input type="hidden" data-rebilly="token" name="rebilly-token"/>
-        </div>
-      </form>
-    </div>);
-  }
+    render() {
+        return (<div>
+            <div className="field">
+                <h4>{this.props.title}</h4>
+                <this.props.CardElement/>
+            </div>
+        </div>);
+    }
 }
 
 class BankComponent extends React.Component {
 
-  render() {
-    return (<div>
-      <form method="post">
-        <div className="field">
-          {/* Render passed props */}
-          <h4>{this.props.title}</h4>
-
-          {/* Render the BankElement */}
-          <this.props.BankElement
-            onReady={() => console.log('checkout-combined ready callback')}
-            onChange={(data) => console.log('checkout-combined change callback', data)}
-            onFocus={(data) => console.log('checkout-combined focus callback', data)}
-            onBlur={(data) => console.log('checkout-combined blur callback', data)}
-          />
-
-          <input type="hidden" data-rebilly="token" name="rebilly-token"/>
-        </div>
-      </form>
-    </div>);
-  }
+    render() {
+        const { elementType } = this.props;
+        const ElementComponent = this.props[elementType];
+        return (<div>
+            <div className="field">
+                <h4>{this.props.title}</h4>
+                <ElementComponent/>
+            </div>
+        </div>);
+    }
 }
 
-const Card1 = withFramePayCardComponent(CardComponent);
-const Card2 = withFramePayCardComponent(CardComponent);
-const Bank1 = withFramePayBankComponent(BankComponent);
-const Bank2 = withFramePayBankComponent(BankComponent);
-const Bank3 = withFramePayBankComponent(BankComponent);
-const Bank4 = withFramePayBankComponent(BankComponent);
-const Bank5 = withFramePayBankComponent(BankComponent);
-const Bank6 = withFramePayBankComponent(BankComponent);
+const CardElement = withFramePayCardComponent(CardComponent);
+const BankElement = withFramePayBankComponent(BankComponent);
 
-export default class MultipleElements extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      method: '',
-      methods: []
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+class MultipleElements extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            activeMethod: 'payment-card',
+            methods: [
+                'payment-card',
+                'ach',
+                'paypal',
+                'bitcoin',
+                'China-UnionPay'
+            ]
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const forms = [
-      this.c1Node,
-      this.c2Node,
-      this.b1Node,
-      this.b2Node,
-      this.b3Node,
-      this.b4Node,
-      this.b5Node,
-      this.b6Node
-    ];
-  }
+    handleSubmit(e) {
+        e.preventDefault();
+        /**
+         *
+         * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
+         *
+         */
+        const { firstName, lastName, activeMethod } = this.state;
+        this.props.framePay.createToken(
+            this.formNode, {
+                method: activeMethod,
+                billingAddress: { firstName, lastName }
+            }
+        )
+            .then(data => {
+                console.log('createToken.data', data);
+                alert(JSON.stringify(data, null, 2));
+            })
+            .catch(err => {
+                console.log('createToken.err', err);
+                alert(JSON.stringify(err, null, 2));
+            });
+    }
 
-  render() {
-    return (<div>
-      <h2>{this.props.title}</h2>
-      <hr/>
-      <Card1 ref={c1Node => this.c1Node = c1Node} title="Card 1 sub title"/>
-      <Card2 ref={c2Node => this.c2Node = c2Node} title="Card 2 sub title"/>
-      <Bank1 ref={b1Node => this.b1Node = b1Node} title="Bank 1 sub title"/>
-      <Bank2 ref={b2Node => this.b2Node = b2Node} title="Bank 2 sub title"/>
-      <Bank3 ref={b3Node => this.b3Node = b3Node} title="Bank 3 sub title"/>
-      <Bank4 ref={b4Node => this.b4Node = b4Node} title="Bank 4 sub title"/>
-      <Bank5 ref={b5Node => this.b5Node = b5Node} title="Bank 5 sub title"/>
-      <Bank6 ref={b6Node => this.b6Node = b6Node} title="Bank 6 sub title"/>
-      <hr/>
-      <button onClick={this.handleSubmit}>Submit Multiple forms</button>
-    </div>);
-  }
+    renderCardComponent(method, index) {
+        let props = {};
+        let ComponentElement = null;
+
+        const isActive = method === this.state.activeMethod;
+
+        switch (method) {
+            case 'payment-card':
+                ComponentElement = CardElement;
+                break;
+            case 'ach':
+                props = { elementType: 'BankElement' };
+                ComponentElement = BankElement;
+                break;
+            default:
+                ComponentElement = null;
+                break;
+        }
+
+        const linkClasses = isActive ? 'tab-link is-active' : 'tab-link';
+        const contentClasses = isActive ? 'tab-content-item is-active' : 'tab-content-item';
+
+        return <li className="tab-item" key={`${method}-${index}`}>
+            <a
+                className={linkClasses}
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    this.setState({ activeMethod: method });
+                }}
+            >{method}</a>
+            {ComponentElement && <div className={contentClasses} id="content-1">
+                <div className="field">
+                    <label>{method}</label>
+                    <ComponentElement {...props}/>
+                </div>
+            </div>}
+        </li>;
+    }
+
+    render() {
+        return (
+            <div className="example-8">
+                <form onSubmit={this.handleSubmit} ref={node => this.formNode = node}>
+                    <fieldset>
+                        <div className="field">
+                            <input
+                                type="text"
+                                name="firstName"
+                                placeholder="First Name"
+                                defaultValue={this.state.firstName}
+                                onChange={e => {
+                                    this.setState({ firstName: e.target.value });
+                                }}/>
+                        </div>
+                        <div className="field">
+                            <input
+                                type="text"
+                                name="lastName"
+                                placeholder="Last Name"
+                                defaultValue={this.state.lastName}
+                                onChange={e => {
+                                    this.setState({ lastName: e.target.value });
+                                }}/>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <label>Select your payment method</label>
+                        <ul className="tab">
+                            {this.state.methods
+                                .map((method, index) => this.renderCardComponent(method, index))}
+                        </ul>
+                    </fieldset>
+
+                    <button>Make Payment</button>
+                </form>
+            </div>);
+    }
 }
+
+export default withFramePay(MultipleElements);

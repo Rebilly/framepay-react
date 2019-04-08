@@ -13,7 +13,7 @@ import configureStore from './configureStore';
 const store = configureStore();
 
 const params = {
-    publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq\n',
+    publishableKey: 'pk_sandbox_1234567890',
     style: {
         base: {
             color: 'green',
@@ -195,7 +195,7 @@ const CardElement = connect(
 export default class App extends Component {
 
     render() {
-        return (<Provider store={store}>
+        return (<Provider injectStyle store={store}>
             <FramePayProvider {...params}>
                 <div>
                     <CardElement/>

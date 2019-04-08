@@ -6,9 +6,9 @@ import OtherMethods from './OtherMethods';
 
 
 export {
-  BankElement,
-  CardElement,
-  MultipleElements,
-  CardElementSeparated,
-  OtherMethods
+    CardElement,
+    BankElement,
+    MultipleElements,
+    CardElementSeparated,
+    OtherMethods
 };
