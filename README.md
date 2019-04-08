@@ -17,6 +17,7 @@
 - [Advanced options](#advanced-options)
     - [Initialize settings](#initialize-settings)
     - [Create Token params](#create-token-params)
+- [Troubleshooting](#troubleshooting)
 - [Development](#development)
 
 ### FramePay documentation
@@ -194,3 +195,38 @@ in header section of your app, see [adding-default-element-styles](https://rebil
 
 #### Create Token params
 Supports all FramePay arguments, see [FramePay createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken)
+
+### Troubleshooting
+
+The `with*` methods it's HoC [higher-order-components](https://reactjs.org/docs/higher-order-components.html),
+that means, you can't use it in render method.  
+
+##### Incorrect
+```jsx harmony
+import * as React from 'react';
+import {withFramePayCardComponent} from 'framepay-react'
+
+class SomeComponent extends React.Component {
+    render(){
+        return(<div>
+            {withFramePayCardComponent(MyCardComponent)}
+        </div>)
+    }
+}
+```
+
+##### Correct
+```jsx harmony
+import * as React from 'react';
+import {withFramePayCardComponent} from 'framepay-react'
+
+const MyCardElement = withFramePayCardComponent(MyCardComponent);
+
+class SomeComponent extends React.Component {
+    render(){
+        return(<div>
+            <MyCardElement />
+        </div>)
+    }
+}
+```
