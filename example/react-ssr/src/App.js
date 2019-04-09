@@ -61,7 +61,6 @@ class CardElementComponent extends Component {
             }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log('CardElementComponent.constructor')
     }
 
     handleSubmit(e) {
@@ -77,22 +76,16 @@ class CardElementComponent extends Component {
         )
             .then(data => {
                 this.deepUpdateState({ token: { error: false, data } });
+                alert(JSON.stringify(data, null, 2))
             })
             .catch(err => {
                 this.deepUpdateState({ token: { error: true, data: err } });
+                alert(JSON.stringify(err, null, 2))
             });
     }
 
     deepUpdateState(data) {
         this.setState({ ...deepMerge(this.state, data) });
-    }
-
-    componentWillMount() {
-        console.log('componentWillMount hook');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount hook');
     }
 
     render() {
