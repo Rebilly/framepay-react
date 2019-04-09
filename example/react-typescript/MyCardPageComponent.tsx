@@ -21,7 +21,7 @@ class MyCardPageComponent extends React.Component<
     onSubmit(e) {
         e.preventDefault();
         // @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
-        this.props.framePay
+        this.props.Rebilly
             .createToken(this.formRef.current, {
                 billingAddress: { ...this.state }
             })
