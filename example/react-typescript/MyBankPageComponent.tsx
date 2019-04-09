@@ -1,10 +1,18 @@
 import { withFramePayBankComponent } from 'framepay-react';
 import * as React from 'react';
 
-class MyBankPageComponent extends React.Component {
+interface BankState {
+    readonly firstName: string;
+    readonly lastName: string;
+}
+class MyBankPageComponent extends React.Component<
+    BankComponentProps,
+    BankState
+> {
+    private formRef = React.createRef<HTMLFormElement>();
+
     constructor(props) {
         super(props);
-        this.formNode = null;
         this.state = { firstName: '', lastName: '' };
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -13,14 +21,16 @@ class MyBankPageComponent extends React.Component {
         e.preventDefault();
         // @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
         this.props.framePay
-            .createToken(this.formNode, { billingAddress: { ...this.state } })
+            .createToken(this.formRef.current, {
+                billingAddress: { ...this.state }
+            })
             .then(data => alert(JSON.stringify(data, null, 2)))
             .catch(err => alert(JSON.stringify(err, null, 2)));
     }
 
     render() {
         return (
-            <form ref={node => (this.formNode = node)} onSubmit={this.onSubmit}>
+            <form ref={this.formRef} onSubmit={this.onSubmit}>
                 <div>
                     <input
                         type="text"
