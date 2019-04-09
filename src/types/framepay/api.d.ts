@@ -83,7 +83,7 @@ interface BillingAddress {
 interface TokenExtraData {
     readonly method?: PaymentMethods; // @see https://rebilly.github.io/RebillyAPI/#operation/paymentTokenCreation
     readonly billingAddress?: BillingAddress;
-    readonly leadSource?: object
+    readonly leadSource?: object;
 }
 
 /**
