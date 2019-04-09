@@ -38,7 +38,7 @@ The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-doc
 ### Installation
 Install the latest version of the SDK with [Yarn](https://yarnpkg.com/en/):
 ```
-yarn add rebilly-js-sdk
+yarn add framepay-react
 ```
 
 Or using NPM:
@@ -49,8 +49,8 @@ npm install framepay-react --save
 ### Getting started
 
 #### The FramePay context (`FramePayProvider`)
-FramePayProvider provides the settings to the FramePay api, see [framepay-initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
-See [readme-example](example/readme-example)  
+FramePayProvider provides the settings to the FramePay api, see [rebilly-initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
+
 ```jsx harmony
 // index.js
 import React from 'react';
@@ -70,6 +70,8 @@ const App = () => {
 render(<App/>, document.getElementById('root'));
 
 ```
+
+For a complete example see [here](example/readme-example)  
 
 #### Setting up your payment form
 
@@ -204,8 +206,7 @@ Supports all FramePay arguments, see [FramePay createToken](https://rebilly.gith
 
 ### Troubleshooting
 
-The `with*` methods it's HoC [higher-order-components](https://reactjs.org/docs/higher-order-components.html),
-that means, you can't use it in render method.  
+The methods `withFramePay`, `withFramePayCardComponent` and `withFramePayBankComponent` are [higher-order-components](https://reactjs.org/docs/higher-order-components.html). They can't be called directly from your `render()` method, so assign the generated component to a variable in the global scope before use.
 
 ##### Incorrect
 ```jsx harmony
