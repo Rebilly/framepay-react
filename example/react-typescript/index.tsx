@@ -15,7 +15,7 @@ const App = () => {
         ? pages.Bank
         : pages.Card;
     return (
-        <FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
+        <FramePayProvider injectStyle publishableKey="pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h">
             <PageComponent />
         </FramePayProvider>
     );

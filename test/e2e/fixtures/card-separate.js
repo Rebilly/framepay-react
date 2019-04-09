@@ -6,7 +6,7 @@ import { deepMerge, prettyDebugRender } from './util';
 import './style.css';
 
 const params = {
-    publishableKey: 'pk_sandbox_1234567890',
+    publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h',
     style: {
         base: {
             color: 'green',
@@ -68,7 +68,7 @@ class CardElementComponent extends Component {
                 firstName: 'first-name-value',
                 lastName: 'last-name-value',
                 address: 'address-value',
-                country: 'country-value',
+                country: 'GB',
                 region: 'region-value'
             },
             token: {

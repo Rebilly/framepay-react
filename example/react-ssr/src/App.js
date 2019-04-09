@@ -4,7 +4,7 @@ import { FramePayProvider, withFramePayCardComponent } from './../../../build';
 import { deepMerge, prettyDebugRender } from './util';
 
 const params = {
-    publishableKey: 'pk_sandbox_1234567890',
+    publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h',
     style: {
         base: {
             color: 'green',

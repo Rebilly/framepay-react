@@ -155,7 +155,7 @@ export default class App extends Component {
 
     render() {
         return (<Provider store={store}>
-            <FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
+            <FramePayProvider injectStyle publishableKey="pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h">
                 <div>
                     <CardElement/>
                     <DevTools/>
