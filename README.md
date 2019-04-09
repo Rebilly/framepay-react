@@ -12,7 +12,7 @@
 - [Getting started](#getting-started)
     - [The FramePay context (`FramePayProvider`)](#the-framepay-context-framepayprovider)
     - [Setting up your payment form](#setting-up-your-payment-form)
-        - [With FramePay (`withFramePay`) HOC](#with-framepay-hoc)
+        - [With FramePay (`withFramePay`) HOC](#with-framepay-withframepay-hoc)
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
 - [Advanced options](#advanced-options)
