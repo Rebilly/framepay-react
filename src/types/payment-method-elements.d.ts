@@ -11,11 +11,11 @@ interface PaymentElementComponentProps extends FramePayContext {
     readonly onBlur?: () => void;
 }
 
-interface BankElementComponentProps extends PaymentElementComponentProps {
+interface BankComponentProps extends PaymentElementComponentProps {
     readonly elementType?: BankPaymentElementTypes;
 }
 
-interface CardElementComponentProps extends PaymentElementComponentProps {
+interface CardComponentProps extends PaymentElementComponentProps {
     readonly elementType?: CardPaymentElementTypes;
 }
 

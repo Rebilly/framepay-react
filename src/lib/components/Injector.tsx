@@ -48,7 +48,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankElement = Hoc(
             'BankElement',
             BankElementComponent,
-            (data: FramePayContext): BankElementComponentProps => ({ ...data })
+            (data: FramePayContext): BankComponentProps => ({ ...data })
         );
 
         /**
@@ -58,7 +58,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankAccountTypeElement = Hoc(
             'BankAccountTypeElement',
             BankElementComponent,
-            (data: FramePayContext): BankElementComponentProps => ({
+            (data: FramePayContext): BankComponentProps => ({
                 ...data,
                 elementType: 'bankAccountType'
             })
@@ -70,7 +70,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankRoutingNumberElement = Hoc(
             'BankRoutingNumberElement',
             BankElementComponent,
-            (data: FramePayContext): BankElementComponentProps => ({
+            (data: FramePayContext): BankComponentProps => ({
                 ...data,
                 elementType: 'bankRoutingNumber'
             })
@@ -82,7 +82,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankAccountNumberElement = Hoc(
             'BankAccountNumberElement',
             BankElementComponent,
-            (data: FramePayContext): BankElementComponentProps => ({
+            (data: FramePayContext): BankComponentProps => ({
                 ...data,
                 elementType: 'bankAccountNumber'
             })
@@ -104,7 +104,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardElement = Hoc(
             'CardElement',
             CardElementComponent,
-            (data: FramePayContext): CardElementComponentProps => ({ ...data })
+            (data: FramePayContext): CardComponentProps => ({ ...data })
         );
 
         /**
@@ -113,7 +113,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardCvvElement = Hoc(
             'CardCvvElement',
             CardElementComponent,
-            (data: FramePayContext): CardElementComponentProps => ({
+            (data: FramePayContext): CardComponentProps => ({
                 ...data,
                 elementType: 'cardCvv'
             })
@@ -125,7 +125,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardExpiryElement = Hoc(
             'CardExpiryElement',
             CardElementComponent,
-            (data: FramePayContext): CardElementComponentProps => ({
+            (data: FramePayContext): CardComponentProps => ({
                 ...data,
                 elementType: 'cardExpiry'
             })
@@ -137,7 +137,7 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardNumberElement = Hoc(
             'CardNumberElement',
             CardElementComponent,
-            (data: FramePayContext): CardElementComponentProps => ({
+            (data: FramePayContext): CardComponentProps => ({
                 ...data,
                 elementType: 'cardNumber'
             })

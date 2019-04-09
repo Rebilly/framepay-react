@@ -3,7 +3,7 @@ import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
 export default class BankElement extends BaseElement<
-    BankElementComponentProps,
+    BankComponentProps,
     BankElementComponentState
 > {
     setupElement() {

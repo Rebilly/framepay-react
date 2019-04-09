@@ -3,7 +3,7 @@ import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
 export default class CardElement extends BaseElement<
-    CardElementComponentProps,
+    CardComponentProps,
     CardElementComponentState
 > {
     setupElement() {
