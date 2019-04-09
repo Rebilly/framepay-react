@@ -3,10 +3,6 @@ import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
 
-interface WrappedComponentProps {
-    readonly framePay: FramePayApi;
-}
-
 function Hoc<P extends object>(
     name: string,
     WrappedComponent: React.ComponentType<P>,
@@ -163,7 +159,7 @@ export function withFramePay<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
     return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api
+        Rebilly: data.api
     }));
 }
 
@@ -172,7 +168,7 @@ export function withFramePayCardComponent<P extends object>(
 ) {
     const elements = elementsFabric('card');
     return Hoc('CardComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api,
+        Rebilly: data.api,
         ...elements
     }));
 }
@@ -182,7 +178,7 @@ export function withFramePayBankComponent<P extends object>(
 ) {
     const elements = elementsFabric('bankAccount');
     return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api,
+        Rebilly: data.api,
         ...elements
     }));
 }

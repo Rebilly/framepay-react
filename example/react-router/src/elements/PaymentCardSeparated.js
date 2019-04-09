@@ -16,7 +16,7 @@ class PaymentCardSeparated extends React.Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
-        this.props.framePay.createToken(this.formNode, { billingAddress: { ...this.state } })
+        this.props.Rebilly.createToken(this.formNode, { billingAddress: { ...this.state } })
             .then(data => {
                 console.log('createToken.data', data);
                 alert(JSON.stringify(data, null, 2));

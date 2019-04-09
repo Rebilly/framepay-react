@@ -4,9 +4,8 @@ export default class BaseElement<
     T extends PaymentElementComponentProps,
     S extends PaymentMethodComponentState
 > extends React.Component<T, S> {
-    // TODO
     // @ts-ignore
-    readonly state: PaymentMethodComponentState = {
+    readonly state: S = {
         element: null,
         mounted: false,
         ready: false
@@ -14,7 +13,6 @@ export default class BaseElement<
 
     /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
-
     /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {

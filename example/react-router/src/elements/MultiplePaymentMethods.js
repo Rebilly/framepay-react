@@ -62,7 +62,7 @@ class MultiplePaymentMethods extends React.Component {
          *
          */
         const { firstName, lastName, activeMethod } = this.state;
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode, {
                 method: activeMethod,
                 billingAddress: { firstName, lastName }

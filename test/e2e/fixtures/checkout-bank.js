@@ -72,7 +72,7 @@ class BankElementComponent extends Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode,
             { billingAddress: this.state.billingAddress }
         )
