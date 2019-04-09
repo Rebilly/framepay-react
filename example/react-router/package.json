@@ -8,6 +8,7 @@
     "build": "parcel build ./src/index.html/ --no-minify --no-cache --out-dir ./build"
   },
   "dependencies": {
+    "example": "^0.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-router-dom": "^5.0.0"

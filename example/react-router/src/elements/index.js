@@ -1,14 +1,16 @@
-import BankElement from './BankElement';
-import CardElement from './CardElement';
-import MultipleElements from './MultipleElements';
-import CardElementSeparated from './CardElementSeparated';
-import OtherMethods from './OtherMethods';
+import BankAccount from './BankAccount';
+import PaymentCard from './PaymentCard';
+import MultiplePaymentMethods from './MultiplePaymentMethods';
+import PaymentCardSeparated from './PaymentCardSeparated';
+import OtherPaymentMethods from './OtherPaymentMethods';
+import MethodsAndEvents from './MethodsAndEvents';
 
 
 export {
-    CardElement,
-    BankElement,
-    MultipleElements,
-    CardElementSeparated,
-    OtherMethods
+    PaymentCard,
+    BankAccount,
+    MultiplePaymentMethods,
+    PaymentCardSeparated,
+    OtherPaymentMethods,
+    MethodsAndEvents
 };

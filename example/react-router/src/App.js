@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, IndexLink, NavLink, Route } from 'react-router-dom';
-
 import { FramePayProvider } from '../../../build';
 
 import './App.css';
@@ -8,36 +7,60 @@ import './examples.css';
 
 import * as elements from './elements';
 
+const pkg = require('../../../package');
 
-const unCamelCase = (word) => {
-    return word
-    // insert a space between lower & upper
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        // space before last upper in a sequence followed by lower
-        .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
-        // uppercase the first character
-        .replace(/^./, str => str.toUpperCase());
-};
+const routes = [
+    {
+        title: 'Bank Account',
+        path: 'bank-account',
+        Component: elements.BankAccount,
+        props: {
+            link: `${pkg.repository}/master/example/react-router/src/elements/BankAccount.js`
+        }
+    },
+    {
+        title: 'Payment Card',
+        path: 'payment-card',
+        Component: elements.PaymentCard,
+        props: {
+            link: `${pkg.repository}blob/master/example/react-router/src/elements/PaymentCard.js`
+        }
+    },
+    {
+        title: 'Payment Card Separated',
+        path: 'payment-card-separated',
+        Component: elements.PaymentCardSeparated,
+        props: {
+            link: `${pkg.repository}/blob/master/example/react-router/src/elements/PaymentCardSeparated.js`
+        }
+    },
+    {
+        title: 'Multiple Payment Methods',
+        path: 'multiple-payment-methods',
+        Component: elements.MultiplePaymentMethods,
+        props: {
+            link: `${pkg.repository}/blob/master/example/react-router/src/elements/MultiplePaymentMethods.js`
+        }
+    },
+    {
+        title: 'Other Payment Methods',
+        path: 'other-payment-methods',
+        Component: elements.OtherPaymentMethods,
+        props: {
+            link: `${pkg.repository}/blob/master/example/react-router/src/elements/OtherPaymentMethods.js`
+        }
+    },
+    {
+        title: 'Methods and Events',
+        path: 'methods-and-events',
+        Component: elements.MethodsAndEvents,
+        props: {
+            link: `${pkg.repository}/blob/master/example/react-router/src/elements/MethodsAndEvents.js`
+        }
+    }
+];
 
-const routes = Object.keys(elements)
-    .map((name) => {
-        const title = unCamelCase(name);
-        const path = title.split(' ')
-            .map(s => s.toLowerCase())
-            .join('-');
-        return {
-            Component: elements[name],
-            name,
-            title,
-            path
-        };
-    });
-
-const routeComponents = routes.map((route) => <Route
-    key={`route-${route.name}`}
-    path={`/${route.path}`}
-    render={(props) => <route.Component {...props} title={route.title} exact={true}/>}
-/>);
+const MainRoute = routes.find(r => r.path === 'payment-card');
 
 class App extends Component {
     render() {
@@ -52,7 +75,7 @@ class App extends Component {
 
                             </svg>
                         </div>
-                        <a target="_blank" href="https://rebilly.github.io/framepay-docs"
+                        <a target="_blank" href="https://github.com/Rebilly/framepay-react"
                            className="home-link router-link-active">
                             <span className="site-name">Rebilly FramePay</span>
                         </a>
@@ -67,7 +90,7 @@ class App extends Component {
                                     </p>
                                     <ul className="sidebar-group-items">
                                         {routes.map((route) =>
-                                            <li key={`link-${route.name}`}>
+                                            <li key={`link-${route.path}`}>
                                                 <NavLink
                                                     exact
                                                     className="sidebar-link"
@@ -81,8 +104,15 @@ class App extends Component {
                     </div>
                     <div className="page">
                         <div className="content">
-                            <Route path="/" exact component={routes.find(r => r.name === 'CardElement').Component}/>
-                            {routeComponents}
+                            <Route path="/" exact component={MainRoute.Component}/>
+                            {routes.map((route) => <Route
+                                key={`route-${route.path}`}
+                                path={`/${route.path}`}
+                                render={(props) => <route.Component {...props}
+                                                                    {...route.props}
+                                                                    title={route.title}
+                                                                    exact={true}/>}/>)
+                            }
                         </div>
                     </div>
                 </Router>

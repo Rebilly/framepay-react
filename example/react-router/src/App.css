@@ -1630,3 +1630,15 @@ p {
     font-size: 70%;
     line-height: normal;
 }
+
+.example-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: .3rem;
+    border-bottom: 1px solid #e1e7ea;
+}
+
+.example-title > h2 {
+    border: none;
+}

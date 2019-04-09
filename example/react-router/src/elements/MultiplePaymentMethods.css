@@ -72,66 +72,7 @@
 .example-8 input:-ms-input-placeholder {
     color: #8a97a0;
 }
-.tab {
-    display: block;
-}
-.tab {
-    margin: 0;
-    padding: 0;
-}
-.tab .tab-item {
-    width: 100%;
-    list-style: none;
-}
-.tab .tab-item + .tab-item {
-    margin-top: 4px;
-}
-.tab .tab-item .tab-link {
-    display: block;
-    background: #8a97a0;
-    padding: 11px;
-    color: #ffffff;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 4px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-}
-.tab .tab-item .tab-link:hover {
-    background: #2C3E50;
-}
-.tab .tab-item .tab-link.is-active {
-    background: #2C3E50;
-}
-.tab .tab-item img {
-    margin-top: 4px;
-    max-height: 18px;
-}
-.tab-content-item {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-}
-.tab-content-item.is-active {
-    clip: auto;
-    height: auto;
-    margin: auto;
-    opacity: 1;
-    overflow: visible;
-    padding: 20px 0;
-    position: relative;
-    width: auto;
-}
+
 .example-8 button {
     position: relative;
     display: block;

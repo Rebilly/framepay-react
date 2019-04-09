@@ -6,7 +6,7 @@ import FramePayError from '../../../../../../src/lib/FramePayError';
 
 describe('lib/components/elements/CardElement', () => {
     it('should not setup the element while api is not ready', done => {
-        const props = Substitute.for<CardElementComponentProps>();
+        const props = Substitute.for<CardComponentProps>();
         props.ready.returns(false);
 
         const spy = jest.spyOn(CardElement.prototype, 'setupElement');
@@ -20,7 +20,7 @@ describe('lib/components/elements/CardElement', () => {
     });
 
     it('should setup the element when api is ready', done => {
-        const props = Substitute.for<CardElementComponentProps>();
+        const props = Substitute.for<CardComponentProps>();
         const spy = jest.spyOn(CardElement.prototype, 'setupElement');
 
         const wrapper = mount(<CardElement ready={false} api={props.api} />);
@@ -39,7 +39,7 @@ describe('lib/components/elements/CardElement', () => {
     });
 
     it('should fail the element mount on remote error', () => {
-        const props = Substitute.for<CardElementComponentProps>();
+        const props = Substitute.for<CardComponentProps>();
         props.ready.returns(true);
 
         // @ts-ignore
@@ -55,7 +55,7 @@ describe('lib/components/elements/CardElement', () => {
     });
 
     it('should destroy the element on component unmount', done => {
-        const props = Substitute.for<CardElementComponentProps>();
+        const props = Substitute.for<CardComponentProps>();
         const element = Substitute.for<PaymentElement>();
 
         element.destroy().mimicks(() => {
@@ -76,7 +76,7 @@ describe('lib/components/elements/CardElement', () => {
     });
 
     it('should render the empty div element', () => {
-        const props = Substitute.for<CardElementComponentProps>();
+        const props = Substitute.for<CardComponentProps>();
         const wrapper = shallow(
             <CardElement ready={props.ready} api={props.api} />
         );

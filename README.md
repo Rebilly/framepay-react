@@ -23,14 +23,15 @@
 ### FramePay documentation
 The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-docs/)
 
-### Demos
-- [Tiny example codesandbox](https://codesandbox.io)  
-- [Redux example codesandbox](https://codesandbox.io)      
+### Demos      
 - [Use with react-redux](example/react-redux)    
 - [Use with react-router](example/react-router)   
 - [Use with ServerSide rendering](example/react-ssr)   
 - [Use with TypeSCript](example/react-typescript)   
-- [Examples from README file](example/readme-example)   
+- [Examples from README file](example/readme-example)
+- [Multiple Payment Methods](example/react-router/src/MultiplePaymentMethods.js)      
+- [Separated fields](example/react-router/src/PaymentCardSeparated.js)      
+- [Other Payment Methods](example/react-router/src/OtherPaymentMethods.js)      
 - [More examples e2e test directory](test/e2e/fixtures)    
 
 ### Installation

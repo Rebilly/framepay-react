@@ -6,7 +6,7 @@ import FramePayError from '../../../../../../src/lib/FramePayError';
 
 describe('lib/components/elements/BankElement', () => {
     it('should not setup the element while api is not ready', done => {
-        const props = Substitute.for<BankElementComponentProps>();
+        const props = Substitute.for<BankComponentProps>();
         props.ready.returns(false);
 
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
@@ -20,7 +20,7 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should setup the element when api is ready', done => {
-        const props = Substitute.for<BankElementComponentProps>();
+        const props = Substitute.for<BankComponentProps>();
         props.ready.returns(true);
 
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
@@ -38,7 +38,7 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should fail the element mount on remote error', () => {
-        const props = Substitute.for<BankElementComponentProps>();
+        const props = Substitute.for<BankComponentProps>();
         props.ready.returns(true);
         // @ts-ignore
         props.api.bankAccount.mount(Arg.any()).returns(new Error(`any error`));
@@ -53,7 +53,7 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should destroy the element on component unmount', done => {
-        const props = Substitute.for<BankElementComponentProps>();
+        const props = Substitute.for<BankComponentProps>();
         const element = Substitute.for<PaymentElement>();
 
         element.destroy().mimicks(() => {
@@ -74,7 +74,7 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should render the empty div element', () => {
-        const props = Substitute.for<BankElementComponentProps>();
+        const props = Substitute.for<BankComponentProps>();
         const wrapper = shallow(
             <BankElement ready={props.ready} api={props.api} />
         );
