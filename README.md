@@ -12,6 +12,7 @@
 - [Getting started](#getting-started)
     - [The FramePay context (`FramePayProvider`)](#the-framepay-context-framepayprovider)
     - [Setting up your payment form](#setting-up-your-payment-form)
+        - [With FramePay (`withFramePay`) HOC](#with-framepay-hoc)
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
 - [Advanced options](#advanced-options)
@@ -71,6 +72,10 @@ render(<App/>, document.getElementById('root'));
 ```
 
 #### Setting up your payment form
+
+##### With FramePay (`withFramePay`) HOC
+Simple FramePay HOC to provide `framePay` api in the component.  
+Used in customized forms logic and in [MultiplePaymentMethods](example/react-router/src/elements/MultiplePaymentMethods.js) forms  
 
 ##### Card elements (`withFramePayCardComponent`) HOC
 ```jsx harmony
