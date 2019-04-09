@@ -1,8 +1,9 @@
 {
-    "name": "framepay-react",
+    "name": "@rebilly/framepay-react",
     "version": "1.0.0",
     "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
     "main": "build/index.js",
+    "author": "Eduard Titov",
     "types": "build/index.d.ts",
     "repository": "https://github.com/Rebilly/framepay-react",
     "license": "MIT",
