@@ -12,40 +12,6 @@ import configureStore from './configureStore';
 
 const store = configureStore();
 
-const params = {
-    publishableKey: 'pk_sandbox_1234567890',
-    style: {
-        base: {
-            color: 'green',
-            fontSize: '12px',
-            webkitFontSmoothing: 'auto',
-            fontFeatureSettings: 'test',
-            fontStyle: 'italic',
-            fontVariant: 'normal',
-            fontStretch: 'none',
-            fontSomething: 'not-included',
-            fontOtherThing: 'not-included',
-            lineHeight: '20px'
-        },
-        invalid: {
-            fontWeight: 'bold'
-        }
-    },
-    classes: {
-        base: 'rebilly-framepay',
-        focus: 'rebilly-framepay-focus',
-        valid: 'rebilly-framepay-valid',
-        invalid: 'rebilly-framepay-invalid',
-        buttons: 'rebilly-framepay-buttons',
-        webkitAutofill: 'rebilly-framepay-webkit-autofill'
-    },
-    icon: {
-        foobar: 123,
-        display: true,
-        color: 'blue'
-    }
-};
-
 class CardElementComponent extends Component {
 
     constructor(props) {
@@ -70,7 +36,6 @@ class CardElementComponent extends Component {
             }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log('CardElementComponent.constructor');
     }
 
     handleSubmit(e) {
@@ -86,22 +51,16 @@ class CardElementComponent extends Component {
         )
             .then(data => {
                 this.deepUpdateState({ token: { error: false, data } });
+                alert(JSON.stringify(data, null, 2))
             })
             .catch(err => {
                 this.deepUpdateState({ token: { error: true, data: err } });
+                alert(JSON.stringify(err, null, 2))
             });
     }
 
     deepUpdateState(data) {
         this.setState({ ...deepMerge(this.state, data) });
-    }
-
-    componentWillMount() {
-        console.log('componentWillMount hook');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount hook');
     }
 
     render() {
@@ -195,8 +154,8 @@ const CardElement = connect(
 export default class App extends Component {
 
     render() {
-        return (<Provider injectStyle store={store}>
-            <FramePayProvider {...params}>
+        return (<Provider store={store}>
+            <FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
                 <div>
                     <CardElement/>
                     <DevTools/>
