@@ -1,7 +1,7 @@
 {
     "name": "framepay-react",
     "version": "1.0.0",
-    "description": "description",
+    "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "repository": "https://github.com/Rebilly/framepay-react",
@@ -9,6 +9,7 @@
     "keywords": [
         "framepay",
         "react",
+        "rebilly",
         "billing",
         "payment",
         "framepay-react"
