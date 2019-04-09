@@ -19,7 +19,7 @@
     ],
     "scripts": {
         "dotenv": "node ./env.js",
-        "build": "run-s clean && run-s dotenv && tsc -p tsconfig.json",
+        "build": "cross-env NODE_ENV=production run-s clean && run-s dotenv && tsc -p tsconfig.json",
         "build:e2e": "cross-env NODE_ENV=development run-s dotenv clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
         "dev:e2e": "cross-env NODE_ENV=development && run-s dotenv && parcel ./test/e2e/fixtures/* --no-cache --out-dir test/e2e/build",
         "serve:e2e": "run-s dotenv build:* && node test/e2e/local-server.js",
@@ -33,6 +33,7 @@
         "watch": "run-s clean build && run-p \"build -- --w\" \"test:unit -- --watch\"",
         "clean": "trash build",
         "clean:e2e": "trash test/e2e/build",
+        "postinstall": "run-s build",
         "precommit": "run-s fix",
         "prepush": "run-s fix",
         "all": "run-s fix:* test:* build"
