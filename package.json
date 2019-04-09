@@ -39,7 +39,7 @@
         "all": "run-s fix:* test:* build"
     },
     "engines": {
-        "node": ">=11.0",
+        "node": "^6 || ^8 || ^10",
         "npm": ">=6.4.0",
         "yarn": ">= 1.9"
     },
