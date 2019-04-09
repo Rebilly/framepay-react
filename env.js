@@ -1,7 +1,7 @@
 /**
  *
  * Load the environment variables from .env into the process.env
- * Please use the .env.local to rewrite it
+ * You can use `.env.local` to override it
  * @see env.local.example
  *
  */
