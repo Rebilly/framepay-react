@@ -22,7 +22,7 @@
 - [Development](#development)
 
 ### FramePay documentation
-The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-docs/)
+For more information on FramePay see its [official documentation](https://rebilly.github.io/framepay-docs/) or [repository](https://github.com/Rebilly/framepay-docs).
 
 ### Demos      
 - [Use with react-redux](example/react-redux)    
@@ -36,7 +36,7 @@ The main [Rebilly FramePay documentation](https://rebilly.github.io/framepay-doc
 - [More examples e2e test directory](test/e2e/fixtures)    
 
 ### Installation
-Install the latest version of the SDK with [Yarn](https://yarnpkg.com/en/):
+Install using [Yarn](https://yarnpkg.com/en/):
 ```
 yarn add framepay-react
 ```
