@@ -75,7 +75,7 @@ render(<App/>, document.getElementById('root'));
 
 ##### With FramePay (`withFramePay`) HOC
 Simple FramePay HOC to provide `framePay` api in the component.  
-Used in customized forms logic and in [MultiplePaymentMethods](example/react-router/src/elements/MultiplePaymentMethods.js) forms  
+Used in customized forms logic and in [MultiplePaymentMethods](example/react-router/src/elements/MultiplePaymentMethods.js), [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)     
 
 ##### Card elements (`withFramePayCardComponent`) HOC
 ```jsx harmony

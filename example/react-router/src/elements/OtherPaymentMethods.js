@@ -1,7 +1,7 @@
 import React from 'react';
 import './OtherPaymentMethods.css';
 
-import { withFramePayCardComponent } from '../../../../build';
+import { withFramePay } from '../../../../build';
 
 class OtherPaymentMethods extends React.Component {
 
@@ -104,4 +104,4 @@ class OtherPaymentMethods extends React.Component {
     }
 }
 
-export default withFramePayCardComponent(OtherPaymentMethods);
+export default withFramePay(OtherPaymentMethods);
