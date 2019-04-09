@@ -49,10 +49,10 @@ npm install framepay-react --save
 
 ### Getting started
 
-> The example described in this readme can be found [here](example/readme-example).
+> The example described in this readme can be found [here](example/readme-example)
 
 #### The FramePay context (`FramePayProvider`)
-FramePayProvider provides the settings to the FramePay API, see [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize).  
+FramePayProvider provides settings to the FramePay API. See [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize) for a list of all configuration options.  
 
 ```jsx harmony
 // index.js
@@ -75,14 +75,17 @@ render(<App/>, document.getElementById('root'));
 ```  
 
 #### Setting up your payment form
-
-We recommend the use of the 
+ 
 
 ##### With FramePay (`withFramePay`) HOC
-Simple FramePay HOC to provide `Rebilly` api in the component.  
-Used in customized forms logic and in [MultiplePaymentMethods](example/react-router/src/elements/MultiplePaymentMethods.js), [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)     
+This simple FramePay HOC is used to provide the `Rebilly` API in your component. It is most commonly used in combination with multiple payment methods.  
+
+- [Payment cards and ACH](example/react-router/src/elements/MultiplePaymentMethods.js)
+- [PayPal and Bitcoin](example/react-router/src/elements/OtherPaymentMethods.js)     
 
 ##### Card elements (`withFramePayCardComponent`) HOC
+
+Wrapper for the payment card features.
 ```jsx harmony
 // MyCardPageComponent.js
 import React from 'react';
@@ -140,6 +143,7 @@ export default withFramePayCardComponent(MyCardPageComponent);
 ```
 
 ##### Bank elements (`withFramePayBankComponent`) HOC
+Wrapper for the ACH features.
 ```jsx harmony
 import React from 'react';
 import { withFramePayBankComponent } from 'framepay-react';
@@ -201,10 +205,19 @@ export default withFramePayBankComponent(MyBankPageComponent);
 The **framepay-react** package supports all the [FramePay](https://rebilly.github.io/framepay-docs) initialization settings.
 See [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize) for all customizations.
 
-Additionally the package provides **injectStyle** which allows you to add the default FramePay style in the header of your application. See [adding default element styles](https://rebilly.github.io/framepay-docs/guide/#adding-default-element-styles).
+Additionally `injectStyle` is available. When defined in the `FramePayProvider` it will add the default FramePay CSS in the header of your application. 
+
+```jsx harmony
+<FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
+    <MyCardPageComponent/>
+</FramePayProvider>
+```
+The CSS file is hosted on Rebilly's CDN and is found at this URL: https://cdn.rebilly.com/framepay/v1/rebilly.css
+
+See [adding default element styles](https://rebilly.github.io/framepay-docs/guide/#adding-default-element-styles) in FramePay's documentation for more details.
 
 #### Create Token Parameters
-Supports all FramePay arguments. See [FramePay.createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken) for more details.
+The `createToken` method supports all FramePay arguments. See [Rebilly.createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken) for more details.
 
 ### Troubleshooting
 
