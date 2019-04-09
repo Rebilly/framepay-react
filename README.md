@@ -5,6 +5,8 @@
 
 > React components for FramePay.js
 
+This package is a wrapper for FramePay offering out-of-the-box support for Redux and other common React features.
+
 ## Table of Contents
 - [FramePay documentation](#framepay-documentation)
 - [Demos](#demos)
@@ -16,10 +18,9 @@
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
 - [Advanced options](#advanced-options)
-    - [Initialize settings](#initialize-settings)
-    - [Create Token params](#create-token-params)
+    - [Initialize settings](#initialization-settings)
+    - [Create Token params](#create-token-parameters)
 - [Troubleshooting](#troubleshooting)
-- [Development](#development)
 
 ### FramePay documentation
 For more information on FramePay see its [official documentation](https://rebilly.github.io/framepay-docs/) or [repository](https://github.com/Rebilly/framepay-docs).
@@ -28,12 +29,12 @@ For more information on FramePay see its [official documentation](https://rebill
 - [Use with react-redux](example/react-redux)    
 - [Use with react-router](example/react-router)   
 - [Use with ServerSide rendering](example/react-ssr)   
-- [Use with TypeSCript](example/react-typescript)   
+- [Use with TypeScript](example/react-typescript)   
 - [Examples from README file](example/readme-example)
 - [Multiple Payment Methods](example/react-router/src/elements/MultiplePaymentMethods.js)      
 - [Separated fields](example/react-router/src/elements/PaymentCardSeparated.js)      
 - [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)      
-- [More examples e2e test directory](test/e2e/fixtures)    
+- [More examples from the E2E tests](test/e2e/fixtures)    
 
 ### Installation
 Install using [Yarn](https://yarnpkg.com/en/):
@@ -48,8 +49,10 @@ npm install framepay-react --save
 
 ### Getting started
 
+> The example described in this readme can be found [here](example/readme-example).
+
 #### The FramePay context (`FramePayProvider`)
-FramePayProvider provides the settings to the FramePay api, see [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
+FramePayProvider provides the settings to the FramePay API, see [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize).  
 
 ```jsx harmony
 // index.js
@@ -69,11 +72,11 @@ const App = () => {
 
 render(<App/>, document.getElementById('root'));
 
-```
-
-For a complete example see [here](example/readme-example)  
+```  
 
 #### Setting up your payment form
+
+We recommend the use of the 
 
 ##### With FramePay (`withFramePay`) HOC
 Simple FramePay HOC to provide `Rebilly` api in the component.  
@@ -194,15 +197,14 @@ export default withFramePayBankComponent(MyBankPageComponent);
 
 ### Advanced options
 
-#### Initialize settings
-The **framepay-react** package supports all the [FramePay](https://rebilly.github.io/framepay-docs) settings.
-See [rebilly-initialize section](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)
+#### Initialization settings
+The **framepay-react** package supports all the [FramePay](https://rebilly.github.io/framepay-docs) initialization settings.
+See [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize) for all customizations.
 
-And, one custom setting **injectStyle** - will add the default framepay style link    
-in header section of your app, see [adding-default-element-styles](https://rebilly.github.io/framepay-docs/guide/#adding-default-element-styles)
+Additionally the package provides **injectStyle** which allows you to add the default FramePay style in the header of your application. See [adding default element styles](https://rebilly.github.io/framepay-docs/guide/#adding-default-element-styles).
 
-#### Create Token params
-Supports all FramePay arguments, see [FramePay createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken)
+#### Create Token Parameters
+Supports all FramePay arguments. See [FramePay.createToken](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken) for more details.
 
 ### Troubleshooting
 
