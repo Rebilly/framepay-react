@@ -52,7 +52,7 @@ class CardElementComponent extends Component {
                 firstName: 'first-name-value',
                 lastName: 'last-name-value',
                 address: 'address-value',
-                country: 'country-value',
+                country: 'GB',
                 region: 'region-value'
             },
             token: {

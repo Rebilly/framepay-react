@@ -11,7 +11,7 @@ describe('lib/components/elements/BankElement', () => {
 
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
 
-        mount(<BankElement {...props} />);
+        mount(<BankElement {...props} elementType="bankRoutingNumber" />);
 
         process.nextTick(() => {
             expect(spy).not.toHaveBeenCalled();
@@ -26,7 +26,11 @@ describe('lib/components/elements/BankElement', () => {
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
 
         const wrapper = mount(
-            <BankElement ready={props.ready} api={props.api} />
+            <BankElement
+                ready={props.ready}
+                api={props.api}
+                elementType="bankAccountType"
+            />
         );
 
         process.nextTick(() => {
@@ -39,12 +43,20 @@ describe('lib/components/elements/BankElement', () => {
 
     it('should fail the element mount on remote error', () => {
         const props = Substitute.for<BankComponentProps>();
-        props.ready.returns(true);
-        // @ts-ignore
-        props.api.bankAccount.mount(Arg.any()).returns(new Error(`any error`));
+
+        props.api.bankAccount
+            .mount(Arg.any(), Arg.any())
+            // @ts-ignore
+            .returns(new Error(`remote error`));
 
         try {
-            mount(<BankElement ready={props.ready} api={props.api} />);
+            mount(
+                <BankElement
+                    ready={true}
+                    api={props.api}
+                    elementType="bankAccountNumber"
+                />
+            );
             // never
             expect(true).toEqual(false);
         } catch (error) {
@@ -65,7 +77,13 @@ describe('lib/components/elements/BankElement', () => {
 
         class TmpComponent extends React.Component {
             render() {
-                return <BankElement ready={true} api={props.api} />;
+                return (
+                    <BankElement
+                        ready={true}
+                        api={props.api}
+                        elementType="bankRoutingNumber"
+                    />
+                );
             }
         }
 
@@ -76,7 +94,11 @@ describe('lib/components/elements/BankElement', () => {
     it('should render the empty div element', () => {
         const props = Substitute.for<BankComponentProps>();
         const wrapper = shallow(
-            <BankElement ready={props.ready} api={props.api} />
+            <BankElement
+                ready={props.ready}
+                api={props.api}
+                elementType="bankRoutingNumber"
+            />
         );
         expect(wrapper.html()).toEqual('<div></div>');
     });

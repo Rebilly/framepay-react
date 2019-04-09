@@ -38,18 +38,12 @@ function Hoc<P extends object>(
 const elementsFabric = (type: PaymentElements): object => {
     if (type === 'bankAccount') {
         /**
-         * Default Bank Element
+         * BankAccount
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-bankaccount-mount
          */
-        const BankElement = Hoc(
-            'BankElement',
-            BankElementComponent,
-            (data: FramePayContext): BankComponentProps => ({ ...data })
-        );
 
         /**
-         * Bank AccountT
-         * ype Element
+         * Bank AccountType Element
          */
         const BankAccountTypeElement = Hoc(
             'BankAccountTypeElement',
@@ -87,7 +81,6 @@ const elementsFabric = (type: PaymentElements): object => {
         return {
             BankAccountNumberElement,
             BankAccountTypeElement,
-            BankElement,
             BankRoutingNumberElement
         };
     }
