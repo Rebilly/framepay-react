@@ -20,7 +20,7 @@
     "scripts": {
         "dotenv": "node ./env.js",
         "build": "cross-env NODE_ENV=production run-s clean && run-s dotenv && tsc -p tsconfig.json",
-        "build:e2e": "cross-env NODE_ENV=development run-s dotenv clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
+        "build:e2e": "cross-env NODE_ENV=production run-s dotenv clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
         "dev:e2e": "cross-env NODE_ENV=development && run-s dotenv && parcel ./test/e2e/fixtures/* --no-cache --out-dir test/e2e/build",
         "serve:e2e": "run-s dotenv build:* && node test/e2e/local-server.js",
         "fix": "run-s fix:*",
