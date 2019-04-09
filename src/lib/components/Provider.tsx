@@ -49,6 +49,7 @@ export default class Provider extends React.Component<
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.initializeError,
+                details: 'Api initialize error',
                 trace: e
             });
         }
