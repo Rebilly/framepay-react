@@ -49,7 +49,7 @@ npm install framepay-react --save
 ### Getting started
 
 #### The FramePay context (`FramePayProvider`)
-FramePayProvider provides the settings to the FramePay api, see [rebilly-initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
+FramePayProvider provides the settings to the FramePay api, see [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize)  
 
 ```jsx harmony
 // index.js
