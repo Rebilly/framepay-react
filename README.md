@@ -76,7 +76,7 @@ For a complete example see [here](example/readme-example)
 #### Setting up your payment form
 
 ##### With FramePay (`withFramePay`) HOC
-Simple FramePay HOC to provide `framePay` api in the component.  
+Simple FramePay HOC to provide `Rebilly` api in the component.  
 Used in customized forms logic and in [MultiplePaymentMethods](example/react-router/src/elements/MultiplePaymentMethods.js), [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)     
 
 ##### Card elements (`withFramePayCardComponent`) HOC
@@ -96,7 +96,7 @@ class MyCardPageComponent extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         // @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode,
             { billingAddress: { ...this.state } }
         )
@@ -152,7 +152,7 @@ class MyBankPageComponent extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         // @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode,
             { billingAddress: { ...this.state } }
         )
