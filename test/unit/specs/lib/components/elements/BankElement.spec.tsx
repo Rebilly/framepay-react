@@ -6,12 +6,21 @@ import FramePayError from '../../../../../../src/lib/FramePayError';
 
 describe('lib/components/elements/BankElement', () => {
     it('should not setup the element while api is not ready', done => {
-        const props = Substitute.for<BankComponentProps>();
-        props.ready.returns(false);
+        const props = Substitute.for<BankProps>();
 
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
 
-        mount(<BankElement {...props} elementType="bankRoutingNumber" />);
+        mount(
+            <BankElement
+                {...props}
+                Rebilly={{
+                    ...props.Rebilly,
+                    bankAccount: props.Rebilly.bankAccount,
+                    ready: false
+                }}
+                elementType="bankRoutingNumber"
+            />
+        );
 
         process.nextTick(() => {
             expect(spy).not.toHaveBeenCalled();
@@ -20,15 +29,18 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should setup the element when api is ready', done => {
-        const props = Substitute.for<BankComponentProps>();
-        props.ready.returns(true);
+        const props = Substitute.for<BankProps>();
 
         const spy = jest.spyOn(BankElement.prototype, 'setupElement');
 
         const wrapper = mount(
             <BankElement
-                ready={props.ready}
-                api={props.api}
+                {...props}
+                Rebilly={{
+                    ...props.Rebilly,
+                    bankAccount: props.Rebilly.bankAccount,
+                    ready: true
+                }}
                 elementType="bankAccountType"
             />
         );
@@ -42,9 +54,9 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should fail the element mount on remote error', () => {
-        const props = Substitute.for<BankComponentProps>();
+        const props = Substitute.for<BankProps>();
 
-        props.api.bankAccount
+        props.Rebilly.bankAccount
             .mount(Arg.any(), Arg.any())
             // @ts-ignore
             .returns(new Error(`remote error`));
@@ -52,8 +64,12 @@ describe('lib/components/elements/BankElement', () => {
         try {
             mount(
                 <BankElement
-                    ready={true}
-                    api={props.api}
+                    {...props}
+                    Rebilly={{
+                        ...props.Rebilly,
+                        bankAccount: props.Rebilly.bankAccount,
+                        ready: true
+                    }}
                     elementType="bankAccountNumber"
                 />
             );
@@ -65,7 +81,7 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should destroy the element on component unmount', done => {
-        const props = Substitute.for<BankComponentProps>();
+        const props = Substitute.for<BankProps>();
         const element = Substitute.for<PaymentElement>();
 
         element.destroy().mimicks(() => {
@@ -73,14 +89,18 @@ describe('lib/components/elements/BankElement', () => {
         });
 
         // @ts-ignore
-        props.api.bankAccount.mount(Arg.any(), Arg.any()).returns(element);
+        props.Rebilly.bankAccount.mount(Arg.any(), Arg.any()).returns(element);
 
         class TmpComponent extends React.Component {
             render() {
                 return (
                     <BankElement
-                        ready={true}
-                        api={props.api}
+                        {...props}
+                        Rebilly={{
+                            ...props.Rebilly,
+                            bankAccount: props.Rebilly.bankAccount,
+                            ready: true
+                        }}
                         elementType="bankRoutingNumber"
                     />
                 );
@@ -92,13 +112,13 @@ describe('lib/components/elements/BankElement', () => {
     });
 
     it('should render the empty div element', () => {
-        const props = Substitute.for<BankComponentProps>();
+        const props = Substitute.for<BankProps>();
+
+        // @ts-ignore
+        props.Rebilly.ready.returns(true);
+
         const wrapper = shallow(
-            <BankElement
-                ready={props.ready}
-                api={props.api}
-                elementType="bankRoutingNumber"
-            />
+            <BankElement {...props} Rebilly={props.Rebilly} />
         );
         expect(wrapper.html()).toEqual('<div></div>');
     });
