@@ -15,6 +15,7 @@ export default class Provider extends React.Component<
 
     readonly state: FramePayContext = {
         api: getRebillyApi(),
+        error: null,
         ready: false
     };
 
@@ -31,11 +32,17 @@ export default class Provider extends React.Component<
     }
 
     onApiError() {
-        return this.setState({ ready: false }, () => {
-            throw FramePayError({
-                code: FramePayError.codes.remoteScriptError
-            });
-        });
+        return this.setState(
+            {
+                error: FramePayError.codes.remoteScriptError,
+                ready: false
+            },
+            () => {
+                throw FramePayError({
+                    code: FramePayError.codes.remoteScriptError
+                });
+            }
+        );
     }
 
     async onApiReady() {
@@ -45,13 +52,21 @@ export default class Provider extends React.Component<
             const { injectStyle, children, ...settings } = this.props;
             // tslint:enable:no-shadowed-variable
             api.initialize(settings);
-            this.setState({ ready: true, api });
+            this.setState({ ready: true, api, error: null });
         } catch (e) {
-            throw FramePayError({
-                code: FramePayError.codes.initializeError,
-                details: 'Api initialize error',
-                trace: e
-            });
+            return this.setState(
+                {
+                    error: FramePayError.codes.initializeError,
+                    ready: false
+                },
+                () => {
+                    throw FramePayError({
+                        code: FramePayError.codes.initializeError,
+                        details: 'Api initialize error',
+                        trace: e
+                    });
+                }
+            );
         }
     }
 

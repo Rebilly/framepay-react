@@ -34,7 +34,7 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(200);
+        await page.waitFor(300);
 
         // @ts-ignore
         const isInvalidPaymentCardError = await page.getAttributeOf(
@@ -51,7 +51,7 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(200);
+        await page.waitFor(300);
 
         // @ts-ignore
         const isInvalidPaymentCardError = await page.getAttributeOf(

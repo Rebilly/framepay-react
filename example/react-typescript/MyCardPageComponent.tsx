@@ -7,7 +7,7 @@ interface CardState {
 }
 
 class MyCardPageComponent extends React.Component<
-    CardComponentProps,
+    CardProps,
     CardState
 > {
     private formRef = React.createRef<HTMLFormElement>();
