@@ -2,10 +2,7 @@ import * as React from 'react';
 import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
-export default class BankElement extends BaseElement<
-    BankComponentProps,
-    BankElementComponentState
-> {
+export default class BankElement extends BaseElement<BankProps, BankState> {
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
@@ -21,7 +18,7 @@ export default class BankElement extends BaseElement<
             }
 
             try {
-                return this.props.api.bankAccount.mount(
+                return this.props.Rebilly.bankAccount.mount(
                     this.elementNode,
                     elementType
                 );

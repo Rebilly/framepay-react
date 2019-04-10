@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 export default class BaseElement<
-    T extends PaymentElementComponentProps,
-    S extends PaymentMethodComponentState
+    T extends PaymentComponentProps,
+    S extends PaymentComponentState
 > extends React.Component<T, S> {
     // @ts-ignore
     readonly state: S = {
@@ -41,7 +41,7 @@ export default class BaseElement<
     }
 
     handleSetupElement() {
-        if (!this.props.ready) {
+        if (!this.props.Rebilly.ready) {
             /**
              * The remote api isn't ready
              */

@@ -5,6 +5,7 @@ const { Provider: ContextProvider, Consumer: ContextConsumer } = createContext<
     FramePayContext
 >({
     api: getRebillyApi(),
+    error: null,
     ready: false
 });
 
