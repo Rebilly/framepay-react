@@ -39,12 +39,12 @@ For more information on FramePay see its [official documentation](https://rebill
 ### Installation
 Install using [Yarn](https://yarnpkg.com/en/):
 ```
-yarn add framepay-react
+yarn add @rebilly/framepay-react
 ```
 
 Or using NPM:
 ```
-npm install framepay-react --save
+npm install @rebilly/framepay-react --save
 ```
 
 ### Getting started
