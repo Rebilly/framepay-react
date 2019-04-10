@@ -89,7 +89,7 @@ interface TokenExtraData {
 /**
  * The FramePay api interface (external api)
  */
-interface FramePayApi {
+interface RebillyApi {
     readonly initialize: (settings: FramePaySettings) => void;
     readonly card: CardPaymentMethod;
     readonly bankAccount: BankPaymentMethod;

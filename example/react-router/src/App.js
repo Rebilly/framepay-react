@@ -66,7 +66,7 @@ class App extends Component {
     render() {
         return (
             // Don't forget to add the FramePayProvider
-            <FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
+            <FramePayProvider injectStyle publishableKey="pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h">
                 <Router>
                     <header className="navbar">
                         <div className="sidebar-button">

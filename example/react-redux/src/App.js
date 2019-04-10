@@ -27,7 +27,7 @@ class CardElementComponent extends Component {
                 firstName: 'first-name-value',
                 lastName: 'last-name-value',
                 address: 'address-value',
-                country: 'country-value',
+                country: 'GB',
                 region: 'region-value'
             },
             token: {
@@ -45,7 +45,7 @@ class CardElementComponent extends Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode,
             { billingAddress: this.state.billingAddress }
         )
@@ -155,7 +155,7 @@ export default class App extends Component {
 
     render() {
         return (<Provider store={store}>
-            <FramePayProvider injectStyle publishableKey="pk_sandbox_1234567890">
+            <FramePayProvider injectStyle publishableKey="pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h">
                 <div>
                     <CardElement/>
                     <DevTools/>

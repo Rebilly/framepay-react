@@ -6,7 +6,7 @@ import { deepMerge, prettyDebugRender } from './util';
 import './style.css';
 
 const params = {
-    publishableKey: 'pk_live_PB0BfcVUrp1-0WVzuCKCf-6TnnJ64H0ngd-1AVq',
+    publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h',
     style: {
         base: {
             color: 'green',
@@ -54,7 +54,7 @@ class CardElementComponent extends Component {
                 firstName: 'first-name-value',
                 lastName: 'last-name-value',
                 address: 'address-value',
-                country: 'country-value',
+                country: 'GB',
                 region: 'region-value'
             },
             token: {
@@ -72,7 +72,7 @@ class CardElementComponent extends Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
-        this.props.framePay.createToken(
+        this.props.Rebilly.createToken(
             this.formNode,
             { billingAddress: this.state.billingAddress }
         )

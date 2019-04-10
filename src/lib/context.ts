@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import getFramePayApi from './get-framepay-api';
+import getRebillyApi from './get-rebilly-api';
 
 const { Provider: ContextProvider, Consumer: ContextConsumer } = createContext<
     FramePayContext
 >({
-    api: getFramePayApi(),
+    api: getRebillyApi(),
     ready: false
 });
 

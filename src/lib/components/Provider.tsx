@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ContextProvider } from '../context';
 import { injectScript, injectStyle } from '../dom-util';
 import FramePayError from '../FramePayError';
-import getFramePayApi from '../get-framepay-api';
+import getRebillyApi from '../get-rebilly-api';
 
 export default class Provider extends React.Component<
     ProviderProps,
@@ -14,7 +14,7 @@ export default class Provider extends React.Component<
     };
 
     readonly state: FramePayContext = {
-        api: getFramePayApi(),
+        api: getRebillyApi(),
         ready: false
     };
 
@@ -39,7 +39,7 @@ export default class Provider extends React.Component<
     }
 
     async onApiReady() {
-        const api = getFramePayApi();
+        const api = getRebillyApi();
         try {
             // tslint:disable:no-shadowed-variable
             const { injectStyle, children, ...settings } = this.props;

@@ -20,7 +20,7 @@ class OtherPaymentMethods extends React.Component {
          *
          */
         const { method, ...billingAddress } = this.state;
-        this.props.framePay.createToken(this.formNode, { method, billingAddress })
+        this.props.Rebilly.createToken(this.formNode, { method, billingAddress })
             .then(data => {
                 console.log('createToken.data', data);
                 alert(JSON.stringify(data, null, 2));

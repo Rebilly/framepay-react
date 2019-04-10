@@ -12,7 +12,7 @@ interface PaymentElementComponentProps extends FramePayContext {
 }
 
 interface BankComponentProps extends PaymentElementComponentProps {
-    readonly elementType?: BankPaymentElementTypes;
+    readonly elementType: BankPaymentElementTypes;
 }
 
 interface CardComponentProps extends PaymentElementComponentProps {

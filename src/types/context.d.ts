@@ -1,4 +1,4 @@
 interface FramePayContext {
-    readonly api: FramePayApi;
+    readonly api: RebillyApi;
     readonly ready: boolean;
 }

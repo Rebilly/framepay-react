@@ -3,10 +3,6 @@ import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
 
-interface WrappedComponentProps {
-    readonly framePay: FramePayApi;
-}
-
 function Hoc<P extends object>(
     name: string,
     WrappedComponent: React.ComponentType<P>,
@@ -42,18 +38,12 @@ function Hoc<P extends object>(
 const elementsFabric = (type: PaymentElements): object => {
     if (type === 'bankAccount') {
         /**
-         * Default Bank Element
+         * BankAccount
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-bankaccount-mount
          */
-        const BankElement = Hoc(
-            'BankElement',
-            BankElementComponent,
-            (data: FramePayContext): BankComponentProps => ({ ...data })
-        );
 
         /**
-         * Bank AccountT
-         * ype Element
+         * Bank AccountType Element
          */
         const BankAccountTypeElement = Hoc(
             'BankAccountTypeElement',
@@ -91,7 +81,6 @@ const elementsFabric = (type: PaymentElements): object => {
         return {
             BankAccountNumberElement,
             BankAccountTypeElement,
-            BankElement,
             BankRoutingNumberElement
         };
     }
@@ -163,7 +152,7 @@ export function withFramePay<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
     return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api
+        Rebilly: data.api
     }));
 }
 
@@ -172,7 +161,7 @@ export function withFramePayCardComponent<P extends object>(
 ) {
     const elements = elementsFabric('card');
     return Hoc('CardComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api,
+        Rebilly: data.api,
         ...elements
     }));
 }
@@ -182,7 +171,7 @@ export function withFramePayBankComponent<P extends object>(
 ) {
     const elements = elementsFabric('bankAccount');
     return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        framePay: data.api,
+        Rebilly: data.api,
         ...elements
     }));
 }
