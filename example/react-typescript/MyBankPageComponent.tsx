@@ -6,7 +6,7 @@ interface BankState {
     readonly lastName: string;
 }
 class MyBankPageComponent extends React.Component<
-    BankComponentProps,
+    BankProps,
     BankState
 > {
     private formRef = React.createRef<HTMLFormElement>();

@@ -2,10 +2,7 @@ import * as React from 'react';
 import FramePayError from '../../FramePayError';
 import BaseElement from './BaseElement';
 
-export default class CardElement extends BaseElement<
-    CardComponentProps,
-    CardElementComponentState
-> {
+export default class CardElement extends BaseElement<CardProps, CardState> {
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
@@ -21,7 +18,10 @@ export default class CardElement extends BaseElement<
             }
 
             try {
-                return this.props.api.card.mount(this.elementNode, elementType);
+                return this.props.Rebilly.card.mount(
+                    this.elementNode,
+                    elementType
+                );
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,

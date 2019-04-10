@@ -3,12 +3,18 @@ import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
 
+const makeRebillyProps = (data: FramePayContext): RebillyProps =>
+    Object.assign(Object.create(data.api || {}), {
+        error: data.error,
+        ready: data.ready
+    });
+
 function Hoc<P extends object>(
     name: string,
     WrappedComponent: React.ComponentType<P>,
     provider: (data: FramePayContext) => object
 ) {
-    return class extends React.Component<WrappedComponentProps & P, {}> {
+    return class extends React.Component<P, {}> {
         static readonly displayName = `withFramePay${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
@@ -48,10 +54,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankAccountTypeElement = Hoc(
             'BankAccountTypeElement',
             BankElementComponent,
-            (data: FramePayContext): BankComponentProps => ({
-                ...data,
-                elementType: 'bankAccountType'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'bankAccountType'
+                } as BankProps)
         );
 
         /**
@@ -60,10 +67,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankRoutingNumberElement = Hoc(
             'BankRoutingNumberElement',
             BankElementComponent,
-            (data: FramePayContext): BankComponentProps => ({
-                ...data,
-                elementType: 'bankRoutingNumber'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'bankRoutingNumber'
+                } as BankProps)
         );
 
         /**
@@ -72,10 +80,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const BankAccountNumberElement = Hoc(
             'BankAccountNumberElement',
             BankElementComponent,
-            (data: FramePayContext): BankComponentProps => ({
-                ...data,
-                elementType: 'bankAccountNumber'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'bankAccountNumber'
+                } as BankProps)
         );
 
         return {
@@ -93,7 +102,10 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardElement = Hoc(
             'CardElement',
             CardElementComponent,
-            (data: FramePayContext): CardComponentProps => ({ ...data })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data)
+                } as CardProps)
         );
 
         /**
@@ -102,10 +114,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardCvvElement = Hoc(
             'CardCvvElement',
             CardElementComponent,
-            (data: FramePayContext): CardComponentProps => ({
-                ...data,
-                elementType: 'cardCvv'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'cardCvv'
+                } as CardProps)
         );
 
         /**
@@ -114,10 +127,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardExpiryElement = Hoc(
             'CardExpiryElement',
             CardElementComponent,
-            (data: FramePayContext): CardComponentProps => ({
-                ...data,
-                elementType: 'cardExpiry'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'cardExpiry'
+                } as CardProps)
         );
 
         /**
@@ -126,10 +140,11 @@ const elementsFabric = (type: PaymentElements): object => {
         const CardNumberElement = Hoc(
             'CardNumberElement',
             CardElementComponent,
-            (data: FramePayContext): CardComponentProps => ({
-                ...data,
-                elementType: 'cardNumber'
-            })
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'cardNumber'
+                } as CardProps)
         );
 
         return {
@@ -151,8 +166,8 @@ const elementsFabric = (type: PaymentElements): object => {
 export function withFramePay<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
-    return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        Rebilly: data.api
+    return Hoc('EmptyComponent', WrappedComponent, (data: FramePayContext) => ({
+        Rebilly: makeRebillyProps(data)
     }));
 }
 
@@ -160,8 +175,8 @@ export function withFramePayCardComponent<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
     const elements = elementsFabric('card');
-    return Hoc('CardComponent', WrappedComponent, (data: any) => ({
-        Rebilly: data.api,
+    return Hoc('CardComponent', WrappedComponent, (data: FramePayContext) => ({
+        Rebilly: makeRebillyProps(data),
         ...elements
     }));
 }
@@ -170,8 +185,8 @@ export function withFramePayBankComponent<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
     const elements = elementsFabric('bankAccount');
-    return Hoc('BankComponent', WrappedComponent, (data: any) => ({
-        Rebilly: data.api,
+    return Hoc('BankComponent', WrappedComponent, (data: FramePayContext) => ({
+        Rebilly: makeRebillyProps(data),
         ...elements
     }));
 }

@@ -30,8 +30,8 @@ describe('lib/components/Provider', () => {
 
     it('should add the FramePay styles on the page', () => {
         const props = {
-            publishableKey: 'pk_sandbox_1234567890',
-            injectStyle: true
+            injectStyle: true,
+            publishableKey: 'pk_sandbox_1234567890'
         };
 
         class ChildComponent extends React.Component {
