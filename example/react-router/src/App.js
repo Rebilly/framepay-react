@@ -43,6 +43,14 @@ const routes = [
         }
     },
     {
+        title: 'Multiple Payment Methods (short)',
+        path: 'multiple-payment-methods-short',
+        Component: elements.MultiplePaymentMethods,
+        props: {
+            link: `${pkg.repository}/blob/master/example/react-router/src/elements/MultiplePaymentMethodsShort.js`
+        }
+    },
+    {
         title: 'Other Payment Methods',
         path: 'other-payment-methods',
         Component: elements.OtherPaymentMethods,
