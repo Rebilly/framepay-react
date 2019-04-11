@@ -166,8 +166,13 @@ const elementsFabric = (type: PaymentElements): object => {
 export function withFramePay<P extends object>(
     WrappedComponent: React.ComponentType<P>
 ) {
+    const elements = {
+        ...elementsFabric('card'),
+        ...elementsFabric('bankAccount')
+    };
     return Hoc('EmptyComponent', WrappedComponent, (data: FramePayContext) => ({
-        Rebilly: makeRebillyProps(data)
+        Rebilly: makeRebillyProps(data),
+        ...elements
     }));
 }
 

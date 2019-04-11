@@ -14,6 +14,7 @@ This package is a wrapper for FramePay offering out-of-the-box support for Redux
 - [Getting started](#getting-started)
     - [The FramePay context (`FramePayProvider`)](#the-framepay-context-framepayprovider)
     - [Setting up your payment form](#setting-up-your-payment-form)
+        - [Provided props](#provided-props)
         - [With FramePay (`withFramePay`) HOC](#with-framepay-withframepay-hoc)
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
@@ -32,6 +33,7 @@ For more information on FramePay see its [official documentation](https://rebill
 - [Use with TypeScript](example/react-typescript)   
 - [Examples from README file](example/readme-example)
 - [Multiple Payment Methods](example/react-router/src/elements/MultiplePaymentMethods.js)      
+- [Multiple Payment Methods (short)](example/react-router/src/elements/MultiplePaymentMethodsShort.js)      
 - [Separated fields](example/react-router/src/elements/PaymentCardSeparated.js)      
 - [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)      
 - [More examples from the E2E tests](test/e2e/fixtures)    
@@ -75,12 +77,39 @@ render(<App/>, document.getElementById('root'));
 ```  
 
 #### Setting up your payment form
- 
+
+##### Provided props
+`Card*` See [Rebilly.card.mount()](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-card-mount)
+`Bank*` See [Rebilly.bankAccount.mount()](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-bankaccount-mount)
+
+###### withFramePay (All props)
+- Rebilly [framepay-docs](https://rebilly.github.io/framepay-docs/reference/rebilly.html)
+- BankAccountNumberElement 
+- BankAccountTypeElement  
+- BankRoutingNumberElement  
+- CardElement 
+- CardCvvElement  
+- CardExpiryElement  
+- CardNumberElement
+
+###### withFramePayCardComponent (Card props)
+- Rebilly
+- CardElement  
+- CardCvvElement  
+- CardExpiryElement  
+- CardNumberElement
+
+###### withFramePayBankComponent (Card props)
+- Rebilly
+- BankAccountNumberElement  
+- BankAccountTypeElement  
+- BankRoutingNumberElement 
 
 ##### With FramePay (`withFramePay`) HOC
 This simple FramePay HOC is used to provide the `Rebilly` API in your component. It is most commonly used in combination with multiple payment methods.  
 
 - [Payment cards and ACH](example/react-router/src/elements/MultiplePaymentMethods.js)
+- [Payment cards and ACH (short)](example/react-router/src/elements/MultiplePaymentMethodsShort.js)
 - [PayPal and Bitcoin](example/react-router/src/elements/OtherPaymentMethods.js)     
 
 ##### Card elements (`withFramePayCardComponent`) HOC
