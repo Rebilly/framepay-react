@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
 
 import { FramePayProvider, withFramePayCardComponent } from './../../../build';
-import { deepMerge, prettyDebugRender } from './util';
-import './../../../test/e2e/fixtures/style.css';
 
 import DevTools from './DevTools';
 import * as actions from './actions';
@@ -17,23 +15,13 @@ class CardElementComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: {
-                onReady: null,
-                onChange: null,
-                onFocus: null,
-                onBlur: null
-            },
-            billingAddress: {
-                firstName: 'first-name-value',
-                lastName: 'last-name-value',
-                address: 'address-value',
-                country: 'GB',
-                region: 'region-value'
-            },
-            token: {
-                error: null,
-                data: null
-            }
+            onReady: null,
+            onChange: null,
+            onFocus: null,
+            onBlur: null,
+            firstName: 'first-name-value',
+            lastName: 'last-name-value',
+            country: 'GB'
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -45,40 +33,36 @@ class CardElementComponent extends Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
+        const {
+            firstName,
+            lastName,
+            country
+        } = this.state;
+
         this.props.Rebilly.createToken(
             this.formNode,
-            { billingAddress: this.state.billingAddress }
+            {
+                billingAddress: {
+                    firstName,
+                    lastName,
+                    country
+                }
+            }
         )
             .then(data => {
-                this.deepUpdateState({ token: { error: false, data } });
-                alert(JSON.stringify(data, null, 2))
+                alert(JSON.stringify(data, null, 2));
             })
             .catch(err => {
-                this.deepUpdateState({ token: { error: true, data: err } });
-                alert(JSON.stringify(err, null, 2))
+                alert(JSON.stringify(err, null, 2));
             });
     }
 
-    deepUpdateState(data) {
-        this.setState({ ...deepMerge(this.state, data) });
-    }
-
     render() {
+        console.log('this.props', this.props);
+        console.log('this.state', this.state);
         return (<div>
             <h2>React with Redux example</h2>
-            <div className="flex-wrapper">
-                <div>
-                    <div>
-                        <h2>Redux state:</h2>
-                        <button onClick={() => this.props.increment1()}>increment1</button>
-                        {prettyDebugRender(this.props.redux)}
-                    </div>
-                    <hr/>
-                    <div>
-                        <h2>Component state:</h2>
-                        {prettyDebugRender(this.state)}
-                    </div>
-                </div>
+            <div>
                 <div className="example-2">
                     <form id="form" ref={node => this.formNode = node} method="post" onSubmit={this.handleSubmit}>
                         <fieldset>
@@ -87,9 +71,9 @@ class CardElementComponent extends Component {
                                     type="text"
                                     name="firstName"
                                     placeholder="First Name"
-                                    defaultValue={this.state.billingAddress.firstName}
+                                    defaultValue={this.state.firstName}
                                     onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { firstName: e.target.value } });
+                                        this.setState({ firstName: e.target.value });
                                     }}/>
                             </div>
                             <div className="field">
@@ -97,43 +81,28 @@ class CardElementComponent extends Component {
                                     type="text"
                                     name="lastName"
                                     placeholder="Last Name"
-                                    defaultValue={this.state.billingAddress.lastName}
+                                    defaultValue={this.state.lastName}
                                     onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { lastName: e.target.value } });
-                                    }}/>
-                            </div>
-                            <div className="field">
-                                <input
-                                    type="text"
-                                    name="email"
-                                    placeholder="Email"
-                                    defaultValue={this.state.billingAddress.email}
-                                    onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { email: e.target.value } });
-                                    }}/>
-                            </div>
-                            <div className="field">
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    placeholder="Phone"
-                                    defaultValue={this.state.billingAddress.phone}
-                                    onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { phone: e.target.value } });
+                                        this.setState({ lastName: e.target.value });
                                     }}/>
                             </div>
                             <div>
-                                <h2>Increment value: {this.props.redux.increments.increment_1}</h2>
+                                <h2>Incremented value: {this.props.increments.increment}</h2>
                             </div>
                             <div className="field">
                                 <this.props.CardElement
-                                    onReady={() => this.deepUpdateState({ events: { onReady: true } })}
-                                    onChange={(data) => this.deepUpdateState({ events: { onChange: data } })}
-                                    onFocus={() => this.deepUpdateState({ events: { onReady: true } })}
-                                    onBlur={() => this.deepUpdateState({ events: { onReady: true } })}
+                                    onReady={() => this.setState({ onReady: true })}
+                                    onChange={(data) => this.setState({ onChange: data })}
+                                    onFocus={() => this.setState({ onReady: true })}
+                                    onBlur={() => this.setState({ onReady: true })}
                                 />
                             </div>
                         </fieldset>
+                        <button onClick={(e) => {
+                            e.preventDefault();
+                            this.props.increment();
+                        }}>increment action
+                        </button>
                         <button id="submit">Make Payment</button>
                     </form>
                 </div>
@@ -143,11 +112,9 @@ class CardElementComponent extends Component {
 }
 
 const CardElement = connect(
-    (state) => {
-        return { redux: { ...state } };
-    },
+    (state) => ({ ...state }),
     (dispatch) => ({
-        increment1: () => dispatch(actions.increment1())
+        increment: () => dispatch(actions.increment())
     })
 )(withFramePayCardComponent(CardElementComponent));
 
