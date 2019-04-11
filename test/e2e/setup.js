@@ -28,7 +28,7 @@ beforeAll(async () => {
     page.on('console', msg => console.log('CONSOLE LOG:', msg.text()));
     page.on('error', msg => console.log('ERROR LOG:', msg.text()));
     page.on('requestfailed', msg => console.log('REQUEST ERROR LOG:', msg.text()));
-    global.takeScreenshotOfPage = (title = 'page') => page.screenshot({ path: 'test/e2e/screenshots/' + title + '.png' });
+    global.takeScreenshotOfPage = (title = 'page') => global.page.screenshot({ path: 'test/e2e/screenshots/' + title + '.png' });
 });
 
 

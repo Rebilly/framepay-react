@@ -12,7 +12,9 @@ export const prettyRenderState = (data, parentKey) => {
                     return null;
                 }
 
-                return <li key={`state-render-${key}-${index}`}>
+                return <li
+                    key={`state-render-${key}-${index}`}
+                    id={`key-${key}`}>
                     <span
                         className="key"><b>{key}</b>:</span>
                     &nbsp;
@@ -30,7 +32,7 @@ export const prettyRenderState = (data, parentKey) => {
 
     return <span>
         <span id={`${parentKey}-${val}`} data-value={val}/>
-        <span id={parentKey} data-value={val}>{val}</span>
+        <span id={parentKey} data-value={val}>{String(val)}</span>
     </span>;
 };
 
