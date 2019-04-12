@@ -1,7 +1,15 @@
+// tslint:disable:max-classes-per-file
+
 import * as React from 'react';
 import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
+
+import {
+    FramePayBankProps,
+    FramePayCardProps,
+    FramePayComponentProps
+} from '../../types/injector';
 
 const makeRebillyProps = (data: FramePayContext): RebillyProps =>
     Object.assign(Object.create(data.api || {}), {
@@ -163,35 +171,102 @@ const elementsFabric = (type: PaymentElements): object => {
     );
 };
 
-export function withFramePay<P extends object>(
-    WrappedComponent: React.ComponentType<P>
+export function withFramePay<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<
+        OriginalProps & FramePayComponentProps
+    >
 ) {
     const elements = {
         ...elementsFabric('card'),
         ...elementsFabric('bankAccount')
     };
-    return Hoc('EmptyComponent', WrappedComponent, (data: FramePayContext) => ({
-        Rebilly: makeRebillyProps(data),
-        ...elements
-    }));
+    return class extends React.Component<
+        OriginalProps & FramePayComponentProps,
+        {}
+    > {
+        static readonly displayName = `withFramePay${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
 }
 
-export function withFramePayCardComponent<P extends object>(
-    WrappedComponent: React.ComponentType<P>
+export function withFramePayCardComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<OriginalProps & FramePayCardProps>
 ) {
     const elements = elementsFabric('card');
-    return Hoc('CardComponent', WrappedComponent, (data: FramePayContext) => ({
-        Rebilly: makeRebillyProps(data),
-        ...elements
-    }));
+    return class extends React.Component<
+        OriginalProps & FramePayCardProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayCardComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
 }
 
-export function withFramePayBankComponent<P extends object>(
-    WrappedComponent: React.ComponentType<P>
+export function withFramePayBankComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<OriginalProps & FramePayBankProps>
 ) {
     const elements = elementsFabric('bankAccount');
-    return Hoc('BankComponent', WrappedComponent, (data: FramePayContext) => ({
-        Rebilly: makeRebillyProps(data),
-        ...elements
-    }));
+    return class extends React.Component<
+        OriginalProps & FramePayBankProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayBankComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
 }
