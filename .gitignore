@@ -3,7 +3,7 @@
 .eslintcache
 .nyc_output
 
-.env.local
+.env
 
 build
 dist
