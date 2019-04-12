@@ -14,30 +14,21 @@ describe('bank-separate', () => {
         expect(bank).not.toEqual(null);
     });
 
-    it('should be call the on-ready card element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-bankAccountType-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+    it('should be call the on-ready BankAccountType element hook', async () => {
+        expect(
+            await page.$('#events-bankAccountType-onReady-true')
+        ).not.toEqual(null);
     });
 
-    it('should be call the on-ready cvv element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-bankAccountNumber-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+    it('should be call the on-ready BankAccountNumber element hook', async () => {
+        expect(
+            await page.$('#events-bankAccountNumber-onReady-true')
+        ).not.toEqual(null);
     });
 
-    it('should be call the on-ready expiry element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-bankRoutingNumber-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+    it('should be call the on-ready BankRoutingNumber element hook', async () => {
+        expect(
+            await page.$('#events-bankRoutingNumber-onReady-true')
+        ).not.toEqual(null);
     });
 });

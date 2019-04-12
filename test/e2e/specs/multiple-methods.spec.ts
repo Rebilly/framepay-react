@@ -39,7 +39,7 @@ describe('bank-separate', () => {
         const btn = await page.$('#set-active-method-ach');
         await btn.click();
 
-        await page.waitFor(300);
+        await page.waitFor(500);
 
         // disable all elements
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
@@ -60,7 +60,7 @@ describe('bank-separate', () => {
         const btnMethod = await page.$('#set-active-method-payment-card');
         await btnMethod.click();
 
-        await page.waitFor(300);
+        await page.waitFor(500);
 
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
         expect(
@@ -108,7 +108,7 @@ describe('bank-separate', () => {
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
-                await page.waitFor(1000);
+                await page.waitFor(1500);
 
                 await page.$eval(
                     '#key-events',
@@ -125,13 +125,13 @@ describe('bank-separate', () => {
                 ).not.toEqual(null);
 
                 expect(await page.$('#token-error-false')).not.toEqual(null);
+
                 expect(
                     await page.$('#token-data-method-payment-card')
                 ).not.toEqual(null);
                 expect(
                     await page.$('#token-data-paymentInstrument-brand-Visa')
                 ).not.toEqual(null);
-
                 done();
             }
         });
@@ -210,7 +210,7 @@ describe('bank-separate', () => {
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
-                await page.waitFor(1000);
+                await page.waitFor(1500);
 
                 expect(
                     await page.$(

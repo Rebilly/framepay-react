@@ -15,29 +15,14 @@ describe('card-separate', () => {
     });
 
     it('should be call the on-ready card element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-number-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+        expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
     });
 
     it('should be call the on-ready cvv element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-cvv-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+        expect(await page.$('#events-cvv-onReady-true')).not.toEqual(null);
     });
 
     it('should be call the on-ready expiry element hook', async () => {
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-expiry-onReady-true',
-            'data-value'
-        );
-        expect(isReady).toEqual('true');
+        expect(await page.$('#events-expiry-onReady-true')).not.toEqual(null);
     });
 });
