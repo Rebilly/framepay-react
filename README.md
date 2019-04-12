@@ -27,15 +27,14 @@ This package is a wrapper for FramePay offering out-of-the-box support for Redux
 For more information on FramePay see its [official documentation](https://rebilly.github.io/framepay-docs/) or [repository](https://github.com/Rebilly/framepay-docs).
 
 ### Demos      
-- [Use with react-redux](example/react-redux)    
-- [Use with react-router](example/react-router)   
-- [Use with ServerSide rendering](example/react-ssr)   
-- [Use with TypeScript](example/react-typescript)   
-- [Examples from README file](example/readme-example)
-- [Multiple Payment Methods](example/react-router/src/elements/MultiplePaymentMethods.js)      
-- [Multiple Payment Methods (short)](example/react-router/src/elements/MultiplePaymentMethodsShort.js)      
-- [Separated fields](example/react-router/src/elements/PaymentCardSeparated.js)      
-- [Other Payment Methods](example/react-router/src/elements/OtherPaymentMethods.js)      
+- [Use with react-redux (codesandbox)](https://codesandbox.io/s/n089y731x4)    
+- [Use with react-router (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4)      
+- [Examples from README file (codesandbox)](https://codesandbox.io/s/8ly7ml77y9)
+- [Multiple Payment Methods (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethods.js)      
+- [Multiple Payment Methods Short version (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethodsShort.js)      
+- [Separated fields (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/PaymentCardSeparated.js)      
+- [Other Payment Methods (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/OtherPaymentMethods.js)      
+- [TypeScript (codesandbox)](https://codesandbox.io/s/j74n80zk5w)      
 - [More examples from the E2E tests](test/e2e/fixtures)    
 
 ### Installation
@@ -51,7 +50,7 @@ npm install @rebilly/framepay-react --save
 
 ### Getting started
 
-> The example described in this readme can be found [here](example/readme-example)
+> The example described in this readme can be found [here (codesandbox)](https://codesandbox.io/s/8ly7ml77y9)
 
 #### The FramePay context (`FramePayProvider`)
 FramePayProvider provides settings to the FramePay API. See [Rebilly.initialize](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-initialize) for a list of all configuration options.  
@@ -108,9 +107,9 @@ render(<App/>, document.getElementById('root'));
 ##### With FramePay (`withFramePay`) HOC
 This simple FramePay HOC is used to provide the `Rebilly` API in your component. It is most commonly used in combination with multiple payment methods.  
 
-- [Payment cards and ACH](example/react-router/src/elements/MultiplePaymentMethods.js)
-- [Payment cards and ACH (short)](example/react-router/src/elements/MultiplePaymentMethodsShort.js)
-- [PayPal and Bitcoin](example/react-router/src/elements/OtherPaymentMethods.js)     
+- [Payment cards and ACH (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethods.js)      
+- [Payment cards and ACH Short version (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethodsShort.js)            
+- [PayPal and Bitcoin (codesandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/OtherPaymentMethods.js)      
 
 ##### Card elements (`withFramePayCardComponent`) HOC
 
