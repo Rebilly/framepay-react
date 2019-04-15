@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FRAMEPAY_SCRIPT_LINK } from '../constants';
 import { ContextProvider } from '../context';
 import { injectScript, injectStyle } from '../dom-util';
 import FramePayError from '../FramePayError';
@@ -39,7 +40,8 @@ export default class Provider extends React.Component<
             },
             () => {
                 throw FramePayError({
-                    code: FramePayError.codes.remoteScriptError
+                    code: FramePayError.codes.remoteScriptError,
+                    details: `Remote CDN link "${FRAMEPAY_SCRIPT_LINK}"`
                 });
             }
         );

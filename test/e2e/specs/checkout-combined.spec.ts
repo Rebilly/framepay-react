@@ -15,15 +15,7 @@ describe('checkout-combined', () => {
     });
 
     it('should be call the on-ready hook', async () => {
-        const onReady = await page.$('#events-onReady');
-        // @ts-ignore
-        const isReady = await page.getAttributeOf(
-            '#events-onReady',
-            'data-value'
-        );
-
-        expect(onReady).not.toEqual(null);
-        expect(isReady).toEqual('true');
+        expect(await page.$('#events-onReady-true')).not.toEqual(null);
     });
 
     it('should call the on-change hook', async () => {
@@ -36,12 +28,9 @@ describe('checkout-combined', () => {
         // wait iframepay validation calls
         await page.waitFor(300);
 
-        // @ts-ignore
-        const isInvalidPaymentCardError = await page.getAttributeOf(
-            '#token-data-code-invalid-payment-card',
-            'data-value'
-        );
-        expect(isInvalidPaymentCardError).toEqual('invalid-payment-card');
+        expect(
+            await page.$('#token-data-code-invalid-payment-card')
+        ).not.toEqual(null);
     });
 
     it('should handle the error on empty card number', async () => {
@@ -53,11 +42,8 @@ describe('checkout-combined', () => {
         // wait iframepay validation calls
         await page.waitFor(300);
 
-        // @ts-ignore
-        const isInvalidPaymentCardError = await page.getAttributeOf(
-            '#token-data-code-invalid-payment-card',
-            'data-value'
-        );
-        expect(isInvalidPaymentCardError).toEqual('invalid-payment-card');
+        expect(
+            await page.$('#token-data-code-invalid-payment-card')
+        ).not.toEqual(null);
     });
 });

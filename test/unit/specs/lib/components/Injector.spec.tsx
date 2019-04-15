@@ -8,13 +8,22 @@ import {
     withFramePayBankComponent,
     withFramePayCardComponent
 } from '../../../../../src';
+
+import { FramePayComponentProps } from '../../../../../src/types/injector';
+
 import { ContextProvider } from '../../../../../src/lib/context';
 
 describe('lib/components/Injector', () => {
     it('withFramePay HOC the context data should be provided', () => {
         expect(true).toEqual(true);
 
-        class TMPComponent extends React.Component<PaymentComponentProps> {
+        interface OriginalProps {
+            readonly someProperty: string;
+        }
+
+        class TMPComponent extends React.Component<
+            OriginalProps & FramePayComponentProps
+        > {
             render() {
                 return (
                     <div>
@@ -52,7 +61,13 @@ describe('lib/components/Injector', () => {
     it('withFramePayCardComponent HOC the context data should be provided', () => {
         expect(true).toEqual(true);
 
-        class TMPComponent extends React.Component<PaymentComponentProps> {
+        interface OriginalProps {
+            readonly someProperty: string;
+        }
+
+        class TMPComponent extends React.Component<
+            OriginalProps & FramePayComponentProps
+        > {
             render() {
                 return (
                     <div>
@@ -92,7 +107,13 @@ describe('lib/components/Injector', () => {
     it('withFramePayBankComponent HOC the context data should be provided', () => {
         expect(true).toEqual(true);
 
-        class TMPComponent extends React.Component<PaymentComponentProps> {
+        interface OriginalProps {
+            readonly someProperty: string;
+        }
+
+        class TMPComponent extends React.Component<
+            OriginalProps & FramePayComponentProps
+        > {
             render() {
                 return (
                     <div>

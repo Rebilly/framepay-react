@@ -1,7 +1,0 @@
-.idea
-.cache
-dist
-.eslintcache
-/node_modules
-*.log
-/dist/

@@ -4,12 +4,11 @@ export default class BaseElement<
     T extends PaymentComponentProps,
     S extends PaymentComponentState
 > extends React.Component<T, S> {
-    // @ts-ignore
-    readonly state: S = {
+    readonly state = {
         element: null,
         mounted: false,
         ready: false
-    };
+    } as S;
 
     /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
