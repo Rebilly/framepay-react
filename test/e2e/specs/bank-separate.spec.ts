@@ -14,7 +14,7 @@ describe('bank-separate', () => {
         expect(bank).not.toEqual(null);
     });
 
-    it('should be call the on-ready BankAccountType element hook', async () => {
+    it('should call the on-ready BankAccountType element hook', async () => {
         expect(
             await page.$('#events-bankAccountType-onReady-true')
         ).not.toEqual(null);
