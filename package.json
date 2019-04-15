@@ -21,7 +21,7 @@
     ],
     "scripts": {
         "dotenv": "node ./env.js",
-        "build": "cross-env NODE_ENV=production run-s clean && run-s dotenv && tsc -p tsconfig.json",
+        "build": "cross-env NODE_ENV=production run-s clean && tsc -p tsconfig.json",
         "build:e2e": "cross-env NODE_ENV=production run-s dotenv clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
         "dev:e2e": "cross-env NODE_ENV=development && run-s dotenv && parcel ./test/e2e/fixtures/* --no-cache --out-dir test/e2e/build",
         "serve:e2e": "run-s dotenv build:* && node test/e2e/local-server.js",
@@ -40,14 +40,15 @@
         "prepush": "run-s fix",
         "all": "run-s fix:* test:* build"
     },
+    "peerDependencies": {
+        "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
+        "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0"
+    },
     "dependencies": {
         "@types/react": "^16.8.10",
         "@types/node": "^11.13.0",
-        "react": "^16.8.6",
         "cross-env": "^5.2.0",
-        "dotenv": "^7.0.0",
         "npm-run-all": "^4.1.5",
-        "react-dom": "^16.8.6",
         "trash-cli": "^1.4.0",
         "typescript": "^3.1.6"
     },
@@ -58,6 +59,7 @@
         "@types/jest": "^24.0.11",
         "@types/jest-environment-puppeteer": "^4.0.0",
         "@types/puppeteer": "^1.12.3",
+        "dotenv": "^7.0.0",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
         "express": "^4.16.4",
@@ -73,6 +75,8 @@
         "portfinder": "^1.0.20",
         "prettier": "^1.15.2",
         "puppeteer": "^1.14.0",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
         "ts-jest": "^24.0.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
