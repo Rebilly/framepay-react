@@ -26,7 +26,7 @@ describe('bank-separate', () => {
         ).not.toEqual(null);
     });
 
-    it('should be call the on-ready BankRoutingNumber element hook', async () => {
+    it('should call the on-ready BankRoutingNumber element hook', async () => {
         expect(
             await page.$('#events-bankRoutingNumber-onReady-true')
         ).not.toEqual(null);
