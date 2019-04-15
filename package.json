@@ -40,11 +40,6 @@
         "prepush": "run-s fix",
         "all": "run-s fix:* test:* build"
     },
-    "engines": {
-        "node": ">=6",
-        "npm": ">=6.4.0",
-        "yarn": ">= 1.9"
-    },
     "dependencies": {
         "@types/react": "^16.8.10",
         "@types/node": "^11.13.0",
