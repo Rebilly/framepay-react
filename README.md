@@ -102,7 +102,7 @@ publishableKey="pk_sandbox_1234567890"
 - `CardExpiryElement` 
 - `CardNumberElement`
 
-###### withFramePayBankComponent (Card props)
+###### withFramePayBankComponent (Bank props)
 - Rebilly
 - `BankAccountNumberElement`
 - `BankAccountTypeElement`
