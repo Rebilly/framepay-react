@@ -1,6 +1,6 @@
 # framepay-react
 
-[![npm](https://img.shields.io/npm/v/framepay-react.svg)](https://www.npmjs.com/package/framepay-react)
+[![npm](https://img.shields.io/npm/v/@rebilly/framepay-react.svg)](https://www.npmjs.com/package/@rebilly/framepay-react)
 [![Build Status](https://travis-ci.org/Rebilly/framepay-react.svg?branch=master)](https://travis-ci.org/Rebilly/framepay-react)  
 
 > React components for FramePay.js
