@@ -1,0 +1,55 @@
+iframe {
+    border: 0;
+    outline: none;
+}
+
+form {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+fieldset {
+    border: 0;
+}
+
+.field {
+    margin: 5px 0;
+}
+
+input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 1px;
+}
+
+button#submit {
+    display: block;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+button#submit:hover {
+    cursor: pointer;
+}
+
+.flex-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.flex-wrapper > div:first-child {
+    font-size: 80%;
+    line-height: normal;
+}
+
+.flex-wrapper > div {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin: 5px;
+}
+
+#pre,
+#data {
+    background: #ddd;
+}

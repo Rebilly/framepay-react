@@ -1,0 +1,112 @@
+{
+    "name": "@rebilly/framepay-react",
+    "version": "1.0.0",
+    "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
+    "main": "build/index.js",
+    "author": "Eduard Titov",
+    "types": "build/index.d.ts",
+    "repository": "https://github.com/Rebilly/framepay-react",
+    "license": "MIT",
+    "keywords": [
+        "framepay",
+        "react",
+        "rebilly",
+        "billing",
+        "payment",
+        "framepay-react"
+    ],
+    "files": [
+        "build",
+        "src"
+    ],
+    "scripts": {
+        "dotenv": "node ./env.js",
+        "build": "cross-env NODE_ENV=production run-s clean && run-s dotenv && tsc -p tsconfig.json",
+        "build:e2e": "cross-env NODE_ENV=production run-s dotenv clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
+        "dev:e2e": "cross-env NODE_ENV=development && run-s dotenv && parcel ./test/e2e/fixtures/* --no-cache --out-dir test/e2e/build",
+        "serve:e2e": "run-s dotenv build:* && node test/e2e/local-server.js",
+        "fix": "run-s fix:*",
+        "fix:prettier": "prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\"  --write",
+        "fix:tslint": "tslint --fix --project .",
+        "test": "run-s test:*",
+        "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
+        "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
+        "test:e2e": "run-s dotenv build:e2e && node test/e2e/jest.js",
+        "watch": "run-s clean build && run-p \"build -- --w\" \"test:unit -- --watch\"",
+        "clean": "trash build",
+        "clean:e2e": "trash test/e2e/build",
+        "postinstall": "run-s build",
+        "precommit": "run-s fix",
+        "prepush": "run-s fix",
+        "all": "run-s fix:* test:* build"
+    },
+    "engines": {
+        "node": ">=6",
+        "npm": ">=6.4.0",
+        "yarn": ">= 1.9"
+    },
+    "dependencies": {
+        "@types/react": "^16.8.10",
+        "@types/node": "^11.13.0",
+        "react": "^16.8.6",
+        "cross-env": "^5.2.0",
+        "dotenv": "^7.0.0",
+        "npm-run-all": "^4.1.5",
+        "react-dom": "^16.8.6",
+        "trash-cli": "^1.4.0",
+        "typescript": "^3.1.6"
+    },
+    "devDependencies": {
+        "@fluffy-spoon/substitute": "^1.86.0",
+        "@types/enzyme": "^3.9.1",
+        "@types/expect-puppeteer": "^3.3.1",
+        "@types/jest": "^24.0.11",
+        "@types/jest-environment-puppeteer": "^4.0.0",
+        "@types/puppeteer": "^1.12.3",
+        "enzyme": "^3.9.0",
+        "enzyme-adapter-react-16": "^1.11.2",
+        "express": "^4.16.4",
+        "husky": "^1.3.1",
+        "jest": "^24.6.0",
+        "jest-pnp-resolver": "^1.2.1",
+        "jest-puppeteer": "^4.1.0",
+        "jest-resolve": "^24.6.0",
+        "jest-watch-typeahead": "^0.3.0",
+        "jsdom": "^14.0.0",
+        "jsdom-global": "^3.0.2",
+        "parcel": "^1.12.3",
+        "portfinder": "^1.0.20",
+        "prettier": "^1.15.2",
+        "puppeteer": "^1.14.0",
+        "ts-jest": "^24.0.1",
+        "tslint": "^5.11.0",
+        "tslint-config-prettier": "^1.17.0",
+        "tslint-immutable": "^5.0.0"
+    },
+    "jest": {
+        "globals": {
+            "ts-jest": {
+                "tsConfig": "tsconfig.spec.json"
+            }
+        },
+        "restoreMocks": true,
+        "transform": {
+            ".(ts|tsx)": "ts-jest"
+        },
+        "moduleFileExtensions": [
+            "json",
+            "ts",
+            "tsx",
+            "js"
+        ],
+        "preset": "jest-puppeteer"
+    },
+    "prettier": {
+        "singleQuote": true
+    },
+    "nyc": {
+        "exclude": [
+            "**/*.spec.js"
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "max-len": [
+      1,
+      120,
+      2,
+      {
+        "ignoreComments": true
+      }
+    ],
+    "prop-types": [
+      2
+    ]
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb-base"
+  ],
+  "globals": {
+    "Rebilly": false
+  },
+  "plugins": [
+    "jsdoc"
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.8.5"
+    }
+  }
+}

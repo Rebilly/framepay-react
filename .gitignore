@@ -1,0 +1,17 @@
+.idea
+.cache
+.eslintcache
+.nyc_output
+
+.env
+
+build
+dist
+coverage
+node_modules
+
+test/e2e/screenshots/*.png
+
+*.log
+package-lock.json
+
