@@ -7,7 +7,7 @@ describe('bank-separate', () => {
         await expect(page.title()).resolves.toMatch('Test Multiple Methods');
     });
 
-    it('should be call the on-ready card element hook', async () => {
+    it('should call the on-ready card element hook', async () => {
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
     });
 
