@@ -17,7 +17,8 @@
     ],
     "files": [
         "build",
-        "src"
+        "src",
+        "tsconfig.json"
     ],
     "scripts": {
         "dotenv": "node ./env.js",
