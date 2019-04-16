@@ -15,7 +15,7 @@ const makeRebillyProps = (data: FramePayContext): RebillyProps =>
     Object.assign(Object.create(data.api || {}), {
         error: data.error,
         ready: data.ready
-    });
+    }) as RebillyProps;
 
 function Hoc<P extends object>(
     name: string,
@@ -30,7 +30,7 @@ function Hoc<P extends object>(
         render() {
             return (
                 <ContextConsumer>
-                    {data => {
+                    {(data: FramePayContext) => {
                         const provided = provider(data);
                         return (
                             <WrappedComponent
@@ -219,6 +219,7 @@ export function withFramePayCardComponent<OriginalProps extends object>(
         static readonly displayName = `withFramePayCardComponent${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
+
         render() {
             return (
                 <ContextConsumer>
