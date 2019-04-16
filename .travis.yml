@@ -17,6 +17,7 @@ after_success:
 - npx nyc report --reporter=lcov | npx codecov
 - npm run cov:check
 deploy:
+  skip_cleanup: true
   provider: npm
   email: andrei.moldoveanu@gmail.com
   api_key:
