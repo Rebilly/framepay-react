@@ -20,7 +20,7 @@
     ],
     "scripts": {
         "dotenv": "node ./env.js",
-        "build": "cross-env NODE_ENV=production run-s clean && tsc -p tsconfig.json",
+        "build": "cross-env NODE_ENV=production tsc -p tsconfig.json",
         "build:e2e": "cross-env NODE_ENV=production run-s dotenv build clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
         "dev:e2e": "cross-env NODE_ENV=development && run-s dotenv && parcel ./test/e2e/fixtures/* --no-cache --out-dir test/e2e/build",
         "serve:e2e": "run-s dotenv build:* && node test/e2e/local-server.js",
@@ -31,8 +31,7 @@
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
         "test:e2e": "run-s dotenv build:e2e && node test/e2e/jest.js",
-        "watch": "run-s clean build && run-p \"build -- --w\" \"test:unit -- --watch\"",
-        "clean": "trash build",
+        "watch": "run-s build && run-p \"build -- --w\" \"test:unit -- --watch\"",
         "clean:e2e": "trash test/e2e/build",
         "precommit": "run-s fix",
         "prepush": "run-s fix",
@@ -45,11 +44,7 @@
     "dependencies": {
         "@types/node": "^11.13.0",
         "@types/react": "^16.8.10",
-        "create-react-context": "^0.2.3",
-        "cross-env": "^5.2.0",
-        "npm-run-all": "^4.1.5",
-        "trash-cli": "^1.4.0",
-        "typescript": "^3.1.6"
+        "create-react-context": "^0.2.3"
     },
     "devDependencies": {
         "@fluffy-spoon/substitute": "^1.86.0",
@@ -79,7 +74,11 @@
         "ts-jest": "^24.0.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
-        "tslint-immutable": "^5.0.0"
+        "tslint-immutable": "^5.0.0",
+        "cross-env": "^5.2.0",
+        "npm-run-all": "^4.1.5",
+        "trash-cli": "^1.4.0",
+        "typescript": "^3.1.6"
     },
     "jest": {
         "globals": {
