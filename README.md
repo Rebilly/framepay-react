@@ -5,6 +5,8 @@
 
 > React components for FramePay.js
 
+Supported: React 14, 15, 16 (latest)  
+
 This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs/) offering out-of-the-box support for Redux and other common React features.
 
 ## Table of Contents
@@ -29,7 +31,7 @@ For more information on FramePay see its [official documentation](https://rebill
 ### Demos      
 - [Use with react-redux (CodeSandbox)](https://codesandbox.io/s/n089y731x4)    
 - [Use with react-router (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4)      
-- [Examples from README file (CodeSandbox)](https://codesandbox.io/s/8ly7ml77y9)
+- [Examples from README file (CodeSandbox, React 14/15)](https://codesandbox.io/s/8ly7ml77y9)
 - [Multiple Payment Methods (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethods.js)      
 - [Multiple Payment Methods Short version (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethodsShort.js)      
 - [Separated fields for the payment card method (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/PaymentCardSeparated.js)      
