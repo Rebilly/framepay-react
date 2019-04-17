@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import { FramePayProvider, withFramePay } from '../../../build';
-import { deepMerge, prettyDebugRender } from './util';
+import { deepMerge, prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
 const params = {
@@ -192,6 +192,7 @@ class App extends Component {
     render() {
         return (<FramePayProvider injectStyle {...params}>
             <div>
+                {ReactVersion()}
                 <PaymentForm/>
             </div>
         </FramePayProvider>);

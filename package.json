@@ -19,6 +19,11 @@
         "build"
     ],
     "scripts": {
+        "set-react-14": "cross-env REACT_VERSION=0.14.0 node ./test/e2e/switch-react-version",
+        "set-react-15": "cross-env REACT_VERSION=15.0.0 node ./test/e2e/switch-react-version",
+        "set-react-latest": "cross-env REACT_VERSION=latest node ./test/e2e/switch-react-version",
+        "clean-react-alias": "cross-env REACT_VERSION=clean node ./test/e2e/switch-react-version",
+        "run-jest": "node test/e2e/jest.js --env=node --no-cache --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
         "dotenv": "node ./env.js",
         "build": "cross-env NODE_ENV=production tsc -p tsconfig.json",
         "build:e2e": "cross-env NODE_ENV=production run-s dotenv build clean:e2e && parcel build ./test/e2e/fixtures/* --no-minify --no-cache --out-dir test/e2e/build",
@@ -30,7 +35,10 @@
         "test": "run-s test:*",
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
-        "test:e2e": "run-s dotenv build:e2e && node test/e2e/jest.js",
+        "test:e2e": "run-s test:e2e:*",
+        "test:e2e:react-14": "cross-env REACT_VERSION=0.14.0 run-s set-react-14 dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-15": "cross-env REACT_VERSION=15.0.0 run-s set-react-15 dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-latest": "cross-env REACT_VERSION=latest run-s set-react-latest dotenv build:e2e clean-react-alias run-jest",
         "watch": "run-s build && run-p \"build -- --w\" \"test:unit -- --watch\"",
         "clean:e2e": "trash test/e2e/build",
         "precommit": "run-s fix",
