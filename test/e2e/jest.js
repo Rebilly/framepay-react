@@ -4,7 +4,7 @@ const runServer = require('./server');
 (async () => {
     const { port, server } = await runServer();
     process.env.PORT = port;
-    await require('jest').run('--env=node --no-cache --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer');
+    await require('jest').run(process.argv.slice(2).join(' '));
     server.close();
     process.exit();
 })();

@@ -62,3 +62,10 @@ export const deepMerge = (target, source) => {
 
     return Object.assign(target || {}, source);
 };
+
+
+export const ReactVersion = () => {
+    return (<div>
+        <h1 id="react-version" data-version={React.version}>{React.version}</h1>
+    </div>);
+};
