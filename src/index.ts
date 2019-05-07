@@ -10,7 +10,7 @@ import {
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps
-} from './types/injector';
+} from '../types/injector';
 
 export {
     FramePayProvider,

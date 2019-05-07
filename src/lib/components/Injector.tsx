@@ -9,7 +9,7 @@ import {
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps
-} from '../../types/injector';
+} from '../../../types/injector';
 
 const makeRebillyProps = (data: FramePayContext): RebillyProps =>
     Object.assign(Object.create(data.api || {}), {
