@@ -16,7 +16,8 @@
         "framepay-react"
     ],
     "files": [
-        "build"
+        "build",
+        "types"
     ],
     "scripts": {
         "set-react-14": "cross-env REACT_VERSION=0.14.0 node ./test/e2e/switch-react-version",
