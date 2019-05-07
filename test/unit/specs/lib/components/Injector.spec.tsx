@@ -9,7 +9,7 @@ import {
     withFramePayCardComponent
 } from '../../../../../src';
 
-import { FramePayComponentProps } from '../../../../../src/types/injector';
+import { FramePayComponentProps } from '../../../../../types/injector';
 
 import { ContextProvider } from '../../../../../src/lib/context';
 
