@@ -86,10 +86,27 @@ class CardElementComponent extends Component {
          * @see https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-createtoken
          *
          */
-        this.props.Rebilly.createToken(
-            this.formNode,
-            { billingAddress: this.state.billingAddress }
-        )
+        const billingAddress = {
+            ...this.state.billingAddress
+        };
+        if (billingAddress.emails) {
+            billingAddress.emails = [
+                {
+                    label: 'Email',
+                    value: billingAddress.emails
+                }
+            ];
+        }
+        if (billingAddress.phoneNumbers) {
+            billingAddress.phoneNumbers = [
+                {
+                    label: 'Phone Number',
+                    value: billingAddress.phoneNumbers
+                }
+            ];
+        }
+
+        this.props.Rebilly.createToken(this.formNode, { billingAddress })
             .then(data => {
                 this.deepUpdateState({ token: { error: false, data } });
             })
@@ -135,9 +152,9 @@ class CardElementComponent extends Component {
                                     type="text"
                                     name="email"
                                     placeholder="Email"
-                                    defaultValue={this.state.billingAddress.email}
+                                    defaultValue={this.state.billingAddress.emails}
                                     onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { email: e.target.value } });
+                                        this.deepUpdateState({ billingAddress: { emails: e.target.value } });
                                     }}/>
                             </div>
                             <div className="field">
@@ -145,9 +162,9 @@ class CardElementComponent extends Component {
                                     type="text"
                                     name="phone"
                                     placeholder="Phone"
-                                    defaultValue={this.state.billingAddress.phone}
+                                    defaultValue={this.state.billingAddress.phoneNumbers}
                                     onChange={e => {
-                                        this.deepUpdateState({ billingAddress: { phone: e.target.value } });
+                                        this.deepUpdateState({ billingAddress: { phoneNumbers: e.target.value } });
                                     }}/>
                             </div>
                             <div className="field">

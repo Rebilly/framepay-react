@@ -83,9 +83,10 @@ publishableKey="pk_sandbox_1234567890"
 
 #### Setting up your payment form
 
-##### Provided props
-- For all `Card*Element` types see [Rebilly.card.mount()](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-card-mount)
-- For all `Bank*Element` types see [Rebilly.bankAccount.mount()](https://rebilly.github.io/framepay-docs/reference/rebilly.html#rebilly-bankaccount-mount)
+###### WARNING
+Please, don't implementing the unmount functionality, use the examples.    
+
+The react lifecycle methods already implemented in the library.  
 
 ###### withFramePay (All props)
 - Rebilly - [FramePay's namespace](https://rebilly.github.io/framepay-docs/reference/rebilly.html)
