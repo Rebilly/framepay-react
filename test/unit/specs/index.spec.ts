@@ -1,6 +1,7 @@
 import * as lib from '../../../src/index';
 
 const exportKeys: ReadonlyArray<string> = [
+    'SUPPORTED_CARD_BRANDS',
     'FramePayProvider',
     'withFramePay',
     'withFramePayCardComponent',

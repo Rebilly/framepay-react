@@ -1,49 +1,34 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayCardComponent } from '../../../build';
+import { FramePayProvider, SUPPORTED_CARD_BRANDS, withFramePayCardComponent } from '../../../build';
 import { deepMerge, prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
+console.log('card-separate-brands.js', SUPPORTED_CARD_BRANDS);
+
 const params = {
     publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h',
-    style: {
-        base: {
-            color: 'green',
-            fontSize: '12px',
-            webkitFontSmoothing: 'auto',
-            fontFeatureSettings: 'test',
-            fontStyle: 'italic',
-            fontVariant: 'normal',
-            fontStretch: 'none',
-            fontSomething: 'not-included',
-            fontOtherThing: 'not-included',
-            lineHeight: '20px'
-        },
-        invalid: {
-            fontWeight: 'bold'
-        }
-    },
-    classes: {
-        base: 'rebilly-framepay',
-        focus: 'rebilly-framepay-focus',
-        valid: 'rebilly-framepay-valid',
-        invalid: 'rebilly-framepay-invalid',
-        buttons: 'rebilly-framepay-buttons',
-        webkitAutofill: 'rebilly-framepay-webkit-autofill'
-    },
     icon: {
-        foobar: 123,
         display: true,
         color: 'blue'
+    },
+    cardBrands: {
+        allowed: [
+            SUPPORTED_CARD_BRANDS.MasterCard,
+            SUPPORTED_CARD_BRANDS.Amex
+        ]
     }
 };
+
+console.log('params', params);
 
 class CardElementComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            button: null,
             events: {
                 number: {
                     onReady: null,
@@ -77,6 +62,8 @@ class CardElementComponent extends Component {
             }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUpdateSettings = this.handleUpdateSettings.bind(this);
+        this.handleRestoreSettings = this.handleRestoreSettings.bind(this);
     }
 
     handleSubmit(e) {
@@ -117,6 +104,22 @@ class CardElementComponent extends Component {
 
     deepUpdateState(data) {
         this.setState(deepMerge(this.state, data));
+    }
+
+    handleUpdateSettings() {
+        this.setState({ button: 'update' });
+        this.props.Rebilly.update({
+            ...params,
+            cardBrands: {}
+        });
+    }
+
+    handleRestoreSettings() {
+        this.setState({ button: 'restore' });
+        console.log('params', params);
+        this.props.Rebilly.update({
+            ...params
+        });
     }
 
     render() {
@@ -169,7 +172,9 @@ class CardElementComponent extends Component {
                                     }}/>
                             </div>
                             <div className="field">
+                                <label htmlFor="card">Card Number</label>
                                 <this.props.CardNumberElement
+                                    id="card"
                                     onReady={() => this.deepUpdateState({ events: { number: { onReady: true } } })}
                                     onChange={(data) => this.deepUpdateState({ events: { number: { onChange: data } } })}
                                     onFocus={() => this.deepUpdateState({ events: { number: { onFocus: true } } })}
@@ -178,7 +183,9 @@ class CardElementComponent extends Component {
                             </div>
 
                             <div className="field">
+                                <label htmlFor="cvv">Card CVV</label>
                                 <this.props.CardCvvElement
+                                    id="cvv"
                                     onReady={() => this.deepUpdateState({ events: { cvv: { onReady: true } } })}
                                     onChange={(data) => this.deepUpdateState({ events: { cvv: { onChange: data } } })}
                                     onFocus={() => this.deepUpdateState({ events: { cvv: { onFocus: true } } })}
@@ -187,7 +194,9 @@ class CardElementComponent extends Component {
                             </div>
 
                             <div className="field">
+                                <label htmlFor="expiry">Card expiry</label>
                                 <this.props.CardExpiryElement
+                                    id="expiry"
                                     onReady={() => this.deepUpdateState({ events: { expiry: { onReady: true } } })}
                                     onChange={(data) => this.deepUpdateState({ events: { expiry: { onChange: data } } })}
                                     onFocus={() => this.deepUpdateState({ events: { expiry: { onFocus: true } } })}
@@ -197,6 +206,9 @@ class CardElementComponent extends Component {
                         </fieldset>
                         <button id="submit">Make Payment</button>
                     </form>
+
+                    <button id="btn-update" onClick={this.handleUpdateSettings}>Update</button>
+                    <button id="btn-restore" onClick={this.handleRestoreSettings}>Restore</button>
                 </div>
             </div>
         </div>);
