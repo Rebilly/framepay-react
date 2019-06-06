@@ -34,10 +34,15 @@ interface FramePaySettingsPlaceholders {
     readonly bank: FramePaySettingsBankPlaceholders;
 }
 
+interface FramePayCardBrands {
+    readonly allowed: ReadonlyArray<SupportedCardBrands>
+}
+
 interface FramePaySettings {
     readonly publishableKey: string;
     readonly style?: FramePaySettingsStyles;
     readonly classes?: FramePaySettingsClasses;
     readonly icon?: FramePaySettingsIcon;
     readonly placeholders?: FramePaySettingsPlaceholders;
+    readonly cardBrands?: FramePayCardBrands
 }
