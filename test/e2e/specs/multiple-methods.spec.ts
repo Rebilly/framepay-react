@@ -35,6 +35,7 @@ describe('bank-separate', () => {
         expect(
             await page.$('#events-bankRoutingNumber-onReady-false')
         ).not.toEqual(null);
+        expect(await page.$('#events-iban-onReady-false')).not.toEqual(null);
     });
 
     it('should load other methods', async () => {
@@ -48,14 +49,16 @@ describe('bank-separate', () => {
         expect(
             await page.$('#events-bankRoutingNumber-onReady-false')
         ).not.toEqual(null);
+        expect(await page.$('#events-iban-onReady-false')).not.toEqual(null);
 
-        const btn = await page.$('#set-active-method-ach');
+        const btn = await page.$('#set-active-element-bank');
         await btn.click();
 
         await page.waitFor(500);
 
         // disable all elements
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
+        expect(await page.$('#events-iban-onReady-false')).not.toEqual(null);
 
         // load new
         expect(
@@ -67,10 +70,29 @@ describe('bank-separate', () => {
         expect(
             await page.$('#events-bankRoutingNumber-onReady-true')
         ).not.toEqual(null);
+
+        // load IBAN
+        const btn2 = await page.$('#set-active-element-iban');
+        await btn2.click();
+
+        await page.waitFor(500);
+
+        expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
+
+        expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
+        expect(
+            await page.$('#events-bankAccountType-onReady-false')
+        ).not.toEqual(null);
+        expect(
+            await page.$('#events-bankAccountNumber-onReady-false')
+        ).not.toEqual(null);
+        expect(
+            await page.$('#events-bankRoutingNumber-onReady-false')
+        ).not.toEqual(null);
     });
 
     it('should generate the card token', async done => {
-        const btnMethod = await page.$('#set-active-method-payment-card');
+        const btnMethod = await page.$('#set-active-element-card');
         await btnMethod.click();
 
         await page.waitFor(500);
@@ -151,7 +173,7 @@ describe('bank-separate', () => {
     });
 
     it('should generate the bank token', async done => {
-        const btnMethod = await page.$('#set-active-method-ach');
+        const btnMethod = await page.$('#set-active-element-bank');
         await btnMethod.click();
 
         await page.waitFor(300);
@@ -268,6 +290,78 @@ describe('bank-separate', () => {
                 expect(
                     await page.$('#token-data-paymentInstrument-brand-Visa')
                 ).not.toEqual(null);
+
+                done();
+            }
+        });
+    });
+    it('should generate the iban token', async done => {
+        const btnMethod = await page.$('#set-active-element-iban');
+        await btnMethod.click();
+
+        await page.waitFor(300);
+
+        expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
+
+        expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
+        expect(
+            await page.$('#events-bankAccountType-onReady-false')
+        ).not.toEqual(null);
+        expect(
+            await page.$('#events-bankAccountNumber-onReady-false')
+        ).not.toEqual(null);
+        expect(
+            await page.$('#events-bankRoutingNumber-onReady-false')
+        ).not.toEqual(null);
+
+        // @ts-ignore
+        await page.$eval('#pre', el => (el.style.display = 'none'));
+
+        const frames = page.frames();
+        // tslint:disable
+        let fieldsList = ['iban'];
+
+        let submitForm = false;
+
+        frames.forEach(async frame => {
+            const frameName = frame.name();
+            if (frameName.includes('iban')) {
+                const fieldName = fieldsList.shift();
+                switch (fieldName) {
+                    case 'iban':
+                        await frame.$eval('form', form => {
+                            form.querySelector(
+                                '[name="iban"]'
+                                // @ts-ignore
+                            ).value = 'DE89 3704 0044 0532 0130 00';
+                        });
+                        break;
+                }
+            }
+            if (!fieldsList.length && !submitForm) {
+                submitForm = true;
+
+                await page.$eval(
+                    '#key-events',
+                    // @ts-ignore
+                    el => (el.style.display = 'none')
+                );
+
+                // @ts-ignore
+                const btnSubmit = await page.$('#submit');
+                await btnSubmit.click();
+
+                await page.waitFor(1500);
+
+                expect(
+                    await page.$('#events-iban-onChange-valid-true')
+                ).not.toEqual(null);
+
+                expect(await page.$('#token-error-false')).not.toEqual(null);
+
+                expect(await page.$('#token-data-method-ach')).not.toEqual(
+                    null
+                );
 
                 done();
             }
