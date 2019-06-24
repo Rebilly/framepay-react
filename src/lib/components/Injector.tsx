@@ -4,11 +4,13 @@ import * as React from 'react';
 import { ContextConsumer } from '../context';
 import BankElementComponent from './elements/BankElement';
 import CardElementComponent from './elements/CardElement';
+import IBANElementComponent from './elements/IBANElement';
 
 import {
     FramePayBankProps,
     FramePayCardProps,
-    FramePayComponentProps
+    FramePayComponentProps,
+    FramePayIBANProps
 } from '../../../types/injector';
 
 const makeRebillyProps = (data: FramePayContext): RebillyProps =>
@@ -50,6 +52,29 @@ function Hoc<P extends object>(
  * @param type {string} PaymentElements
  */
 const elementsFabric = (type: PaymentElements): object => {
+    if (type === 'iban') {
+        /**
+         * IBAN
+         */
+
+        /**
+         * IBAN number element
+         */
+        const IBANElement = Hoc(
+            'IBANElement',
+            IBANElementComponent,
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data),
+                    elementType: 'iban'
+                } as IBANProps)
+        );
+
+        return {
+            IBANElement
+        };
+    }
+
     if (type === 'bankAccount') {
         /**
          * BankAccount
@@ -178,7 +203,8 @@ export function withFramePay<OriginalProps extends object>(
 ) {
     const elements = {
         ...elementsFabric('card'),
-        ...elementsFabric('bankAccount')
+        ...elementsFabric('bankAccount'),
+        ...elementsFabric('iban')
     };
     return class extends React.Component<
         OriginalProps & FramePayComponentProps,
@@ -249,6 +275,38 @@ export function withFramePayBankComponent<OriginalProps extends object>(
         {}
     > {
         static readonly displayName = `withFramePayBankComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
+}
+
+export function withFramePayIBANComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<OriginalProps & FramePayIBANProps>
+) {
+    const elements = elementsFabric('iban');
+    return class extends React.Component<
+        OriginalProps & FramePayIBANProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayIBANComponent${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
