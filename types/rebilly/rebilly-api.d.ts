@@ -1,6 +1,6 @@
 type PaymentElementEvents = 'ready' | 'change' | 'focus' | 'blur';
 
-type PaymentElements = 'card' | 'bankAccount';
+type PaymentElements = 'card' | 'bankAccount' | 'iban';
 
 interface PaymentElementOnChangeEventData {
     readonly valid?: boolean;
@@ -60,6 +60,23 @@ interface BankPaymentMethod extends PaymentMethod {
     ) => PaymentElement;
 }
 
+/**
+ * IBAN Payment element
+ */
+
+/**
+ * IBAN Payment Method
+ */
+declare type IBANPaymentElementTypes =
+    | 'iban';
+
+interface IBANPaymentMethod extends PaymentMethod {
+    readonly mount: (
+        node: HTMLElement | HTMLDivElement,
+        elementType?: IBANPaymentElementTypes
+    ) => PaymentElement;
+}
+
 interface BillingAddress {
     readonly firstName: string;
     readonly lastName: string;
@@ -93,6 +110,7 @@ interface RebillyApi {
     readonly initialize: (settings: FramePaySettings) => void;
     readonly card: CardPaymentMethod;
     readonly bankAccount: BankPaymentMethod;
+    readonly iban: IBANPaymentMethod;
     readonly createToken: (
         form: HTMLElement | HTMLFormElement,
         extraData?: TokenExtraData
