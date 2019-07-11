@@ -1,6 +1,9 @@
 describe('card-separate', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/card-separate`);
+        await page.goto(`${location}/card-separate`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {

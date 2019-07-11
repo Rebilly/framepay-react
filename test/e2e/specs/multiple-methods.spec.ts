@@ -1,6 +1,9 @@
-describe('bank-separate', () => {
+describe('multiple-methods', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/multiple-methods`);
+        await page.goto(`${location}/multiple-methods`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {
@@ -121,7 +124,7 @@ describe('bank-separate', () => {
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
-                await page.waitFor(1500);
+                await page.waitFor(3000);
 
                 await page.$eval(
                     '#key-events',

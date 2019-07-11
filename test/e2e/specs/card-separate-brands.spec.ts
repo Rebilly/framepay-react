@@ -1,6 +1,9 @@
 describe('card-separate-brands', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/card-separate-brands`);
+        await page.goto(`${location}/card-separate-brands`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {
@@ -54,13 +57,14 @@ describe('card-separate-brands', () => {
     });
 
     it('should allow the Visa after update and decline after restore', async () => {
-        await page.waitFor(200);
+        await page.waitFor(300);
 
         expect(
             await page.$(
                 '#events-number-onChange-error-code-unavailable-card-brand'
             )
         ).not.toEqual(null);
+
         expect(
             await page.$(
                 '#events-number-onChange-error-code-incomplete-card-number'
@@ -69,22 +73,23 @@ describe('card-separate-brands', () => {
 
         const btn2 = await page.$('#btn-update');
         await btn2.click();
-        await page.waitFor(200);
+        await page.waitFor(500);
 
         expect(
             await page.$(
                 '#events-number-onChange-error-code-unavailable-card-brand'
             )
         ).toEqual(null);
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-incomplete-card-number'
-            )
-        ).not.toEqual(null);
+        // deprecated
+        // expect(
+        //     await page.$(
+        //         '#events-number-onChange-error-code-incomplete-card-number'
+        //     )
+        // ).not.toEqual(null);
 
         const btn3 = await page.$('#btn-restore');
         await btn3.click();
-        await page.waitFor(200);
+        await page.waitFor(500);
 
         expect(
             await page.$(

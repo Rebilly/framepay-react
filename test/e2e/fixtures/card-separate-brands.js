@@ -5,7 +5,7 @@ import { FramePayProvider, SUPPORTED_CARD_BRANDS, withFramePayCardComponent } fr
 import { deepMerge, prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
-console.log('card-separate-brands.js', SUPPORTED_CARD_BRANDS);
+console.log('SUPPORTED_CARD_BRANDS', SUPPORTED_CARD_BRANDS);
 
 const params = {
     publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h',
@@ -176,7 +176,16 @@ class CardElementComponent extends Component {
                                 <this.props.CardNumberElement
                                     id="card"
                                     onReady={() => this.deepUpdateState({ events: { number: { onReady: true } } })}
-                                    onChange={(data) => this.deepUpdateState({ events: { number: { onChange: data } } })}
+                                    onChange={(data) => this.deepUpdateState({
+                                        events: {
+                                            number: {
+                                                onChange: {
+                                                    ...data,
+                                                    error: data.error || ''
+                                                }
+                                            }
+                                        }
+                                    })}
                                     onFocus={() => this.deepUpdateState({ events: { number: { onFocus: true } } })}
                                     onBlur={() => this.deepUpdateState({ events: { number: { onBlur: true } } })}
                                 />
@@ -187,7 +196,16 @@ class CardElementComponent extends Component {
                                 <this.props.CardCvvElement
                                     id="cvv"
                                     onReady={() => this.deepUpdateState({ events: { cvv: { onReady: true } } })}
-                                    onChange={(data) => this.deepUpdateState({ events: { cvv: { onChange: data } } })}
+                                    onChange={(data) => this.deepUpdateState({
+                                        events: {
+                                            cvv: {
+                                                onChange: {
+                                                    ...data,
+                                                    error: data.error || ''
+                                                }
+                                            }
+                                        }
+                                    })}
                                     onFocus={() => this.deepUpdateState({ events: { cvv: { onFocus: true } } })}
                                     onBlur={() => this.deepUpdateState({ events: { cvv: { onBlur: true } } })}
                                 />
@@ -198,7 +216,16 @@ class CardElementComponent extends Component {
                                 <this.props.CardExpiryElement
                                     id="expiry"
                                     onReady={() => this.deepUpdateState({ events: { expiry: { onReady: true } } })}
-                                    onChange={(data) => this.deepUpdateState({ events: { expiry: { onChange: data } } })}
+                                    onChange={(data) => this.deepUpdateState({
+                                        events: {
+                                            expiry: {
+                                                onChange: {
+                                                    ...data,
+                                                    error: data.error || ''
+                                                }
+                                            }
+                                        }
+                                    })}
                                     onFocus={() => this.deepUpdateState({ events: { expiry: { onFocus: true } } })}
                                     onBlur={() => this.deepUpdateState({ events: { expiry: { onBlur: true } } })}
                                 />
