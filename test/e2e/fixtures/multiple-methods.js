@@ -85,7 +85,7 @@ class PaymentFormComponent extends Component {
             billingAddress
         })
             .then(data => {
-                this.deepUpdateState({ token: { error: false, data } });
+                this.deepUpdateState({ token: { error: false, data: { ...data, method: data.method } } });
             })
             .catch(err => {
                 this.deepUpdateState({ token: { error: true, data: err } });
@@ -184,7 +184,7 @@ class PaymentFormComponent extends Component {
                                             onChange={data =>
                                                 this.deepUpdateState({
                                                     events: {
-                                                        card: { onChange: data }
+                                                        card: { onChange: { ...data, error: data.error || '' } }
                                                     }
                                                 })
                                             }
@@ -225,7 +225,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankAccountType: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -269,7 +269,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankRoutingNumber: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -313,7 +313,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankAccountNumber: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -361,7 +361,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 iban: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })

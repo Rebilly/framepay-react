@@ -1,6 +1,9 @@
-describe('bank-separate', () => {
+describe('multiple-methods', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/multiple-methods`);
+        await page.goto(`${location}/multiple-methods`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {
@@ -40,6 +43,7 @@ describe('bank-separate', () => {
 
     it('should load other methods', async () => {
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
+
         expect(
             await page.$('#events-bankAccountType-onReady-false')
         ).not.toEqual(null);
@@ -54,7 +58,7 @@ describe('bank-separate', () => {
         const btn = await page.$('#set-active-element-bank');
         await btn.click();
 
-        await page.waitFor(500);
+        await page.waitFor(800);
 
         // disable all elements
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
@@ -75,7 +79,7 @@ describe('bank-separate', () => {
         const btn2 = await page.$('#set-active-element-iban');
         await btn2.click();
 
-        await page.waitFor(500);
+        await page.waitFor(800);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 
@@ -143,7 +147,7 @@ describe('bank-separate', () => {
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
-                await page.waitFor(1500);
+                await page.waitFor(3000);
 
                 await page.$eval(
                     '#key-events',
