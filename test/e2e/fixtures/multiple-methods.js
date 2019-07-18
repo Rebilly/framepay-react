@@ -33,6 +33,12 @@ const defaultEvents = () => ({
         onChange: false,
         onFocus: false,
         onBlur: false
+    },
+    iban: {
+        onReady: false,
+        onChange: false,
+        onFocus: false,
+        onBlur: false
     }
 });
 
@@ -40,8 +46,13 @@ class PaymentFormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            paymentMethod: 'payment-card',
-            paymentMethods: ['payment-card', 'ach'],
+            paymentElements: {
+                // {element: method}
+                card: 'payment-card',
+                bank: 'ach',
+                iban: 'ach'
+            },
+            paymentElement: 'card',
             events: {
                 ...defaultEvents()
             },
@@ -69,9 +80,12 @@ class PaymentFormComponent extends Component {
             ...this.state.billingAddress
         };
 
-        this.props.Rebilly.createToken(this.formNode, { billingAddress })
+        this.props.Rebilly.createToken(this.formNode, {
+            // method: this.state.paymentElements[this.state.paymentElement],
+            billingAddress
+        })
             .then(data => {
-                this.deepUpdateState({ token: { error: false, data } });
+                this.deepUpdateState({ token: { error: false, data: { ...data, method: data.method } } });
             })
             .catch(err => {
                 this.deepUpdateState({ token: { error: true, data: err } });
@@ -85,6 +99,8 @@ class PaymentFormComponent extends Component {
     }
 
     render() {
+        const elements = Object.keys(this.state.paymentElements);
+
         return (
             <div>
                 <h2>{this.props.title}</h2>
@@ -93,22 +109,22 @@ class PaymentFormComponent extends Component {
                     {prettyDebugRender(this.state)}
                     <div className="example-2">
                         <ul>
-                            {this.state.paymentMethods.map(method => (
-                                <li key={`payment-method-${method}`}>
+                            {elements.map(element => (
+                                <li key={`payment-method-${element}`}>
                                     <button
-                                        id={`set-active-method-${method}`}
+                                        id={`set-active-element-${element}`}
                                         onClick={() => {
                                             this.setState({
-                                                paymentMethod: method,
+                                                paymentElement: element,
                                                 events: {
                                                     ...defaultEvents()
                                                 }
                                             });
                                         }}
                                     >
-                                        {method} - isActive:
+                                        {element} - isActive:
                                         {String(
-                                            method === this.state.paymentMethod
+                                            element === this.state.paymentElement
                                         )}
                                     </button>
                                 </li>
@@ -155,10 +171,9 @@ class PaymentFormComponent extends Component {
                                         }}
                                     />
                                 </div>
-                                <hr />
+                                <hr/>
                                 <div className="field" id="field-CardElement">
-                                    {this.state.paymentMethod ===
-                                        'payment-card' && (
+                                    {this.state.paymentElement === 'card' && (
                                         <this.props.CardElement
                                             onReady={() =>
                                                 this.deepUpdateState({
@@ -170,7 +185,7 @@ class PaymentFormComponent extends Component {
                                             onChange={data =>
                                                 this.deepUpdateState({
                                                     events: {
-                                                        card: { onChange: data }
+                                                        card: { onChange: { ...data, error: data.error || '' } }
                                                     }
                                                 })
                                             }
@@ -190,7 +205,7 @@ class PaymentFormComponent extends Component {
                                             }
                                         />
                                     )}
-                                    {this.state.paymentMethod === 'ach' && (
+                                    {this.state.paymentElement === 'bank' && (
                                         <div>
                                             <div
                                                 className="field"
@@ -211,7 +226,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankAccountType: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -255,7 +270,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankRoutingNumber: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -299,7 +314,7 @@ class PaymentFormComponent extends Component {
                                                         this.deepUpdateState({
                                                             events: {
                                                                 bankAccountNumber: {
-                                                                    onChange: data
+                                                                    onChange: { ...data, error: data.error || '' }
                                                                 }
                                                             }
                                                         })
@@ -326,10 +341,58 @@ class PaymentFormComponent extends Component {
                                             </div>
                                         </div>
                                     )}
+                                    {this.state.paymentElement === 'iban' && (
+                                        <div>
+                                            <div
+                                                className="field"
+                                                id="field-IBANElement"
+                                            >
+                                                <label>IBAN NUmber</label>
+                                                <this.props.IBANElement
+                                                    onReady={() =>
+                                                        this.deepUpdateState({
+                                                            events: {
+                                                                iban: {
+                                                                    onReady: true
+                                                                }
+                                                            }
+                                                        })
+                                                    }
+                                                    onChange={data =>
+                                                        this.deepUpdateState({
+                                                            events: {
+                                                                iban: {
+                                                                    onChange: { ...data, error: data.error || '' }
+                                                                }
+                                                            }
+                                                        })
+                                                    }
+                                                    onFocus={() =>
+                                                        this.deepUpdateState({
+                                                            events: {
+                                                                iban: {
+                                                                    onFocus: true
+                                                                }
+                                                            }
+                                                        })
+                                                    }
+                                                    onBlur={() =>
+                                                        this.deepUpdateState({
+                                                            events: {
+                                                                iban: {
+                                                                    onBlur: true
+                                                                }
+                                                            }
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </fieldset>
 
-                            <hr />
+                            <hr/>
                             <button id="submit">Make Payment</button>
                         </form>
                     </div>
@@ -347,11 +410,11 @@ class App extends Component {
             <FramePayProvider injectStyle {...params}>
                 <div>
                     {ReactVersion()}
-                    <PaymentForm />
+                    <PaymentForm/>
                 </div>
             </FramePayProvider>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));

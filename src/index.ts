@@ -3,7 +3,8 @@ import { SUPPORTED_CARD_BRANDS } from './lib/constants';
 import {
     withFramePay,
     withFramePayBankComponent,
-    withFramePayCardComponent
+    withFramePayCardComponent,
+    withFramePayIBANComponent
 } from './lib/components/Injector';
 
 import FramePayProvider from './lib/components/Provider';
@@ -11,7 +12,8 @@ import FramePayProvider from './lib/components/Provider';
 import {
     FramePayBankProps,
     FramePayCardProps,
-    FramePayComponentProps
+    FramePayComponentProps,
+    FramePayIBANProps
 } from '../types/injector';
 
 export {
@@ -20,7 +22,9 @@ export {
     withFramePay,
     withFramePayCardComponent,
     withFramePayBankComponent,
+    withFramePayIBANComponent,
     FramePayComponentProps,
     FramePayCardProps,
-    FramePayBankProps
+    FramePayBankProps,
+    FramePayIBANProps
 };

@@ -22,6 +22,10 @@ interface BankProps extends PaymentComponentProps {
     readonly elementType: BankPaymentElementTypes;
 }
 
+interface IBANProps extends PaymentComponentProps {
+    readonly elementType: IBANPaymentElementTypes;
+}
+
 interface CardProps extends PaymentComponentProps {
     readonly elementType?: CardPaymentElementTypes;
 }
@@ -31,5 +35,9 @@ interface BankState extends PaymentComponentState {
 }
 
 interface CardState extends PaymentComponentState {
+    readonly element: PaymentElement | null;
+}
+
+interface IBANState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }

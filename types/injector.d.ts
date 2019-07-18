@@ -12,6 +12,9 @@ export interface FramePayComponentProps {
     readonly BankAccountNumberElement: React.Component;
     readonly BankAccountTypeElement: React.Component;
     readonly BankRoutingNumberElement: React.Component;
+
+    // IBAN components
+    readonly IBANElement: React.Component
 }
 
 export interface FramePayCardProps {
@@ -27,4 +30,9 @@ export interface FramePayBankProps {
     readonly BankAccountNumberElement: React.Component;
     readonly BankAccountTypeElement: React.Component;
     readonly BankRoutingNumberElement: React.Component;
+}
+
+export interface FramePayIBANProps {
+    readonly Rebilly: RebillyProps;
+    readonly IBANElement: React.Component
 }
