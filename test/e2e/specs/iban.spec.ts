@@ -1,15 +1,10 @@
-describe('card-separate', () => {
+describe('iban', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/card-separate`, {
-            waitUntil: 'networkidle2'
-        });
-        await page.waitFor(400);
+        await page.goto(`${location}/iban`);
     });
 
     it('should load the page', async () => {
-        await expect(page.title()).resolves.toMatch(
-            'Test Card Page Separate Fields'
-        );
+        await expect(page.title()).resolves.toMatch('Test IBAN Field');
     });
 
     it('should render with correct react version', async () => {
@@ -30,15 +25,7 @@ describe('card-separate', () => {
         expect(bank).not.toEqual(null);
     });
 
-    it('should be call the on-ready card element hook', async () => {
-        expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
-    });
-
-    it('should be call the on-ready cvv element hook', async () => {
-        expect(await page.$('#events-cvv-onReady-true')).not.toEqual(null);
-    });
-
-    it('should be call the on-ready expiry element hook', async () => {
-        expect(await page.$('#events-expiry-onReady-true')).not.toEqual(null);
+    it('should call the on-ready iban element hook', async () => {
+        expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
     });
 });

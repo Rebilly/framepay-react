@@ -6,10 +6,17 @@ const puppeteer = require('puppeteer');
 const opts = {
     headless: true,
     slowMo: 0,
-    timeout: 10000
+    timeout: 15000,
+    ignoreHTTPSErrors: true,
+    args: [
+        '--disable-gpu',
+        '--no-sandbox',
+        '--disable-extensions',
+        `--window-size=1300,800`
+    ]
 };
 
-jest.setTimeout(10000);
+jest.setTimeout(15000);
 
 beforeAll(async () => {
     global.location = `http://localhost:${process.env.PORT}`;
@@ -19,7 +26,9 @@ beforeAll(async () => {
     page.on('console', msg => console.log('CONSOLE LOG:', msg.text()));
     page.on('error', msg => console.log('ERROR LOG:', msg.text()));
     page.on('requestfailed', msg => console.log('REQUEST ERROR LOG:', msg.text()));
-    global.takeScreenshotOfPage = (title = 'page') => global.page.screenshot({ path: 'test/e2e/screenshots/' + title + '.png' });
+    global.takeScreenshotOfPage = (title = 'page') => global.page.screenshot({
+        path: 'test/e2e/screenshots/' + title + '.png'
+    });
 });
 
 

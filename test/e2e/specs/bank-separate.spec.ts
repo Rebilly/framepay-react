@@ -1,6 +1,9 @@
 describe('bank-separate', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/bank-separate`);
+        await page.goto(`${location}/bank-separate`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {
@@ -22,7 +25,7 @@ describe('bank-separate', () => {
         expect(version.length >= 6).toEqual(true);
     });
 
-    it('should inject the card iframe into the page', async () => {
+    it('should inject the bank iframe into the page', async () => {
         const bank = await page.$('.rebilly-framepay > iframe');
         expect(bank).not.toEqual(null);
     });

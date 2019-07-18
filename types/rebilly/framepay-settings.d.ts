@@ -29,9 +29,14 @@ interface FramePaySettingsBankPlaceholders {
     readonly accountNumber: string;
 }
 
+interface FramePaySettingsIBANPlaceholders {
+    readonly accountNumber: string;
+}
+
 interface FramePaySettingsPlaceholders {
     readonly card: FramePaySettingsCardPlaceholders;
     readonly bank: FramePaySettingsBankPlaceholders;
+    readonly iban: FramePaySettingsIBANPlaceholders;
 }
 
 interface FramePaySettings {

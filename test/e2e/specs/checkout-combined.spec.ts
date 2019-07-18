@@ -1,6 +1,9 @@
 describe('checkout-combined', () => {
     beforeAll(async () => {
-        await page.goto(`${location}/checkout-combined`);
+        await page.goto(`${location}/checkout-combined`, {
+            waitUntil: 'networkidle2'
+        });
+        await page.waitFor(400);
     });
 
     it('should load the page', async () => {

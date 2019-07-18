@@ -4,6 +4,7 @@ setTimeout(() => {
         'bank-separate',
         'card-separate',
         'checkout-combined',
+        'iban',
         'multiple-methods'
     ]
         .forEach(route => {
