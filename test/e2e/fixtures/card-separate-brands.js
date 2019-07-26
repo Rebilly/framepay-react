@@ -13,11 +13,13 @@ const params = {
         display: true,
         color: 'blue'
     },
-    cardBrands: {
-        allowed: [
-            SUPPORTED_CARD_BRANDS.MasterCard,
-            SUPPORTED_CARD_BRANDS.Amex
-        ]
+    card: {
+        brands: {
+            allowed: [
+                SUPPORTED_CARD_BRANDS.MasterCard,
+                SUPPORTED_CARD_BRANDS.Amex
+            ]
+        }
     }
 };
 
@@ -110,7 +112,7 @@ class CardElementComponent extends Component {
         this.setState({ button: 'update' });
         this.props.Rebilly.update({
             ...params,
-            cardBrands: {}
+            card: { brands: { allowed: null } }
         });
     }
 

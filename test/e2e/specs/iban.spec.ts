@@ -26,6 +26,7 @@ describe('iban', () => {
     });
 
     it('should call the on-ready iban element hook', async () => {
+        await page.waitFor(300);
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
     });
 });

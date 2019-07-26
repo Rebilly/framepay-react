@@ -35,12 +35,16 @@ interface FramePaySettingsIBANPlaceholders {
 
 interface FramePaySettingsPlaceholders {
     readonly card: FramePaySettingsCardPlaceholders;
-    readonly bank: FramePaySettingsBankPlaceholders;
+    readonly bankAccount: FramePaySettingsBankPlaceholders;
     readonly iban: FramePaySettingsIBANPlaceholders;
 }
 
 interface FramePayCardBrands {
     readonly allowed: ReadonlyArray<SupportedCardBrands>
+}
+
+interface FramePayCardSettings {
+    readonly brands: FramePayCardBrands
 }
 
 interface FramePaySettings {
@@ -49,5 +53,5 @@ interface FramePaySettings {
     readonly classes?: FramePaySettingsClasses;
     readonly icon?: FramePaySettingsIcon;
     readonly placeholders?: FramePaySettingsPlaceholders;
-    readonly cardBrands?: FramePayCardBrands
+    readonly card?: FramePayCardSettings
 }
