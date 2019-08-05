@@ -71,8 +71,4 @@ export default class BankElement extends BaseElement<BankProps, BankState> {
             });
         }
     }
-
-    render() {
-        return <div ref={node => (this.elementNode = node)} />;
-    }
 }

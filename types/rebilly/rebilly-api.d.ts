@@ -1,3 +1,8 @@
+/**
+ * Global rebilly initialization events
+ */
+declare type globalRebillyEvents = 'error' | 'ready';
+
 type PaymentElementEvents = 'ready' | 'change' | 'focus' | 'blur';
 
 type PaymentElements = 'card' | 'bankAccount' | 'iban';
@@ -115,4 +120,6 @@ interface RebillyApi {
         form: HTMLElement | HTMLFormElement,
         extraData?: TokenExtraData
     ) => void;
+
+    readonly on: (event: globalRebillyEvents, callback: (error: string) => void) => void;
 }

@@ -3,6 +3,7 @@ setTimeout(() => {
     [
         'bank-separate',
         'card-separate',
+        'card-separate-brands',
         'checkout-combined',
         'iban',
         'multiple-methods'

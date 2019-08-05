@@ -93,6 +93,7 @@ class CardElementComponent extends Component {
         return (
             <div>
                 <h2>{this.props.title}</h2>
+                <h3>FramePay version: {this.props.Rebilly.version}</h3>
                 <div className="flex-wrapper">
                     {prettyDebugRender(this.state)}
                     <div className="example-2">

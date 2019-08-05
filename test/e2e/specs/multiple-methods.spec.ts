@@ -180,7 +180,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-bank');
         await btnMethod.click();
 
-        await page.waitFor(300);
+        await page.waitFor(500);
 
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
         expect(
@@ -303,7 +303,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-iban');
         await btnMethod.click();
 
-        await page.waitFor(300);
+        await page.waitFor(500);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 

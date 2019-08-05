@@ -1,3 +1,5 @@
+import { SUPPORTED_CARD_BRANDS } from './lib/constants';
+
 import {
     withFramePay,
     withFramePayBankComponent,
@@ -15,6 +17,7 @@ import {
 } from '../types/injector';
 
 export {
+    SUPPORTED_CARD_BRANDS,
     FramePayProvider,
     withFramePay,
     withFramePayCardComponent,

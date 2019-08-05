@@ -54,7 +54,12 @@ export default class Provider extends React.Component<
             const { injectStyle, children, ...settings } = this.props;
             // tslint:enable:no-shadowed-variable
             api.initialize(settings);
-            this.setState({ ready: true, api, error: null });
+            api.on('ready', () => {
+                this.setState({ ready: true, api, error: null });
+            });
+            api.on('error', error => {
+                this.setState({ ready: false, api, error });
+            });
         } catch (e) {
             return this.setState(
                 {

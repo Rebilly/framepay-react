@@ -69,6 +69,8 @@ export default class BaseElement<
     }
 
     render() {
-        return <div ref={node => (this.elementNode = node)} />;
+        return (
+            <div id={this.props.id} ref={node => (this.elementNode = node)} />
+        );
     }
 }

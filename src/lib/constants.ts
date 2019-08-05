@@ -26,3 +26,18 @@ export const FRAMEPAY_SCRIPT_LINK: string =
 export const FRAMEPAY_STYLE_LINK: string =
     process.env.FRAMEPAY_STYLE_LINK ||
     'https://cdn.rebilly.com/framepay/v1/rebilly.css';
+
+/**
+ * Supported FramePay card types
+ */
+export const SUPPORTED_CARD_BRANDS: SupportedCardBrandsExport = {
+    Amex: SupportedCardBrands.Amex,
+    AstroPayCard: SupportedCardBrands.AstroPayCard,
+    Cup: SupportedCardBrands.Cup,
+    DinersClub: SupportedCardBrands.DinersClub,
+    Discover: SupportedCardBrands.Discover,
+    JCB: SupportedCardBrands.JCB,
+    Maestro: SupportedCardBrands.Maestro,
+    MasterCard: SupportedCardBrands.MasterCard,
+    Visa: SupportedCardBrands.Visa
+};

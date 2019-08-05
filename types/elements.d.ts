@@ -5,6 +5,7 @@ interface RebillyProps extends RebillyApi {
 
 interface PaymentComponentProps extends RebillyProps {
     readonly Rebilly: RebillyProps;
+    readonly id?: string;
     readonly onReady?: () => void;
     readonly onChange?: (data: PaymentElementOnChangeEventData) => void;
     readonly onFocus?: () => void;

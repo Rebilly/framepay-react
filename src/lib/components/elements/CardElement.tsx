@@ -70,8 +70,4 @@ export default class CardElement extends BaseElement<CardProps, CardState> {
             });
         }
     }
-
-    render() {
-        return <div ref={node => (this.elementNode = node)} />;
-    }
 }
