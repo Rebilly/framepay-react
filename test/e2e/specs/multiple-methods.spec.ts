@@ -130,17 +130,17 @@ describe('multiple-methods', () => {
                     const cvv = '123';
 
                     form.querySelector(
-                        'input[name="cardNumber"]'
+                        'input[name="cardnumber"]'
                         // @ts-ignore
                     ).value = cardNumber;
 
                     form.querySelector(
-                        'input[name="cardExpiry"]'
+                        'input[name="exp-date"]'
                         // @ts-ignore
                     ).value = expiry;
 
                     // @ts-ignore
-                    form.querySelector('input[name="cardCvv"]').value = cvv;
+                    form.querySelector('input[name="cvc"]').value = cvv;
                 });
 
                 // @ts-ignore
