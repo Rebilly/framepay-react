@@ -3,7 +3,7 @@ describe('multiple-methods', () => {
         await page.goto(`${location}/multiple-methods`, {
             waitUntil: 'networkidle2'
         });
-        await page.waitFor(400);
+        await page.waitFor(1000);
     });
 
     it('should load the page', async () => {
@@ -58,7 +58,7 @@ describe('multiple-methods', () => {
         const btn = await page.$('#set-active-element-bank');
         await btn.click();
 
-        await page.waitFor(800);
+        await page.waitFor(1000);
 
         // disable all elements
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
@@ -79,7 +79,7 @@ describe('multiple-methods', () => {
         const btn2 = await page.$('#set-active-element-iban');
         await btn2.click();
 
-        await page.waitFor(800);
+        await page.waitFor(1000);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 
@@ -99,7 +99,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-card');
         await btnMethod.click();
 
-        await page.waitFor(500);
+        await page.waitFor(1000);
 
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
         expect(
@@ -112,7 +112,6 @@ describe('multiple-methods', () => {
             await page.$('#events-bankRoutingNumber-onReady-false')
         ).not.toEqual(null);
 
-        // @ts-ignore
         await page.$eval('#pre', el => (el.style.display = 'none'));
 
         const frames = page.frames();
@@ -121,7 +120,6 @@ describe('multiple-methods', () => {
             const frameName = frame.name();
 
             if (frameName.includes('card')) {
-                // @ts-ignore
                 await frame.$eval('form', form => {
                     const cardNumber = '4111111111111111';
                     const expiry =
@@ -131,19 +129,13 @@ describe('multiple-methods', () => {
 
                     form.querySelector(
                         'input[name="cardnumber"]'
-                        // @ts-ignore
                     ).value = cardNumber;
 
-                    form.querySelector(
-                        'input[name="exp-date"]'
-                        // @ts-ignore
-                    ).value = expiry;
+                    form.querySelector('input[name="exp-date"]').value = expiry;
 
-                    // @ts-ignore
                     form.querySelector('input[name="cvc"]').value = cvv;
                 });
 
-                // @ts-ignore
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
@@ -151,7 +143,7 @@ describe('multiple-methods', () => {
 
                 await page.$eval(
                     '#key-events',
-                    // @ts-ignore
+
                     el => (el.style.display = 'none')
                 );
 
@@ -180,7 +172,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-bank');
         await btnMethod.click();
 
-        await page.waitFor(500);
+        await page.waitFor(1000);
 
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
         expect(
@@ -193,7 +185,6 @@ describe('multiple-methods', () => {
             await page.$('#events-bankRoutingNumber-onReady-true')
         ).not.toEqual(null);
 
-        // @ts-ignore
         await page.$eval('#pre', el => (el.style.display = 'none'));
 
         const frames = page.frames();
@@ -213,7 +204,6 @@ describe('multiple-methods', () => {
                 switch (fieldName) {
                     case 'bankAccountType':
                         await frame.$eval('form', form => {
-                            // @ts-ignore
                             form.querySelector('[title="Savings"]').click();
                         });
                         break;
@@ -221,7 +211,6 @@ describe('multiple-methods', () => {
                         await frame.$eval('form', form => {
                             form.querySelector(
                                 '[name="bankRoutingNumber"]'
-                                // @ts-ignore
                             ).value = '11111111';
                         });
                         break;
@@ -230,7 +219,6 @@ describe('multiple-methods', () => {
                         await frame.$eval('form', form => {
                             form.querySelector(
                                 '[name="bankAccountNumber"]'
-                                // @ts-ignore
                             ).value = '22222222';
                         });
                         break;
@@ -241,11 +229,10 @@ describe('multiple-methods', () => {
 
                 await page.$eval(
                     '#key-events',
-                    // @ts-ignore
+
                     el => (el.style.display = 'none')
                 );
 
-                // @ts-ignore
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 
@@ -303,7 +290,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-iban');
         await btnMethod.click();
 
-        await page.waitFor(500);
+        await page.waitFor(1000);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 
@@ -318,7 +305,6 @@ describe('multiple-methods', () => {
             await page.$('#events-bankRoutingNumber-onReady-false')
         ).not.toEqual(null);
 
-        // @ts-ignore
         await page.$eval('#pre', el => (el.style.display = 'none'));
 
         const frames = page.frames();
@@ -334,10 +320,8 @@ describe('multiple-methods', () => {
                 switch (fieldName) {
                     case 'iban':
                         await frame.$eval('form', form => {
-                            form.querySelector(
-                                '[name="iban"]'
-                                // @ts-ignore
-                            ).value = 'DE89 3704 0044 0532 0130 00';
+                            form.querySelector('[name="iban"]').value =
+                                'DE89 3704 0044 0532 0130 00';
                         });
                         break;
                 }
@@ -347,11 +331,10 @@ describe('multiple-methods', () => {
 
                 await page.$eval(
                     '#key-events',
-                    // @ts-ignore
+
                     el => (el.style.display = 'none')
                 );
 
-                // @ts-ignore
                 const btnSubmit = await page.$('#submit');
                 await btnSubmit.click();
 

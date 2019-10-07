@@ -48,7 +48,6 @@ describe('Mock functionality works correctly', () => {
         params.method1().returns(10);
         params.method2(Arg.any()).returns('method2-value');
 
-        // @ts-ignore
         params.api.nestedMethod().returns(false);
 
         expect(params.property1).toEqual('property1-value');
@@ -85,21 +84,20 @@ describe('Mock functionality works correctly', () => {
         const spy1 = jest.fn();
         const spy2 = jest.fn();
 
-        // @ts-ignore
         api.child1.mount().returns(Substitute.for<Element>());
-        // @ts-ignore
+
         api.child2.mount().returns(Substitute.for<Element>());
 
         api.child1
             .mount()
             .destroy()
-            // @ts-ignore
+
             .mimicks(spy1);
 
         api.child2
             .mount()
             .destroy()
-            // @ts-ignore
+
             .mimicks(spy2);
 
         const el = api.child1.mount();

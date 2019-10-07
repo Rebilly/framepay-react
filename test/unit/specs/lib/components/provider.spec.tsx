@@ -2,7 +2,7 @@
 
 import { mount } from 'enzyme';
 import * as React from 'react';
-import Provider from '../../../../../src/lib/components/Provider';
+import Provider from '../../../../../src/lib/components/provider';
 import {
     FRAMEPAY_SCRIPT_LINK,
     FRAMEPAY_STYLE_LINK

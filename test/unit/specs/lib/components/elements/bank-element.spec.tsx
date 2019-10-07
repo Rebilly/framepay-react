@@ -1,8 +1,8 @@
 import { Arg, Substitute } from '@fluffy-spoon/substitute';
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import BankElement from '../../../../../../src/lib/components/elements/BankElement';
-import FramePayError from '../../../../../../src/lib/FramePayError';
+import BankElement from '../../../../../../src/lib/components/elements/bank-element';
+import FramePayError from '../../../../../../src/lib/framepay-error';
 
 describe('lib/components/elements/BankElement', () => {
     it('should not setup the element while api is not ready', done => {
@@ -58,7 +58,6 @@ describe('lib/components/elements/BankElement', () => {
 
         props.Rebilly.bankAccount
             .mount(Arg.any(), Arg.any())
-            // @ts-ignore
             .returns(new Error(`remote error`));
 
         try {
@@ -88,7 +87,6 @@ describe('lib/components/elements/BankElement', () => {
             done();
         });
 
-        // @ts-ignore
         props.Rebilly.bankAccount.mount(Arg.any(), Arg.any()).returns(element);
 
         class TmpComponent extends React.Component {
@@ -114,7 +112,6 @@ describe('lib/components/elements/BankElement', () => {
     it('should render the empty div element', () => {
         const props = Substitute.for<BankProps>();
 
-        // @ts-ignore
         props.Rebilly.ready.returns(true);
 
         const wrapper = shallow(

@@ -47,7 +47,6 @@ describe('lib/components/Injector', () => {
                             ready: true
                         }}
                     >
-                        // @ts-ignore
                         <TMPWrapper />
                     </ContextProvider>
                 );
@@ -91,7 +90,6 @@ describe('lib/components/Injector', () => {
                             ready: true
                         }}
                     >
-                        // @ts-ignore
                         <TMPWrapper />
                     </ContextProvider>
                 );
@@ -137,7 +135,6 @@ describe('lib/components/Injector', () => {
                             ready: true
                         }}
                     >
-                        // @ts-ignore
                         <TMPWrapper />
                     </ContextProvider>
                 );

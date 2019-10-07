@@ -3,9 +3,11 @@ require('../../env');
 const puppeteer = require('puppeteer');
 
 // puppeteer options
+const headless = true;
+
 const opts = {
-    headless: true,
-    slowMo: 0,
+    headless,
+    slowMo: headless ? 0 : 500,
     timeout: 15000,
     ignoreHTTPSErrors: true,
     args: [

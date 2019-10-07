@@ -208,7 +208,14 @@ const CardElement = withFramePayCardComponent(CardElementComponent);
 class App extends Component {
 
     render() {
-        return (<FramePayProvider injectStyle {...params}>
+        return (<FramePayProvider injectStyle
+                                  {...params}
+                                  onReady={() => {
+                                      //console.log('FramePayProvider.onReady');
+                                  }}
+                                  onError={(err) => {
+                                      //console.log('FramePayProvider.onError', err);
+                                  }}>
             <div>
                 {ReactVersion()}
                 <CardElement/>
