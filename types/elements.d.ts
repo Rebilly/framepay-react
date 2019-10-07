@@ -1,3 +1,6 @@
+/**
+ * framepay-react react element types
+ */
 interface RebillyProps extends RebillyApi {
     readonly error: FramePayErrorCode | null;
     readonly ready: boolean;
