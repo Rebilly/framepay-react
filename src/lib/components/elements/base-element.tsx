@@ -12,6 +12,7 @@ export default class BaseElement<
 
     /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
+
     /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {
@@ -26,12 +27,6 @@ export default class BaseElement<
     }
 
     componentDidMount() {
-        this.handleSetupElement();
-    }
-
-    componentWillReceiveProps(nextProps: any) {
-        // @ts-ignore
-        this.props = nextProps;
         this.handleSetupElement();
     }
 
@@ -52,7 +47,7 @@ export default class BaseElement<
              */
             return;
         }
-        if (!this.elementNode || this.elementNode === null) {
+        if (!this.elementNode) {
             /**
              * Component dom element not mounted
              */
@@ -61,10 +56,37 @@ export default class BaseElement<
         /**
          * Setup field
          */
-        this.setState({ mounted: true }, this.setupElement);
+        // @ts-ignore
+        this.state.mounted = true;
+        this.setupElement();
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate(nextProps: any, nextState: any) {
+        // we can't to use the componentDidUpdate, componentWillReceiveProps methods
+        // also, we can't return true here (to avoid the dom element re-render)
+        // so, in that case we had to use that method as componentDidUpdate or componentWillReceiveProps
+        // with some magic
+        const rules: ReadonlyArray<any> = [
+            // @ts-ignore
+            [this.props.Rebilly.ready, nextProps.Rebilly.ready],
+            // @ts-ignore
+            [this.state.mounted, nextState.mounted],
+            // @ts-ignore
+            [this.state.ready, nextState.ready],
+            // @ts-ignore
+            [!!this.state.element, !!nextState.element]
+        ];
+
+        const shouldUpdate = rules.find(([prev, next]) => prev !== next);
+
+        if (shouldUpdate) {
+            // @ts-ignore
+            this.props = nextProps;
+            this.handleSetupElement();
+            // @ts-ignore
+            this.state = { ...nextState };
+        }
+
         return false;
     }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import FramePayError from '../../FramePayError';
-import BaseElement from './BaseElement';
+import FramePayError from '../../framepay-error';
+import BaseElement from './base-element';
 
-export default class CardElement extends BaseElement<CardProps, CardState> {
+export default class BankElement extends BaseElement<BankProps, BankState> {
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
@@ -12,20 +12,20 @@ export default class CardElement extends BaseElement<CardProps, CardState> {
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `CardElement invalid elementNode, elementType: ${elementType ||
+                    details: `BankElement invalid elementNode, elementType: ${elementType ||
                         'default'}`
                 });
             }
 
             try {
-                return this.props.Rebilly.card.mount(
+                return this.props.Rebilly.bankAccount.mount(
                     this.elementNode,
                     elementType
                 );
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `CardElement error in remote api call, elementType: ${elementType ||
+                    details: `BankElement error in remote api call, elementType: ${elementType ||
                         'default'}`,
                     trace: e
                 });
@@ -54,6 +54,7 @@ export default class CardElement extends BaseElement<CardProps, CardState> {
                     onFocus();
                 }
             });
+
             element.on('blur', () => {
                 if (onBlur) {
                     onBlur();
@@ -64,7 +65,7 @@ export default class CardElement extends BaseElement<CardProps, CardState> {
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.elementMountError,
-                details: `CardElement events binding error, elementType: ${elementType ||
+                details: `BankElement events binding error, elementType: ${elementType ||
                     'default'}`,
                 trace: e
             });

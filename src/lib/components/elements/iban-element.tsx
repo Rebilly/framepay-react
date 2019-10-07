@@ -1,8 +1,8 @@
 import * as React from 'react';
-import FramePayError from '../../FramePayError';
-import BaseElement from './BaseElement';
+import FramePayError from '../../framepay-error';
+import BaseElement from './base-element';
 
-export default class BankElement extends BaseElement<BankProps, BankState> {
+export default class IBANElement extends BaseElement<IBANProps, IBANState> {
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
@@ -12,20 +12,17 @@ export default class BankElement extends BaseElement<BankProps, BankState> {
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `BankElement invalid elementNode, elementType: ${elementType ||
+                    details: `IBANElement invalid elementNode, elementType: ${elementType ||
                         'default'}`
                 });
             }
 
             try {
-                return this.props.Rebilly.bankAccount.mount(
-                    this.elementNode,
-                    elementType
-                );
+                return this.props.Rebilly.iban.mount(this.elementNode);
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `BankElement error in remote api call, elementType: ${elementType ||
+                    details: `IBANElement error in remote api call, elementType: ${elementType ||
                         'default'}`,
                     trace: e
                 });
@@ -65,10 +62,14 @@ export default class BankElement extends BaseElement<BankProps, BankState> {
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.elementMountError,
-                details: `BankElement events binding error, elementType: ${elementType ||
+                details: `IBANElement events binding error, elementType: ${elementType ||
                     'default'}`,
                 trace: e
             });
         }
+    }
+
+    render() {
+        return <div ref={node => (this.elementNode = node)} />;
     }
 }

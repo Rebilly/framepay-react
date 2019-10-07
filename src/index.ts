@@ -5,9 +5,9 @@ import {
     withFramePayBankComponent,
     withFramePayCardComponent,
     withFramePayIBANComponent
-} from './lib/components/Injector';
+} from './lib/components/injector';
 
-import FramePayProvider from './lib/components/Provider';
+import FramePayProvider from './lib/components/provider';
 
 import {
     FramePayBankProps,
