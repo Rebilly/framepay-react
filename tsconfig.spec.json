@@ -8,6 +8,9 @@
         "src/**/*.tsx",
         "test/**/*.ts",
         "test/**/*.tsx",
-        "types/**/*.d.ts"
+        "types/**/*.d.ts",
+        "types/rebilly/**/*.d.ts",
+        "types/rebilly/payment-elements/**/*.d.ts",
+        "types/rebilly/elements/**/*.d.ts"
     ]
 }
