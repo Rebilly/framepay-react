@@ -17,9 +17,11 @@ export default class BaseElement<
 
     componentWillUnmount() {
         if (this.state.mounted && !this.state.element) {
-            throw new Error(
-                `Element does not exists, please fix the setupElement method and add setState({element})`
+            // tslint:disable-next-line:no-console
+            console.log(
+                `WARNING Element does not exists, please fix the setupElement method and add setState({element})`
             );
+            return;
         }
         if (this.state.element) {
             this.state.element.destroy();
