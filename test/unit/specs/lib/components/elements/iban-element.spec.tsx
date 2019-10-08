@@ -1,4 +1,4 @@
-import { Arg, Substitute } from '@fluffy-spoon/substitute';
+import { Substitute } from '@fluffy-spoon/substitute';
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import IBANElement from '../../../../../../src/lib/components/elements/iban-element';
@@ -48,26 +48,12 @@ describe('lib/components/elements/IBANElement', () => {
         });
     });
 
-    it('should fail the element mount on remote error', () => {
+    it('should render the empty div element', () => {
         const props = Substitute.for<IBANProps>();
-
-        props.Rebilly.iban.mount(Arg.any()).returns(null);
-
-        try {
-            mount(
-                <IBANElement
-                    {...props}
-                    Rebilly={{
-                        ...props.Rebilly,
-                        ready: true
-                    }}
-                />
-            );
-            // never
-            expect(true).toEqual(false);
-        } catch (error) {
-            expect(error.code).toEqual(FramePayError.codes.elementMountError);
-        }
+        const wrapper = shallow(
+            <IBANElement {...props} Rebilly={props.Rebilly} />
+        );
+        expect(wrapper.html()).toEqual('<div></div>');
     });
 
     it('should destroy the element on component unmount', done => {
@@ -78,7 +64,7 @@ describe('lib/components/elements/IBANElement', () => {
             done();
         });
 
-        props.Rebilly.iban.mount(Arg.any(), Arg.any()).returns(element);
+        // props.Rebilly.iban.mount(Arg.any(), Arg.any()).returns(element);
 
         class TmpComponent extends React.Component {
             render() {
@@ -87,6 +73,10 @@ describe('lib/components/elements/IBANElement', () => {
                         {...props}
                         Rebilly={{
                             ...props.Rebilly,
+                            iban: {
+                                ...props.Rebilly.iban,
+                                mount: () => element
+                            },
                             ready: true
                         }}
                     />
@@ -95,14 +85,32 @@ describe('lib/components/elements/IBANElement', () => {
         }
 
         const wrapper = mount(<TmpComponent />);
-        wrapper.unmount();
+        process.nextTick(() => {
+            wrapper.unmount();
+        });
     });
 
-    it('should render the empty div element', () => {
+    it('should fail the element mount on remote error', () => {
         const props = Substitute.for<IBANProps>();
-        const wrapper = shallow(
-            <IBANElement {...props} Rebilly={props.Rebilly} />
-        );
-        expect(wrapper.html()).toEqual('<div></div>');
+
+        try {
+            mount(
+                <IBANElement
+                    {...props}
+                    Rebilly={{
+                        ...props.Rebilly,
+                        iban: {
+                            ...props.Rebilly.iban,
+                            mount: null
+                        },
+                        ready: true
+                    }}
+                />
+            );
+            // never
+            expect(true).toEqual(false);
+        } catch (error) {
+            expect(error.code).toEqual(FramePayError.codes.elementMountError);
+        }
     });
 });

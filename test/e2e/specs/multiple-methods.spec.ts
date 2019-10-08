@@ -172,7 +172,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-bank');
         await btnMethod.click();
 
-        await page.waitFor(1000);
+        await page.waitFor(2000);
 
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
         expect(

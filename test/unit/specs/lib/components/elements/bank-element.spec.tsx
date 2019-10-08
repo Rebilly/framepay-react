@@ -53,32 +53,6 @@ describe('lib/components/elements/BankElement', () => {
         });
     });
 
-    it('should fail the element mount on remote error', () => {
-        const props = Substitute.for<BankProps>();
-
-        props.Rebilly.bankAccount
-            .mount(Arg.any(), Arg.any())
-            .returns(new Error(`remote error`));
-
-        try {
-            mount(
-                <BankElement
-                    {...props}
-                    Rebilly={{
-                        ...props.Rebilly,
-                        bankAccount: props.Rebilly.bankAccount,
-                        ready: true
-                    }}
-                    elementType="bankAccountNumber"
-                />
-            );
-            // never
-            expect(true).toEqual(false);
-        } catch (error) {
-            expect(error.code).toEqual(FramePayError.codes.elementMountError);
-        }
-    });
-
     it('should destroy the element on component unmount', done => {
         const props = Substitute.for<BankProps>();
         const element = Substitute.for<PaymentElement>();
@@ -106,7 +80,9 @@ describe('lib/components/elements/BankElement', () => {
         }
 
         const wrapper = mount(<TmpComponent />);
-        wrapper.unmount();
+        process.nextTick(() => {
+            wrapper.unmount();
+        });
     });
 
     it('should render the empty div element', () => {
@@ -118,5 +94,30 @@ describe('lib/components/elements/BankElement', () => {
             <BankElement {...props} Rebilly={props.Rebilly} />
         );
         expect(wrapper.html()).toEqual('<div></div>');
+    });
+
+    it('should fail the element mount on remote error', () => {
+        const props = Substitute.for<BankProps>();
+
+        try {
+            mount(
+                <BankElement
+                    {...props}
+                    Rebilly={{
+                        ...props.Rebilly,
+                        bankAccount: {
+                            ...props.Rebilly.bankAccount,
+                            mount: null
+                        },
+                        ready: true
+                    }}
+                    elementType="bankAccountNumber"
+                />
+            );
+            // never
+            expect(true).toEqual(false);
+        } catch (error) {
+            expect(error.code).toEqual(FramePayError.codes.elementMountError);
+        }
     });
 });
