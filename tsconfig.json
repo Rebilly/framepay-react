@@ -21,14 +21,7 @@
         "typeRoots": ["node_modules/@types", "types"],
         "jsx": "react"
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "types/**/*.d.ts",
-        "types/rebilly/**/*.d.ts",
-        "types/rebilly/payment-elements/**/*.d.ts",
-        "types/rebilly/elements/**/*.d.ts"
-    ],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
     "exclude": ["node_modules/**"],
     "compileOnSave": false
 }
