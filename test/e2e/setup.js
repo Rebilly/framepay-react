@@ -25,9 +25,9 @@ beforeAll(async () => {
     global.browser = await puppeteer.launch(opts);
     global.page = await browser.newPage();
 
-    page.on('console', msg => console.log('CONSOLE LOG:', msg.text()));
-    page.on('error', msg => console.log('ERROR LOG:', msg.text()));
-    page.on('requestfailed', msg => console.log('REQUEST ERROR LOG:', msg.text()));
+    page.on('console', msg => console.log('CONSOLE LOG:', msg.text && typeof msg.text === 'function' ? msg.text() : msg.text));
+    page.on('error', msg => console.log('ERROR LOG:',  msg.text && typeof msg.text === 'function' ? msg.text() : msg.text));
+    page.on('requestfailed', msg => console.log('REQUEST ERROR LOG:',  msg.text && typeof msg.text === 'function' ? msg.text() : msg.text));
     global.takeScreenshotOfPage = (title = 'page') => global.page.screenshot({
         path: 'test/e2e/screenshots/' + title + '.png',
         fullPage: true
