@@ -33,7 +33,7 @@
         "fix": "run-s fix:*",
         "fix:prettier": "prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\"  --write",
         "fix:tslint": "tslint --fix --project .",
-        "test": "run-s test:*",
+        "test": "run-s test:e2e",
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
         "test:e2e": "run-s test:e2e:*",
