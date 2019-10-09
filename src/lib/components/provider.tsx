@@ -8,7 +8,7 @@ import getRebillyApi from '../get-rebilly-api';
 export default class Provider extends React.Component<
     ProviderProps,
     FramePayContext
-> {
+    > {
     static readonly defaultProps = {
         injectScript: true,
         injectStyle: false,
