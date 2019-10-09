@@ -109,7 +109,12 @@
             "tsx",
             "js"
         ],
-        "preset": "jest-puppeteer"
+        "preset": "jest-puppeteer",
+        "moduleDirectories": [
+            "node_modules",
+            "src",
+            "types"
+        ]
     },
     "prettier": {
         "singleQuote": true
