@@ -30,7 +30,7 @@ export const FRAMEPAY_STYLE_LINK: string =
 /**
  * Supported FramePay card types
  */
-export const SUPPORTED_CARD_BRANDS: SupportedCardBrandsExport = {
+export const SUPPORTED_CARD_BRANDS: SupportedCardBrandsObject = {
     Amex: SupportedCardBrands.Amex,
     AstroPayCard: SupportedCardBrands.AstroPayCard,
     Cup: SupportedCardBrands.Cup,

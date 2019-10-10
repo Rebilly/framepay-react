@@ -33,14 +33,14 @@
         "fix": "run-s fix:*",
         "fix:prettier": "prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\"  --write",
         "fix:tslint": "tslint --fix --project .",
-        "test": "run-s test:*",
+        "test": "run-s test:e2e",
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
         "test:e2e": "run-s test:e2e:*",
         "test:e2e:react-14": "cross-env REACT_VERSION=0.14.0 run-s set-react-14 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-15": "cross-env REACT_VERSION=15.0.0 run-s set-react-15 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-latest": "cross-env REACT_VERSION=latest run-s set-react-latest dotenv build:e2e clean-react-alias run-jest",
-        "watch": "run-s build && run-p \"build -- --w\" \"test:unit -- --watch\"",
+        "watch": "run-s build && run-p \"build -- --w\"",
         "clean:e2e": "trash test/e2e/build",
         "precommit": "run-s fix",
         "prepush": "run-s fix",
@@ -52,16 +52,18 @@
     },
     "dependencies": {
         "@types/node": "^11.13.0",
-        "@types/react": "^16.8.10",
-        "create-react-context": "^0.2.3"
+        "@types/react": "^16.0.0",
+        "create-react-context": "^0.3.0"
     },
     "devDependencies": {
-        "@fluffy-spoon/substitute": "^1.86.0",
+        "@fluffy-spoon/substitute": "^1.89.0",
         "@types/enzyme": "^3.9.1",
         "@types/expect-puppeteer": "^3.3.1",
         "@types/jest": "^24.0.11",
         "@types/jest-environment-puppeteer": "^4.0.0",
         "@types/puppeteer": "^1.12.3",
+        "core-js": "3",
+        "cross-env": "^5.2.0",
         "dotenv": "^7.0.0",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
@@ -74,19 +76,18 @@
         "jest-watch-typeahead": "^0.3.0",
         "jsdom": "^14.0.0",
         "jsdom-global": "^3.0.2",
+        "npm-run-all": "^4.1.5",
         "parcel": "^1.12.3",
         "portfinder": "^1.0.20",
         "prettier": "^1.15.2",
-        "puppeteer": "^1.14.0",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
+        "puppeteer": "^1.20.0",
+        "react": "^16.10.2",
+        "react-dom": "^16.10.2",
+        "trash-cli": "^1.4.0",
         "ts-jest": "^24.0.1",
         "tslint": "^5.11.0",
         "tslint-config-prettier": "^1.17.0",
         "tslint-immutable": "^5.0.0",
-        "cross-env": "^5.2.0",
-        "npm-run-all": "^4.1.5",
-        "trash-cli": "^1.4.0",
         "typescript": "^3.1.6"
     },
     "jest": {
@@ -108,7 +109,12 @@
             "tsx",
             "js"
         ],
-        "preset": "jest-puppeteer"
+        "preset": "jest-puppeteer",
+        "moduleDirectories": [
+            "node_modules",
+            "src",
+            "types"
+        ]
     },
     "prettier": {
         "singleQuote": true

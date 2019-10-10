@@ -1,8 +1,8 @@
 import * as React from 'react';
-import FramePayError from '../../FramePayError';
-import BaseElement from './BaseElement';
+import FramePayError from '../../framepay-error';
+import BaseElement from './base-element';
 
-export default class IBANElement extends BaseElement<IBANProps, IBANState> {
+export default class CardElement extends BaseElement<CardProps, CardState> {
     setupElement() {
         const { onReady, onChange, onFocus, onBlur, elementType } = this.props;
 
@@ -12,17 +12,20 @@ export default class IBANElement extends BaseElement<IBANProps, IBANState> {
             if (!this.elementNode) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `IBANElement invalid elementNode, elementType: ${elementType ||
+                    details: `CardElement invalid elementNode, elementType: ${elementType ||
                         'default'}`
                 });
             }
 
             try {
-                return this.props.Rebilly.iban.mount(this.elementNode);
+                return this.props.Rebilly.card.mount(
+                    this.elementNode,
+                    elementType
+                );
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
-                    details: `IBANElement error in remote api call, elementType: ${elementType ||
+                    details: `CardElement error in remote api call, elementType: ${elementType ||
                         'default'}`,
                     trace: e
                 });
@@ -51,7 +54,6 @@ export default class IBANElement extends BaseElement<IBANProps, IBANState> {
                     onFocus();
                 }
             });
-
             element.on('blur', () => {
                 if (onBlur) {
                     onBlur();
@@ -62,14 +64,10 @@ export default class IBANElement extends BaseElement<IBANProps, IBANState> {
         } catch (e) {
             throw FramePayError({
                 code: FramePayError.codes.elementMountError,
-                details: `IBANElement events binding error, elementType: ${elementType ||
+                details: `CardElement events binding error, elementType: ${elementType ||
                     'default'}`,
                 trace: e
             });
         }
-    }
-
-    render() {
-        return <div ref={node => (this.elementNode = node)} />;
     }
 }

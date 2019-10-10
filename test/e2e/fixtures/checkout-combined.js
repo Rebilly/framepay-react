@@ -46,6 +46,7 @@ class CardElementComponent extends Component {
         this.state = {
             events: {
                 onReady: null,
+                onError: null,
                 onChange: null,
                 onFocus: null,
                 onBlur: null
@@ -158,6 +159,7 @@ class CardElementComponent extends Component {
                             </div>
                             <div className="field">
                                 <this.props.CardElement
+                                    onError={(err) => this.deepUpdateState({ events: { onError: err } })}
                                     onReady={() => this.deepUpdateState({ events: { onReady: true } })}
                                     onChange={(data) => this.deepUpdateState({ events: { onChange: data } })}
                                     onFocus={() => this.deepUpdateState({ events: { onFocus: true } })}
@@ -178,7 +180,14 @@ const CardElement = withFramePayCardComponent(CardElementComponent);
 class App extends Component {
 
     render() {
-        return (<FramePayProvider injectStyle {...params}>
+        return (<FramePayProvider injectStyle
+                                  {...params}
+                                  onReady={() => {
+                                      //console.log('FramePayProvider.onReady');
+                                  }}
+                                  onError={(err) => {
+                                      //console.log('FramePayProvider.onError', err);
+                                  }}>
             <div>
                 {ReactVersion()}
                 <CardElement/>

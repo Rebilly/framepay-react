@@ -3,7 +3,7 @@ describe('card-separate-brands', () => {
         await page.goto(`${location}/card-separate-brands`, {
             waitUntil: 'networkidle2'
         });
-        await page.waitFor(400);
+        await page.waitFor(2000);
     });
 
     it('should load the page', async () => {
@@ -57,7 +57,7 @@ describe('card-separate-brands', () => {
     });
 
     it('should allow the Visa after update and decline after restore', async () => {
-        await page.waitFor(300);
+        await page.waitFor(1000);
 
         expect(
             await page.$(
@@ -73,7 +73,7 @@ describe('card-separate-brands', () => {
 
         const btn2 = await page.$('#btn-update');
         await btn2.click();
-        await page.waitFor(500);
+        await page.waitFor(1500);
 
         expect(
             await page.$(
@@ -89,7 +89,7 @@ describe('card-separate-brands', () => {
 
         const btn3 = await page.$('#btn-restore');
         await btn3.click();
-        await page.waitFor(500);
+        await page.waitFor(1500);
 
         expect(
             await page.$(

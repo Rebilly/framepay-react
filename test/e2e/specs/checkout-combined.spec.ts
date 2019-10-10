@@ -3,7 +3,7 @@ describe('checkout-combined', () => {
         await page.goto(`${location}/checkout-combined`, {
             waitUntil: 'networkidle2'
         });
-        await page.waitFor(400);
+        await page.waitFor(2000);
     });
 
     it('should load the page', async () => {
@@ -42,7 +42,7 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(300);
+        await page.waitFor(1500);
 
         expect(
             await page.$('#token-data-code-invalid-payment-card')
@@ -56,7 +56,7 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(300);
+        await page.waitFor(1500);
 
         expect(
             await page.$('#token-data-code-invalid-payment-card')

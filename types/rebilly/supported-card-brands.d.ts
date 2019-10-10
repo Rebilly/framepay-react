@@ -10,6 +10,6 @@ declare const enum SupportedCardBrands {
     Visa = 'Visa'
 }
 
-type SupportedCardBrandsExport = {
+type SupportedCardBrandsObject = {
     readonly [key in keyof typeof SupportedCardBrands]: SupportedCardBrands;
-}
+};

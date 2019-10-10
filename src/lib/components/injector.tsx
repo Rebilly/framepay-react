@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { ContextConsumer } from '../context';
-import BankElementComponent from './elements/BankElement';
-import CardElementComponent from './elements/CardElement';
-import IBANElementComponent from './elements/IBANElement';
+import BankElementComponent from './elements/bank-element';
+import CardElementComponent from './elements/card-element';
+import IBANElementComponent from './elements/iban-element';
 
 import {
     FramePayBankProps,
@@ -47,7 +47,7 @@ function Hoc<P extends object>(
 }
 
 /**
- * Returns the PaymentMethod elements.
+ * Returns the PaymentElementWrapper elements.
  *
  * @param type {string} PaymentElements
  */

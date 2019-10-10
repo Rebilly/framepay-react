@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FRAMEPAY_SCRIPT_LINK } from '../constants';
 import { ContextProvider } from '../context';
 import { injectScript, injectStyle } from '../dom-util';
-import FramePayError from '../FramePayError';
+import FramePayError from '../framepay-error';
 import getRebillyApi from '../get-rebilly-api';
 
 export default class Provider extends React.Component<
@@ -11,7 +11,9 @@ export default class Provider extends React.Component<
 > {
     static readonly defaultProps = {
         injectScript: true,
-        injectStyle: false
+        injectStyle: false,
+        onError: () => ({}),
+        onReady: () => ({})
     };
 
     readonly state: FramePayContext = {
@@ -39,10 +41,11 @@ export default class Provider extends React.Component<
                 ready: false
             },
             () => {
-                throw FramePayError({
+                const error = FramePayError({
                     code: FramePayError.codes.remoteScriptError,
                     details: `Remote CDN link "${FRAMEPAY_SCRIPT_LINK}"`
                 });
+                throw error;
             }
         );
     }
@@ -56,9 +59,20 @@ export default class Provider extends React.Component<
             api.initialize(settings);
             api.on('ready', () => {
                 this.setState({ ready: true, api, error: null });
+
+                // call onReady callback
+                if (this.props.onReady) {
+                    this.props.onReady();
+                }
             });
             api.on('error', error => {
                 this.setState({ ready: false, api, error });
+
+                // call error callback
+                if (this.props.onError) {
+                    // @ts-ignore
+                    this.props.onError(error);
+                }
             });
         } catch (e) {
             return this.setState(
