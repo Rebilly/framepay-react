@@ -18,14 +18,14 @@ export const REACT_VERSION = React.version;
  */
 export const FRAMEPAY_SCRIPT_LINK: string =
     process.env.FRAMEPAY_SCRIPT_LINK ||
-    'https://cdn.rebilly.com/framepay/v1/rebilly.js';
+    'https://framepay.rebilly.com/rebilly.js';
 
 /**
  * Remote FramePay style CDN link.
  */
 export const FRAMEPAY_STYLE_LINK: string =
     process.env.FRAMEPAY_STYLE_LINK ||
-    'https://cdn.rebilly.com/framepay/v1/rebilly.css';
+    'https://framepay.rebilly.com/rebilly.css';
 
 /**
  * Supported FramePay card types
