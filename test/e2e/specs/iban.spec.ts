@@ -1,7 +1,7 @@
 describe('iban', () => {
     beforeAll(async () => {
         await page.goto(`${location}/iban`);
-        await page.waitFor(1000);
+        await page.waitFor(2000);
     });
 
     it('should load the page', async () => {
@@ -27,7 +27,7 @@ describe('iban', () => {
     });
 
     it('should call the on-ready iban element hook', async () => {
-        await page.waitFor(600);
+        await page.waitFor(2000);
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
     });
 });

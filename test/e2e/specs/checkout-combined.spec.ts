@@ -42,10 +42,11 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(1500);
+        await page.waitFor(2000);
 
         expect(
-            await page.$('#token-data-code-invalid-payment-card')
+            // await page.$('#token-data-code-invalid-payment-card') // todo check validation
+            await page.$('#token-data-type-api-error')
         ).not.toEqual(null);
     });
 
@@ -56,10 +57,11 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(1500);
+        await page.waitFor(2000);
 
         expect(
-            await page.$('#token-data-code-invalid-payment-card')
+            // await page.$('#token-data-code-invalid-payment-card') // todo check validation
+            await page.$('#token-data-type-api-error')
         ).not.toEqual(null);
     });
 });

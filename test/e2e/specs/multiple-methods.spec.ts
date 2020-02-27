@@ -3,7 +3,7 @@ describe('multiple-methods', () => {
         await page.goto(`${location}/multiple-methods`, {
             waitUntil: 'networkidle2'
         });
-        await page.waitFor(1000);
+        await page.waitFor(2000);
     });
 
     it('should load the page', async () => {
@@ -42,14 +42,18 @@ describe('multiple-methods', () => {
     });
 
     it('should load other methods', async () => {
+        await page.waitFor(3000);
+
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
 
         expect(
             await page.$('#events-bankAccountType-onReady-false')
         ).not.toEqual(null);
+
         expect(
             await page.$('#events-bankAccountNumber-onReady-false')
         ).not.toEqual(null);
+
         expect(
             await page.$('#events-bankRoutingNumber-onReady-false')
         ).not.toEqual(null);
@@ -58,7 +62,7 @@ describe('multiple-methods', () => {
         const btn = await page.$('#set-active-element-bank');
         await btn.click();
 
-        await page.waitFor(1000);
+        await page.waitFor(2000);
 
         // disable all elements
         expect(await page.$('#events-card-onReady-false')).not.toEqual(null);
@@ -74,12 +78,10 @@ describe('multiple-methods', () => {
         expect(
             await page.$('#events-bankRoutingNumber-onReady-true')
         ).not.toEqual(null);
-
         // load IBAN
         const btn2 = await page.$('#set-active-element-iban');
         await btn2.click();
-
-        await page.waitFor(1000);
+        await page.waitFor(2000);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 
@@ -99,7 +101,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-card');
         await btnMethod.click();
 
-        await page.waitFor(1000);
+        await page.waitFor(2000);
 
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
         expect(
@@ -199,7 +201,7 @@ describe('multiple-methods', () => {
 
         frames.forEach(async frame => {
             const frameName = frame.name();
-            if (frameName.includes('bank')) {
+            if (frameName.includes('bban')) {
                 const fieldName = fieldsList.shift();
                 switch (fieldName) {
                     case 'bankAccountType':
@@ -210,7 +212,7 @@ describe('multiple-methods', () => {
                     case 'bankRoutingNumber':
                         await frame.$eval('form', form => {
                             form.querySelector(
-                                '[name="bankRoutingNumber"]'
+                                '[name="bbanRoutingNumber"]'
                             ).value = '11111111';
                         });
                         break;
@@ -218,7 +220,7 @@ describe('multiple-methods', () => {
                     case 'bankAccountNumber':
                         await frame.$eval('form', form => {
                             form.querySelector(
-                                '[name="bankAccountNumber"]'
+                                '[name="bbanAccountNumber"]'
                             ).value = '22222222';
                         });
                         break;
@@ -277,11 +279,6 @@ describe('multiple-methods', () => {
                 expect(await page.$('#token-data-method-ach')).not.toEqual(
                     null
                 );
-
-                expect(
-                    await page.$('#token-data-paymentInstrument-brand-Visa')
-                ).not.toEqual(null);
-
                 done();
             }
         });
@@ -290,7 +287,7 @@ describe('multiple-methods', () => {
         const btnMethod = await page.$('#set-active-element-iban');
         await btnMethod.click();
 
-        await page.waitFor(1000);
+        await page.waitFor(2000);
 
         expect(await page.$('#events-iban-onReady-true')).not.toEqual(null);
 

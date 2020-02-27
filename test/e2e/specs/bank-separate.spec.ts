@@ -3,7 +3,7 @@ describe('bank-separate', () => {
         await page.goto(`${location}/bank-separate`, {
             waitUntil: 'networkidle2'
         });
-        await page.waitFor(1000);
+        await page.waitFor(2000);
     });
 
     it('should load the page', async () => {
