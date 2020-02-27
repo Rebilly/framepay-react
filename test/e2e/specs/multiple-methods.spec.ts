@@ -24,10 +24,12 @@ describe('multiple-methods', () => {
     });
 
     it('should call the on-ready card element hook', async () => {
+        await page.waitFor(1000);
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
     });
 
     it('should init with payment-card method by default', async () => {
+        await page.waitFor(1000);
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
         expect(
             await page.$('#events-bankAccountType-onReady-false')

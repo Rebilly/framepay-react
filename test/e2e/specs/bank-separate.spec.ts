@@ -31,18 +31,21 @@ describe('bank-separate', () => {
     });
 
     it('should call the on-ready BankAccountType element hook', async () => {
+        await page.waitFor(2000);
         expect(
             await page.$('#events-bankAccountType-onReady-true')
         ).not.toEqual(null);
     });
 
     it('should call the on-ready BankAccountNumber element hook', async () => {
+        await page.waitFor(2000);
         expect(
             await page.$('#events-bankAccountNumber-onReady-true')
         ).not.toEqual(null);
     });
 
     it('should call the on-ready BankRoutingNumber element hook', async () => {
+        await page.waitFor(2000);
         expect(
             await page.$('#events-bankRoutingNumber-onReady-true')
         ).not.toEqual(null);

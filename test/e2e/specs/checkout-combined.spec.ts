@@ -35,6 +35,7 @@ describe('checkout-combined', () => {
     });
 
     it('should call the on-change hook', async () => {
+        await page.waitFor(2000);
         await page.$('#events-onReady');
         const btn = await page.$('#submit');
         await page.$('#events-onChange');
@@ -42,7 +43,7 @@ describe('checkout-combined', () => {
         await btn.click();
 
         // wait iframepay validation calls
-        await page.waitFor(2000);
+        await page.waitFor(3000);
 
         expect(
             // await page.$('#token-data-code-invalid-payment-card') // todo check validation
