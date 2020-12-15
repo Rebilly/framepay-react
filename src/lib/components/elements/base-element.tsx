@@ -19,7 +19,7 @@ export default class BaseElement<
         if (this.state.mounted && !this.state.element) {
             // tslint:disable-next-line:no-console
             console.log(
-                `WARNING Element does not exists, please fix the setupElement method and add setState({element})`
+                `WARNING Element does not exist, please fix the setupElement method and add setState({element})`
             );
             return;
         }
@@ -64,7 +64,7 @@ export default class BaseElement<
     }
 
     shouldComponentUpdate(nextProps: any, nextState: any) {
-        // we can't to use the componentDidUpdate, componentWillReceiveProps methods
+        // we can't use the componentDidUpdate, componentWillReceiveProps methods
         // also, we can't return true here (to avoid the dom element re-render)
         // so, in that case we had to use that method as componentDidUpdate or componentWillReceiveProps
         // with some magic
