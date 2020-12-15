@@ -10,9 +10,11 @@ import {
 import FramePayProvider from './lib/components/provider';
 
 import {
+    FramePayApplePayProps,
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps,
+    FramePayDigitalWalletProps,
     FramePayIBANProps
 } from '../types/injector';
 
@@ -26,5 +28,7 @@ export {
     FramePayComponentProps,
     FramePayCardProps,
     FramePayBankProps,
-    FramePayIBANProps
+    FramePayIBANProps,
+    FramePayApplePayProps,
+    FramePayDigitalWalletProps
 };

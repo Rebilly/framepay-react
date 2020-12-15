@@ -36,6 +36,8 @@ interface RebillyApi {
     readonly card: CardPaymentElement;
     readonly bankAccount: BankPaymentMethod;
     readonly iban: IBANPaymentMethod;
+    readonly applePay: ApplePayPaymentMethod;
+    readonly digitalWallet: DigitalWalletPaymentMethod;
     readonly createToken: (
         form: HTMLElement | HTMLFormElement,
         extraData?: TokenExtraData
