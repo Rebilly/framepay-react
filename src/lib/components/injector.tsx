@@ -2,8 +2,10 @@
 
 import * as React from 'react';
 import { ContextConsumer } from '../context';
+import ApplePayElementComponent from './elements/applepay-element';
 import BankElementComponent from './elements/bank-element';
 import CardElementComponent from './elements/card-element';
+import DigitalWalletElementComponent from './elements/digitalwallet-element';
 import IBANElementComponent from './elements/iban-element';
 
 import {
@@ -188,6 +190,44 @@ const elementsFabric = (type: PaymentElements): object => {
         };
     }
 
+    if (type === 'applePay') {
+        /**
+         * Apple Pay
+         */
+
+        const ApplePayElement = Hoc(
+            'ApplePayElement',
+            ApplePayElementComponent,
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data)
+                } as DigitalWalletProps)
+        );
+
+        return {
+            ApplePayElement
+        };
+    }
+
+    if (type === 'digitalWallet') {
+        /**
+         * Digital Wallet
+         */
+
+        const DigitalWalletElement = Hoc(
+            'DigitalWalletElement',
+            DigitalWalletElementComponent,
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data)
+                } as DigitalWalletProps)
+        );
+
+        return {
+            DigitalWalletElement
+        };
+    }
+
     /**
      * Throw the error by default.
      */
@@ -204,7 +244,9 @@ export function withFramePay<OriginalProps extends object>(
     const elements = {
         ...elementsFabric('card'),
         ...elementsFabric('bankAccount'),
-        ...elementsFabric('iban')
+        ...elementsFabric('iban'),
+        ...elementsFabric('applePay'),
+        ...elementsFabric('digitalWallet')
     };
     return class extends React.Component<
         OriginalProps & FramePayComponentProps,
