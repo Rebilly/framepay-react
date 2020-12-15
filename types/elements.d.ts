@@ -33,6 +33,20 @@ interface CardProps extends PaymentComponentProps {
     readonly elementType?: CardPaymentElementTypes;
 }
 
+interface ApplePayProps extends RebillyProps {
+    readonly Rebilly: RebillyProps;
+    readonly id?: string;
+    readonly onTokenReady?: (data: string) => void;
+    readonly form: HTMLElement | React.Component;
+    readonly extraData: Object;
+}
+
+interface DigitalWalletProps extends PaymentComponentProps {
+    readonly onTokenReady?: (data: string) => void;
+    readonly form: HTMLElement | React.Component;
+    readonly extraData: Object;
+}
+
 interface BankState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }
@@ -42,5 +56,13 @@ interface CardState extends PaymentComponentState {
 }
 
 interface IBANState extends PaymentComponentState {
+    readonly element: PaymentElement | null;
+}
+
+interface ApplePayState extends PaymentComponentState {
+    readonly element: PaymentElement | null;
+}
+
+interface DigitalWalletState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }
