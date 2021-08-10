@@ -1,6 +1,6 @@
 {
     "name": "@rebilly/framepay-react",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
     "main": "build/index.js",
     "author": "Rebilly",
@@ -122,5 +122,13 @@
         "exclude": [
             "**/*.spec.js"
         ]
-    }
+    },
+  "resolutions": {
+    "yargs-parser": "^13.1.2",
+    "dot-prop": "^4.2.1",
+    "node-notifier": "^8.0.1",
+    "glob-parent": "^5.1.2",
+    "trim-newlines": "^3.0.1",
+    "node-forge": "^0.10.0"
+  }
 }
