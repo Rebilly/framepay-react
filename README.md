@@ -1,7 +1,7 @@
 # framepay-react
 
 [![npm](https://img.shields.io/npm/v/@rebilly/framepay-react.svg)](https://www.npmjs.com/package/@rebilly/framepay-react)
-[![Build Status](https://github.com/Rebilly/framepay-react/workflows/Build & Test/badge.svg)](https://github.com/Rebilly/framepay-react/actions)  
+[![Build Status](https://github.com/Rebilly/framepay-react/workflows/Build%20&%20Test/badge.svg)](https://github.com/Rebilly/framepay-react/actions)
 
 > React components for FramePay.js
 
