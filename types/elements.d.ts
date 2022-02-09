@@ -37,8 +37,6 @@ interface ApplePayProps extends RebillyProps {
     readonly Rebilly: RebillyProps;
     readonly id?: string;
     readonly onTokenReady?: (data: string) => void;
-    readonly form: HTMLElement | React.Component;
-    readonly extraData: Object;
 }
 
 interface DigitalWalletProps extends PaymentComponentProps {

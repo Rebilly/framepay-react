@@ -2,6 +2,7 @@ import { SUPPORTED_CARD_BRANDS } from './lib/constants';
 
 import {
     withFramePay,
+    withFramePayApplePayComponent,
     withFramePayBankComponent,
     withFramePayCardComponent,
     withFramePayIBANComponent
@@ -25,6 +26,7 @@ export {
     withFramePayCardComponent,
     withFramePayBankComponent,
     withFramePayIBANComponent,
+    withFramePayApplePayComponent,
     FramePayComponentProps,
     FramePayCardProps,
     FramePayBankProps,

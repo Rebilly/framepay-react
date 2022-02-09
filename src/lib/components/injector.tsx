@@ -9,6 +9,7 @@ import DigitalWalletElementComponent from './elements/digitalwallet-element';
 import IBANElementComponent from './elements/iban-element';
 
 import {
+    FramePayApplePayProps,
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps,
@@ -201,7 +202,7 @@ const elementsFabric = (type: PaymentElements): object => {
             (data: FramePayContext) =>
                 ({
                     Rebilly: makeRebillyProps(data)
-                } as DigitalWalletProps)
+                } as ApplePayProps)
         );
 
         return {
@@ -349,6 +350,38 @@ export function withFramePayIBANComponent<OriginalProps extends object>(
         {}
     > {
         static readonly displayName = `withFramePayIBANComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
+}
+
+export function withFramePayApplePayComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<OriginalProps & FramePayApplePayProps>
+) {
+    const elements = elementsFabric('applePay');
+    return class extends React.Component<
+        OriginalProps & FramePayApplePayProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayApplePayComponent${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
