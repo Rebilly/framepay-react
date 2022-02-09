@@ -1,6 +1,7 @@
 setTimeout(() => {
     const node = document.createElement('ul');
     [
+        'apple-pay',
         'bank-separate',
         'card-separate',
         'card-separate-rebilly-fields',

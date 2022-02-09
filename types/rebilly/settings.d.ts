@@ -83,12 +83,21 @@ interface FramePayCardSettings {
     readonly brands?: FramePayCardBrands;
 }
 
+interface ApplePayDisplayOptions {
+    readonly buttonType: string;
+    readonly buttonColor: string;
+    readonly buttonLanguage: string;
+}
+
 interface FramePaySettings {
     readonly publishableKey: string;
+    readonly organizationId: string;
+    readonly websiteId: string;
     readonly locale?: supportedLocales;
     readonly icon?: FramePaySettingsIcon;
     readonly placeholders?: FramePaySettingsPlaceholders;
     readonly style?: FramePaySettingsStyles;
     readonly classes?: FramePaySettingsClasses;
     readonly card?: FramePayCardSettings;
+    readonly applePay?: ApplePayDisplayOptions;
 }

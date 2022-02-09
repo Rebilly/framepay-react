@@ -7,7 +7,7 @@ export default class ApplePayElement extends BaseElement<
     ApplePayState
 > {
     setupElement() {
-        const { Rebilly, onTokenReady, extraData, form } = this.props;
+        const { Rebilly, onTokenReady } = this.props;
 
         const makeElement = () => {
             // elementNode already checked in BaseElement.handleSetupElement
@@ -20,10 +20,7 @@ export default class ApplePayElement extends BaseElement<
             }
 
             try {
-                return Rebilly.applePay.mount(this.elementNode, {
-                    extraData,
-                    form
-                });
+                return Rebilly.applePay.mount(this.elementNode);
             } catch (e) {
                 throw FramePayError({
                     code: FramePayError.codes.elementMountError,
