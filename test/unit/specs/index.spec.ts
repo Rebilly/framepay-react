@@ -4,6 +4,7 @@ const exportKeys: ReadonlyArray<string> = [
     'SUPPORTED_CARD_BRANDS',
     'FramePayProvider',
     'withFramePay',
+    'withFramePayApplePayComponent',
     'withFramePayCardComponent',
     'withFramePayBankComponent',
     'withFramePayIBANComponent'
