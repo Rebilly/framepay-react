@@ -5,6 +5,7 @@ import {
     withFramePayApplePayComponent,
     withFramePayBankComponent,
     withFramePayCardComponent,
+    withFramePayGooglePayComponent,
     withFramePayIBANComponent
 } from './lib/components/injector';
 
@@ -27,6 +28,7 @@ export {
     withFramePayBankComponent,
     withFramePayIBANComponent,
     withFramePayApplePayComponent,
+    withFramePayGooglePayComponent,
     FramePayComponentProps,
     FramePayCardProps,
     FramePayBankProps,

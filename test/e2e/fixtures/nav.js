@@ -7,6 +7,7 @@ setTimeout(() => {
         'card-separate-rebilly-fields',
         'card-separate-brands',
         'checkout-combined',
+        'google-pay',
         'iban',
         'multiple-methods'
     ]

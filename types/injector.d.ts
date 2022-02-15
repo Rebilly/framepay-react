@@ -46,6 +46,11 @@ export interface FramePayApplePayProps {
     readonly ApplePayElement: React.Component;
 }
 
+export interface FramePayGooglePayProps {
+    readonly Rebilly: RebillyProps;
+    readonly GooglePayElement: React.Component;
+}
+
 export interface FramePayDigitalWalletProps {
     readonly Rebilly: RebillyProps;
     readonly DigitalWalletElement: React.Component;
