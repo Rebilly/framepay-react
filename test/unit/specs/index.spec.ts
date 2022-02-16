@@ -8,7 +8,8 @@ const exportKeys: ReadonlyArray<string> = [
     'withFramePayCardComponent',
     'withFramePayBankComponent',
     'withFramePayGooglePayComponent',
-    'withFramePayIBANComponent'
+    'withFramePayIBANComponent',
+    'withFramePayPaypalComponent'
 ].sort();
 
 describe('lib/index', () => {

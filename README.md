@@ -10,20 +10,30 @@ Supported: React 14, 15, 16 (latest)
 This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs/) offering out-of-the-box support for Redux and other common React features.
 
 ## Table of Contents
-- [FramePay documentation](#framepay-documentation)
-- [Demos](#demos)
-- [Installation](#installation)
-- [Getting started](#getting-started)
-    - [The FramePay context (`FramePayProvider`)](#the-framepay-context-framepayprovider)
-    - [Setting up your payment form](#setting-up-your-payment-form)
-        - [Provided props](#provided-props)
+- [framepay-react](#framepay-react)
+  - [Table of Contents](#table-of-contents)
+    - [FramePay documentation](#framepay-documentation)
+    - [Demos](#demos)
+    - [Installation](#installation)
+    - [Getting started](#getting-started)
+      - [The FramePay context (`FramePayProvider`)](#the-framepay-context-framepayprovider)
+      - [Setting up your payment form](#setting-up-your-payment-form)
+          - [WARNING](#warning)
+          - [withFramePay (All props)](#withframepay-all-props)
+          - [withFramePayCardComponent (Card props)](#withframepaycardcomponent-card-props)
+          - [withFramePayBankComponent (Bank props)](#withframepaybankcomponent-bank-props)
+          - [withFramePayApplePayComponent (Apple Pay props)](#withframepayapplepaycomponent-apple-pay-props)
+          - [withFramePayGooglePayComponent (Google Pay props)](#withframepaygooglepaycomponent-google-pay-props)
+          - [withFramePayPaypalComponent (Paypal props)](#withframepaypaypalcomponent-paypal-props)
         - [With FramePay (`withFramePay`) HOC](#with-framepay-withframepay-hoc)
         - [Card elements (`withFramePayCardComponent`) HOC](#card-elements-withframepaycardcomponent-hoc)
         - [Bank elements (`withFramePayBankComponent`) HOC](#bank-elements-withframepaybankcomponent-hoc)
-- [Advanced options](#advanced-options)
-    - [Initialize settings](#initialization-settings)
-    - [Create Token params](#create-token-parameters)
-- [Troubleshooting](#troubleshooting)
+    - [Advanced options](#advanced-options)
+      - [Initialization settings](#initialization-settings)
+      - [Create Token Parameters](#create-token-parameters)
+    - [Troubleshooting](#troubleshooting)
+        - [Incorrect](#incorrect)
+        - [Correct](#correct)
 
 ### FramePay documentation
 For more information on FramePay see its [official documentation](https://rebilly.github.io/framepay-docs/) or [repository](https://github.com/Rebilly/framepay-docs).
@@ -97,6 +107,9 @@ The react lifecycle methods already implemented in the library.
 - `CardCvvElement`
 - `CardExpiryElement`
 - `CardNumberElement`
+- `ApplePayElement`
+- `GooglePayElement`
+- `PaypalElement`
 
 ###### withFramePayCardComponent (Card props)
 - Rebilly
@@ -111,12 +124,24 @@ The react lifecycle methods already implemented in the library.
 - `BankAccountTypeElement`
 - `BankRoutingNumberElement`
 
+###### withFramePayApplePayComponent (Apple Pay props)
+- Rebilly
+- `ApplePayElement`
+
+###### withFramePayGooglePayComponent (Google Pay props)
+- Rebilly
+- `GooglePayElement`
+
+###### withFramePayPaypalComponent (Paypal props)
+- Rebilly
+- `PaypalElement`
+
 ##### With FramePay (`withFramePay`) HOC
 This simple FramePay HOC is used to provide the `Rebilly` API in your component. It is most commonly used in combination with multiple payment methods.  
 
 - [Payment cards and ACH (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethods.js)      
 - [Payment cards and ACH Short version (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/MultiplePaymentMethodsShort.js)            
-- [PayPal and Bitcoin (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/OtherPaymentMethods.js)      
+- [Alternative methods (Bitcoin) (CodeSandbox)](https://codesandbox.io/s/z2q2lx9ry4?module=/src/elements/OtherPaymentMethods.js)      
 
 ##### Card elements (`withFramePayCardComponent`) HOC
 

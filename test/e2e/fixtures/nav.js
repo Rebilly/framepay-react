@@ -9,7 +9,8 @@ setTimeout(() => {
         'checkout-combined',
         'google-pay',
         'iban',
-        'multiple-methods'
+        'multiple-methods',
+        'paypal',
     ]
         .forEach(route => {
             node.innerHTML += `<li><a href="/${route}.html">${route}</a></li>`;

@@ -45,6 +45,12 @@ interface GooglePayProps extends RebillyProps {
     readonly onTokenReady?: (data: string) => void;
 }
 
+interface PaypalProps extends RebillyProps {
+    readonly Rebilly: RebillyProps;
+    readonly id?: string;
+    readonly onTokenReady?: (data: string) => void;
+}
+
 interface BankState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }
@@ -62,5 +68,9 @@ interface ApplePayState extends PaymentComponentState {
 }
 
 interface GooglePayState extends PaymentComponentState {
+    readonly element: PaymentElement | null;
+}
+
+interface PaypalState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }
