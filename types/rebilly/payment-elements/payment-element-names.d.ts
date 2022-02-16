@@ -1,1 +1,1 @@
-type PaymentElements = 'card' | 'bankAccount' | 'iban' | 'applePay' | 'googlePay' | 'digitalWallet';
+type PaymentElements = 'card' | 'bankAccount' | 'iban' | 'applePay' | 'googlePay';
