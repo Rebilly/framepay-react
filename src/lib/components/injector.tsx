@@ -214,7 +214,7 @@ const elementsFabric = (type: PaymentElements): object => {
 
     if (type === 'googlePay') {
         /**
-         * Apple Pay
+         * Google Pay
          */
 
         const GooglePayElement = Hoc(
