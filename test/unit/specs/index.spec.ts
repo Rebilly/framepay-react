@@ -7,6 +7,7 @@ const exportKeys: ReadonlyArray<string> = [
     'withFramePayApplePayComponent',
     'withFramePayCardComponent',
     'withFramePayBankComponent',
+    'withFramePayGooglePayComponent',
     'withFramePayIBANComponent'
 ].sort();
 

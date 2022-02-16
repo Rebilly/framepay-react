@@ -5,7 +5,7 @@ import { ContextConsumer } from '../context';
 import ApplePayElementComponent from './elements/applepay-element';
 import BankElementComponent from './elements/bank-element';
 import CardElementComponent from './elements/card-element';
-import DigitalWalletElementComponent from './elements/digitalwallet-element';
+import GooglePayElementComponent from './elements/googlepay-element';
 import IBANElementComponent from './elements/iban-element';
 
 import {
@@ -13,6 +13,7 @@ import {
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps,
+    FramePayGooglePayProps,
     FramePayIBANProps
 } from '../../../types/injector';
 
@@ -210,22 +211,22 @@ const elementsFabric = (type: PaymentElements): object => {
         };
     }
 
-    if (type === 'digitalWallet') {
+    if (type === 'googlePay') {
         /**
-         * Digital Wallet
+         * Google Pay
          */
 
-        const DigitalWalletElement = Hoc(
-            'DigitalWalletElement',
-            DigitalWalletElementComponent,
+        const GooglePayElement = Hoc(
+            'GooglePayElement',
+            GooglePayElementComponent,
             (data: FramePayContext) =>
                 ({
                     Rebilly: makeRebillyProps(data)
-                } as DigitalWalletProps)
+                } as GooglePayProps)
         );
 
         return {
-            DigitalWalletElement
+            GooglePayElement
         };
     }
 
@@ -247,7 +248,7 @@ export function withFramePay<OriginalProps extends object>(
         ...elementsFabric('bankAccount'),
         ...elementsFabric('iban'),
         ...elementsFabric('applePay'),
-        ...elementsFabric('digitalWallet')
+        ...elementsFabric('googlePay')
     };
     return class extends React.Component<
         OriginalProps & FramePayComponentProps,
@@ -382,6 +383,40 @@ export function withFramePayApplePayComponent<OriginalProps extends object>(
         {}
     > {
         static readonly displayName = `withFramePayApplePayComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
+}
+
+export function withFramePayGooglePayComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<
+        OriginalProps & FramePayGooglePayProps
+    >
+) {
+    const elements = elementsFabric('googlePay');
+    return class extends React.Component<
+        OriginalProps & FramePayGooglePayProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayGooglePayComponent${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
