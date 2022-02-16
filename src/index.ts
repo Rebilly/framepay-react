@@ -38,5 +38,5 @@ export {
     FramePayIBANProps,
     FramePayApplePayProps,
     FramePayGooglePayProps,
-	FramePayPaypalProps
+    FramePayPaypalProps
 };
