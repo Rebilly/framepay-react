@@ -16,9 +16,9 @@ export interface FramePayComponentProps {
     // IBAN components
     readonly IBANElement: React.Component;
 
-    // Google Pay (digital wallet) and Apple Pay components
+    // Google Pay and Apple Pay components
     readonly ApplePayElement: React.Component;
-    readonly DigitalWalletElement: React.Component;
+    readonly GooglePayElement: React.Component;
 }
 
 export interface FramePayCardProps {
@@ -49,9 +49,4 @@ export interface FramePayApplePayProps {
 export interface FramePayGooglePayProps {
     readonly Rebilly: RebillyProps;
     readonly GooglePayElement: React.Component;
-}
-
-export interface FramePayDigitalWalletProps {
-    readonly Rebilly: RebillyProps;
-    readonly DigitalWalletElement: React.Component;
 }

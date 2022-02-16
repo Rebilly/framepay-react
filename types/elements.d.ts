@@ -45,12 +45,6 @@ interface GooglePayProps extends RebillyProps {
     readonly onTokenReady?: (data: string) => void;
 }
 
-interface DigitalWalletProps extends PaymentComponentProps {
-    readonly onTokenReady?: (data: string) => void;
-    readonly form: HTMLElement | React.Component;
-    readonly extraData: Object;
-}
-
 interface BankState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }
@@ -68,9 +62,5 @@ interface ApplePayState extends PaymentComponentState {
 }
 
 interface GooglePayState extends PaymentComponentState {
-    readonly element: PaymentElement | null;
-}
-
-interface DigitalWalletState extends PaymentComponentState {
     readonly element: PaymentElement | null;
 }

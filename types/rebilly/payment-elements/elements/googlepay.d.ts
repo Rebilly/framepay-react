@@ -1,8 +1,4 @@
 /**
- * GooglePay Payment element
- */
-
-/**
  * GooglePay Payment Method
  */
 declare type GooglePayPaymentElementTypes = {
