@@ -6,7 +6,8 @@ import {
     withFramePayBankComponent,
     withFramePayCardComponent,
     withFramePayGooglePayComponent,
-    withFramePayIBANComponent
+    withFramePayIBANComponent,
+    withFramePayPaypalComponent
 } from './lib/components/injector';
 
 import FramePayProvider from './lib/components/provider';
@@ -17,7 +18,8 @@ import {
     FramePayCardProps,
     FramePayComponentProps,
     FramePayGooglePayProps,
-    FramePayIBANProps
+    FramePayIBANProps,
+    FramePayPaypalProps
 } from '../types/injector';
 
 export {
@@ -29,10 +31,12 @@ export {
     withFramePayIBANComponent,
     withFramePayApplePayComponent,
     withFramePayGooglePayComponent,
+    withFramePayPaypalComponent,
     FramePayComponentProps,
     FramePayCardProps,
     FramePayBankProps,
     FramePayIBANProps,
     FramePayApplePayProps,
     FramePayGooglePayProps,
+	FramePayPaypalProps
 };

@@ -95,6 +95,12 @@ interface GooglePayDisplayOptions {
     readonly buttonHeight: string;
 }
 
+interface PaypalDisplayOptions {
+    readonly buttonShape: string;
+    readonly buttonColor: string;
+    readonly buttonHeight: string;
+}
+
 interface FramePaySettings {
     readonly publishableKey: string;
     readonly organizationId: string;
@@ -107,4 +113,5 @@ interface FramePaySettings {
     readonly card?: FramePayCardSettings;
     readonly applePay?: ApplePayDisplayOptions;
     readonly googlePay?: GooglePayDisplayOptions;
+    readonly paypal?: PaypalDisplayOptions;
 }

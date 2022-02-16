@@ -7,6 +7,7 @@ import BankElementComponent from './elements/bank-element';
 import CardElementComponent from './elements/card-element';
 import GooglePayElementComponent from './elements/googlepay-element';
 import IBANElementComponent from './elements/iban-element';
+import PaypalElementComponent from './elements/paypal-element';
 
 import {
     FramePayApplePayProps,
@@ -14,7 +15,8 @@ import {
     FramePayCardProps,
     FramePayComponentProps,
     FramePayGooglePayProps,
-    FramePayIBANProps
+    FramePayIBANProps,
+    FramePayPaypalProps
 } from '../../../types/injector';
 
 const makeRebillyProps = (data: FramePayContext): RebillyProps =>
@@ -230,6 +232,25 @@ const elementsFabric = (type: PaymentElements): object => {
         };
     }
 
+    if (type === 'paypal') {
+        /**
+         * Paypal
+         */
+
+        const PaypalElement = Hoc(
+            'PaypalElement',
+            PaypalElementComponent,
+            (data: FramePayContext) =>
+                ({
+                    Rebilly: makeRebillyProps(data)
+                } as PaypalProps)
+        );
+
+        return {
+            PaypalElement
+        };
+    }
+
     /**
      * Throw the error by default.
      */
@@ -248,7 +269,8 @@ export function withFramePay<OriginalProps extends object>(
         ...elementsFabric('bankAccount'),
         ...elementsFabric('iban'),
         ...elementsFabric('applePay'),
-        ...elementsFabric('googlePay')
+        ...elementsFabric('googlePay'),
+        ...elementsFabric('paypal')
     };
     return class extends React.Component<
         OriginalProps & FramePayComponentProps,
@@ -417,6 +439,38 @@ export function withFramePayGooglePayComponent<OriginalProps extends object>(
         {}
     > {
         static readonly displayName = `withFramePayGooglePayComponent${name}(${WrappedComponent.displayName ||
+            WrappedComponent.name ||
+            'Component'})`;
+
+        render() {
+            return (
+                <ContextConsumer>
+                    {(data: FramePayContext) => {
+                        return (
+                            <WrappedComponent
+                                {...{
+                                    ...this.props,
+                                    ...elements,
+                                    Rebilly: makeRebillyProps(data)
+                                }}
+                            />
+                        );
+                    }}
+                </ContextConsumer>
+            );
+        }
+    };
+}
+
+export function withFramePayPaypalComponent<OriginalProps extends object>(
+    WrappedComponent: React.ComponentType<OriginalProps & FramePayPaypalProps>
+) {
+    const elements = elementsFabric('paypal');
+    return class extends React.Component<
+        OriginalProps & FramePayPaypalProps,
+        {}
+    > {
+        static readonly displayName = `withFramePayPaypalComponent${name}(${WrappedComponent.displayName ||
             WrappedComponent.name ||
             'Component'})`;
 
