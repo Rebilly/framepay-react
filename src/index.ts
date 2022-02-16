@@ -16,6 +16,7 @@ import {
     FramePayBankProps,
     FramePayCardProps,
     FramePayComponentProps,
+    FramePayGooglePayProps,
     FramePayIBANProps
 } from '../types/injector';
 
@@ -33,4 +34,5 @@ export {
     FramePayBankProps,
     FramePayIBANProps,
     FramePayApplePayProps,
+    FramePayGooglePayProps,
 };
