@@ -6,8 +6,7 @@
 const fs = require('fs');
 const pkg = require('../../package');
 
-const latest = process.env.REACT_VERSION === 'latest';
-const version = latest ? pkg.devDependencies.react : process.env.REACT_VERSION;
+const version = process.env.REACT_VERSION;
 const clean = !Boolean(version) || version === 'clean';
 
 
@@ -21,7 +20,7 @@ const template = {
 /**
  * Delete aliases
  */
-if (latest || clean) {
+if (clean) {
     if (pkg.alias) {
         Object.keys(template).forEach(key => delete pkg.alias[key]);
 
@@ -35,7 +34,7 @@ if (latest || clean) {
 }
 
 if (!clean) {
-    console.log(`>>> REACT_VERSION ${latest ? `latest - ${version}` : version} <<<`);
+    console.log(`>>> REACT_VERSION ${version} <<<`);
 } else {
     console.log(`>>> CLEAN REACT ALIAS <<<`);
 }
