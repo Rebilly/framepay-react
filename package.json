@@ -24,6 +24,7 @@
         "set-react-15": "cross-env REACT_VERSION=15.0.0 node ./test/e2e/switch-react-version",
         "set-react-16": "cross-env REACT_VERSION=16 node ./test/e2e/switch-react-version",
         "set-react-17": "cross-env REACT_VERSION=17 node ./test/e2e/switch-react-version",
+        "set-react-18": "cross-env REACT_VERSION=18 node ./test/e2e/switch-react-version",
         "clean-react-alias": "cross-env REACT_VERSION=clean node ./test/e2e/switch-react-version",
         "run-jest": "node test/e2e/jest.js --env=node --no-cache --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
         "dotenv": "node ./env.js",
@@ -42,6 +43,7 @@
         "test:e2e:react-15": "cross-env REACT_VERSION=15.0.0 run-s set-react-15 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-16": "cross-env REACT_VERSION=16 run-s set-react-16 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-17": "cross-env REACT_VERSION=17 run-s set-react-17 dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-18": "cross-env REACT_VERSION=18 run-s set-react-18 dotenv build:e2e clean-react-alias run-jest",
         "watch": "run-s build && run-p \"build -- --w\"",
         "clean:e2e": "trash test/e2e/build",
         "precommit": "run-s fix",
@@ -49,8 +51,8 @@
         "all": "run-s fix:* test:* build"
     },
     "peerDependencies": {
-        "react": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0",
-        "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+        "react": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
     },
     "dependencies": {
         "create-react-context": "^0.3.0"
