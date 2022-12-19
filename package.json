@@ -1,6 +1,6 @@
 {
     "name": "@rebilly/framepay-react",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
     "main": "build/index.js",
     "author": "Rebilly",
@@ -22,7 +22,9 @@
     "scripts": {
         "set-react-14": "cross-env REACT_VERSION=0.14.0 node ./test/e2e/switch-react-version",
         "set-react-15": "cross-env REACT_VERSION=15.0.0 node ./test/e2e/switch-react-version",
-        "set-react-latest": "cross-env REACT_VERSION=latest node ./test/e2e/switch-react-version",
+        "set-react-16": "cross-env REACT_VERSION=16 node ./test/e2e/switch-react-version",
+        "set-react-17": "cross-env REACT_VERSION=17 node ./test/e2e/switch-react-version",
+        "set-react-18": "cross-env REACT_VERSION=18 node ./test/e2e/switch-react-version",
         "clean-react-alias": "cross-env REACT_VERSION=clean node ./test/e2e/switch-react-version",
         "run-jest": "node test/e2e/jest.js --env=node --no-cache --colors test/e2e/specs --setupFilesAfterEnv ./test/e2e/setup.js --preset jest-puppeteer",
         "dotenv": "node ./env.js",
@@ -39,7 +41,9 @@
         "test:e2e": "run-s test:e2e:*",
         "test:e2e:react-14": "cross-env REACT_VERSION=0.14.0 run-s set-react-14 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-15": "cross-env REACT_VERSION=15.0.0 run-s set-react-15 dotenv build:e2e clean-react-alias run-jest",
-        "test:e2e:react-latest": "cross-env REACT_VERSION=latest run-s set-react-latest dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-16": "cross-env REACT_VERSION=16 run-s set-react-16 dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-17": "cross-env REACT_VERSION=17 run-s set-react-17 dotenv build:e2e clean-react-alias run-jest",
+        "test:e2e:react-18": "cross-env REACT_VERSION=18 run-s set-react-18 dotenv build:e2e clean-react-alias run-jest",
         "watch": "run-s build && run-p \"build -- --w\"",
         "clean:e2e": "trash test/e2e/build",
         "precommit": "run-s fix",
@@ -47,8 +51,8 @@
         "all": "run-s fix:* test:* build"
     },
     "peerDependencies": {
-        "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
-        "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0"
+        "react": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
     },
     "dependencies": {
         "create-react-context": "^0.3.0"
@@ -61,11 +65,11 @@
         "@types/jest-environment-puppeteer": "^4.0.0",
         "@types/node": "^11.13.0",
         "@types/puppeteer": "^1.12.3",
+        "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
         "core-js": "3",
         "cross-env": "^5.2.0",
         "dotenv": "^7.0.0",
         "enzyme": "^3.9.0",
-        "enzyme-adapter-react-16": "^1.11.2",
         "express": "^4.16.4",
         "husky": "^1.3.1",
         "jest": "^24.6.0",
@@ -80,8 +84,8 @@
         "portfinder": "^1.0.20",
         "prettier": "^1.15.2",
         "puppeteer": "^1.20.0",
-        "react": "^16.10.2",
-        "react-dom": "^16.10.2",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
         "trash-cli": "^1.4.0",
         "ts-jest": "^24.0.1",
         "tslint": "^5.11.0",
