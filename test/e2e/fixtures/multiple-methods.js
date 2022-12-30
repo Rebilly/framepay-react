@@ -6,7 +6,14 @@ import { deepMerge, prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
 const params = {
-    publishableKey: 'pk_sandbox_c6cqKLddciVikuBOjhcng-rLccTz70NT4W_qZ_h'
+    publishableKey: 'pk_sandbox_S95ATjj4hXZs-T9QpZq1ENl2tDSrUkCGv98utc9',
+    organizationId: '5977150c-1c97-4dd4-9860-6bb2bab070b4',
+    websiteId: 'demo.com',
+    transactionData: {
+        amount: 10,
+        currency: 'USD',
+        label: 'Purchase label 1',
+    },
 };
 
 const defaultEvents = () => ({
@@ -15,6 +22,9 @@ const defaultEvents = () => ({
         onChange: false,
         onFocus: false,
         onBlur: false
+    },
+    googlepay: {
+        onTokenReady: false,
     },
     bankAccountType: {
         onReady: false,
@@ -50,7 +60,8 @@ class PaymentFormComponent extends Component {
                 // {element: method}
                 card: 'payment-card',
                 bank: 'ach',
-                iban: 'ach'
+                iban: 'ach',
+                googlepay: 'googlepay'
             },
             paymentElement: 'card',
             events: {
@@ -200,6 +211,17 @@ class PaymentFormComponent extends Component {
                                                 this.deepUpdateState({
                                                     events: {
                                                         card: { onBlur: true }
+                                                    }
+                                                })
+                                            }
+                                        />
+                                    )}
+                                    {this.state.paymentElement === 'googlepay' && (
+                                        <this.props.GooglePayElement
+                                            onTokenReady={() =>
+                                                this.deepUpdateState({
+                                                    events: {
+                                                        googlepay: { onTokenReady: true }
                                                     }
                                                 })
                                             }
