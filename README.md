@@ -5,7 +5,7 @@
 
 > React components for FramePay.js
 
-Supported: React 14, 15, 16 (latest)  
+Supported: React 14 to 18.
 
 This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs/) offering out-of-the-box support for Redux and other common React features.
 
@@ -36,7 +36,7 @@ This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs
         - [Correct](#correct)
 
 ### FramePay documentation
-For more information on FramePay see its [official documentation](https://rebilly.github.io/framepay-docs/) or [repository](https://github.com/Rebilly/framepay-docs).
+For more information on FramePay see its [official documentation](https://www.rebilly.com/docs/dev-docs/framepay/).
 
 ### Demos      
 - [Use with react-redux (CodeSandbox)](https://codesandbox.io/s/n089y731x4)    
