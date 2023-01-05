@@ -1,59 +1,51 @@
 import { Substitute } from '@fluffy-spoon/substitute';
-import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import IBANElement from '../../../../../../src/lib/components/elements/iban-element';
-import FramePayError from '../../../../../../src/lib/framepay-error';
+import FramePayError from '../../framepay-error';
+import IBANElement from './iban-element';
 
-describe('lib/components/elements/IBANElement', () => {
-    it('should not setup the element while api is not ready', done => {
+describe('IBANElement', () => {
+    it('should not setup the element while api is not ready', () => {
         const props = Substitute.for<IBANProps>();
 
         props.Rebilly.ready.returns(false);
 
         const spy = jest.spyOn(IBANElement.prototype, 'setupElement');
 
-        mount(<IBANElement {...props} Rebilly={props.Rebilly} />);
-
-        process.nextTick(() => {
-            expect(spy).not.toHaveBeenCalled();
-            done();
-        });
+        render(<IBANElement {...props} Rebilly={props.Rebilly} />);
+        expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should setup the element when api is ready', done => {
+    it('should setup the element when api is ready', () => {
         const props = Substitute.for<IBANProps>();
         const spy = jest.spyOn(IBANElement.prototype, 'setupElement');
 
         props.Rebilly.ready.returns(false);
 
-        const wrapper = mount(
+        const { rerender } = render(
             <IBANElement {...props} Rebilly={props.Rebilly} />
         );
 
-        process.nextTick(() => {
-            expect(spy).toHaveBeenCalledTimes(0);
-            expect(wrapper.state('mounted')).toEqual(false);
+        expect(spy).toHaveBeenCalledTimes(0);
 
-            const nextProps = Substitute.for<IBANProps>();
+        const nextProps = Substitute.for<IBANProps>();
 
-            wrapper.setProps({
-                ...nextProps,
-                Rebilly: { iban: nextProps.Rebilly.iban, ready: true }
-            });
+        rerender(
+            <IBANElement
+                {...nextProps}
+                Rebilly={{ iban: nextProps.Rebilly.iban, ready: true }}
+            />
+        );
 
-            expect(spy).toHaveBeenCalledTimes(1);
-            expect(wrapper.state('element')).toBeDefined();
-            expect(wrapper.state('mounted')).toEqual(true);
-            done();
-        });
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should render the empty div element', () => {
         const props = Substitute.for<IBANProps>();
-        const wrapper = shallow(
+        const { container } = render(
             <IBANElement {...props} Rebilly={props.Rebilly} />
         );
-        expect(wrapper.html()).toEqual('<div></div>');
+        expect(container.firstChild).toMatchInlineSnapshot(`<div />`);
     });
 
     it('should destroy the element on component unmount', done => {
@@ -63,8 +55,6 @@ describe('lib/components/elements/IBANElement', () => {
         element.destroy().mimicks(() => {
             done();
         });
-
-        // props.Rebilly.iban.mount(Arg.any(), Arg.any()).returns(element);
 
         class TmpComponent extends React.Component {
             render() {
@@ -84,17 +74,15 @@ describe('lib/components/elements/IBANElement', () => {
             }
         }
 
-        const wrapper = mount(<TmpComponent />);
-        process.nextTick(() => {
-            wrapper.unmount();
-        });
+        const { unmount } = render(<TmpComponent />);
+        unmount();
     });
 
     it('should fail the element mount on remote error', () => {
         const props = Substitute.for<IBANProps>();
 
         try {
-            mount(
+            render(
                 <IBANElement
                     {...props}
                     Rebilly={{

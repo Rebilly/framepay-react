@@ -1,5 +1,5 @@
 import { Arg, Substitute } from '@fluffy-spoon/substitute';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
 /**
@@ -131,11 +131,11 @@ describe('Mock functionality works correctly', () => {
             }
         }
 
-        const wrapper = mount(<TmpParentComponent api={api} />);
+        const { unmount } = render(<TmpParentComponent api={api} />);
         expect(spy1).toBeCalledTimes(1);
         expect(spy2).not.toHaveBeenCalled();
 
-        wrapper.unmount();
+        unmount();
 
         expect(spy1).toBeCalledTimes(2);
         expect(spy2).not.toHaveBeenCalled();
