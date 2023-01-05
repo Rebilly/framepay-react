@@ -1,16 +1,19 @@
 import { Arg, Substitute } from '@fluffy-spoon/substitute';
-import { mount, shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import BankElement from '../../../../../../src/lib/components/elements/bank-element';
-import FramePayError from '../../../../../../src/lib/framepay-error';
+import FramePayError from '../../framepay-error';
+import BankElement from './bank-element';
 
-describe('lib/components/elements/BankElement', () => {
-    it('should not setup the element while api is not ready', done => {
+describe('BankElement', () => {
+    it('should not setup the element while api is not ready', () => {
         const props = Substitute.for<BankProps>();
 
-        const spy = jest.spyOn(BankElement.prototype, 'setupElement');
+        const setupElementSpy = jest.spyOn(
+            BankElement.prototype,
+            'setupElement'
+        );
 
-        mount(
+        render(
             <BankElement
                 {...props}
                 Rebilly={{
@@ -22,18 +25,18 @@ describe('lib/components/elements/BankElement', () => {
             />
         );
 
-        process.nextTick(() => {
-            expect(spy).not.toHaveBeenCalled();
-            done();
-        });
+        expect(setupElementSpy).not.toHaveBeenCalled();
     });
 
-    it('should setup the element when api is ready', done => {
+    it('should setup the element when api is ready', () => {
         const props = Substitute.for<BankProps>();
 
-        const spy = jest.spyOn(BankElement.prototype, 'setupElement');
+        const setupElementSpy = jest.spyOn(
+            BankElement.prototype,
+            'setupElement'
+        );
 
-        const wrapper = mount(
+        render(
             <BankElement
                 {...props}
                 Rebilly={{
@@ -45,12 +48,7 @@ describe('lib/components/elements/BankElement', () => {
             />
         );
 
-        process.nextTick(() => {
-            expect(spy).toHaveBeenCalled();
-            expect(wrapper.state('element')).toBeDefined();
-            expect(wrapper.state('mounted')).toEqual(true);
-            done();
-        });
+        expect(setupElementSpy).toHaveBeenCalled();
     });
 
     it('should destroy the element on component unmount', done => {
@@ -79,10 +77,8 @@ describe('lib/components/elements/BankElement', () => {
             }
         }
 
-        const wrapper = mount(<TmpComponent />);
-        process.nextTick(() => {
-            wrapper.unmount();
-        });
+        const { unmount } = render(<TmpComponent />);
+        unmount();
     });
 
     it('should render the empty div element', () => {
@@ -90,17 +86,17 @@ describe('lib/components/elements/BankElement', () => {
 
         props.Rebilly.ready.returns(true);
 
-        const wrapper = shallow(
+        const { container } = render(
             <BankElement {...props} Rebilly={props.Rebilly} />
         );
-        expect(wrapper.html()).toEqual('<div></div>');
+        expect(container.firstChild).toMatchInlineSnapshot(`<div />`);
     });
 
     it('should fail the element mount on remote error', () => {
         const props = Substitute.for<BankProps>();
 
         try {
-            mount(
+            render(
                 <BankElement
                     {...props}
                     Rebilly={{
