@@ -1,6 +1,7 @@
 module.exports = {
   rootDir: '../..',
   testEnvironment: 'jest-environment-jsdom-fifteen',
+  testPathIgnorePatterns: ['.*/e2e/.*'],
   globals: {
     'ts-jest': {
       diagnostics: {

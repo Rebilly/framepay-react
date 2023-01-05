@@ -1,4 +1,4 @@
-import * as lib from '../../../src/index';
+import * as lib from './index';
 
 const exportKeys: ReadonlyArray<string> = [
     'SUPPORTED_CARD_BRANDS',

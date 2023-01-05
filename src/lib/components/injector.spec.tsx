@@ -1,19 +1,15 @@
 // tslint:disable:max-classes-per-file
 import { Substitute } from '@fluffy-spoon/substitute';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
-import {
-    withFramePay,
-    withFramePayBankComponent,
-    withFramePayCardComponent
-} from '../../../../../src';
+import { withFramePay } from '../..';
 
-import { FramePayComponentProps } from '../../../../../types/injector';
+import { FramePayComponentProps } from '../../../types/injector';
 
-import { ContextProvider } from '../../../../../src/lib/context';
+import { ContextProvider } from '../context';
 
-describe('lib/components/Injector', () => {
+describe('Injector', () => {
     it('withFramePay HOC the context data should be provided', () => {
         expect(true).toEqual(true);
 
@@ -27,8 +23,8 @@ describe('lib/components/Injector', () => {
             render() {
                 return (
                     <div>
-                        {this.props.Rebilly.error}.
-                        {String(this.props.Rebilly.ready)}
+                        error: {this.props.Rebilly.error}
+                        ready: {String(this.props.Rebilly.ready)}
                     </div>
                 );
             }
@@ -53,8 +49,15 @@ describe('lib/components/Injector', () => {
             }
         }
 
-        const wrapper = mount(<App />);
-        expect(wrapper.html()).toEqual('<div>withFramePay.true</div>');
+        const { container } = render(<App />);
+        expect(container.firstChild).toMatchInlineSnapshot(`
+            <div>
+              error: 
+              withFramePay
+              ready: 
+              true
+            </div>
+        `);
     });
 
     it('withFramePayCardComponent HOC the context data should be provided', () => {
@@ -70,8 +73,8 @@ describe('lib/components/Injector', () => {
             render() {
                 return (
                     <div>
-                        {this.props.Rebilly.error}.
-                        {String(this.props.Rebilly.ready)}
+                        error: {this.props.Rebilly.error}
+                        ready: {String(this.props.Rebilly.ready)}
                     </div>
                 );
             }
@@ -96,10 +99,15 @@ describe('lib/components/Injector', () => {
             }
         }
 
-        const wrapper = mount(<App />);
-        expect(wrapper.html()).toEqual(
-            '<div>withFramePayCardComponent.true</div>'
-        );
+        const { container } = render(<App />);
+        expect(container.firstChild).toMatchInlineSnapshot(`
+            <div>
+              error: 
+              withFramePayCardComponent
+              ready: 
+              true
+            </div>
+        `);
     });
 
     it('withFramePayBankComponent HOC the context data should be provided', () => {
@@ -115,8 +123,8 @@ describe('lib/components/Injector', () => {
             render() {
                 return (
                     <div>
-                        {this.props.Rebilly.error}.
-                        {String(this.props.Rebilly.ready)}
+                        error: {this.props.Rebilly.error}
+                        ready: {String(this.props.Rebilly.ready)}
                     </div>
                 );
             }
@@ -141,9 +149,14 @@ describe('lib/components/Injector', () => {
             }
         }
 
-        const wrapper = mount(<App />);
-        expect(wrapper.html()).toEqual(
-            '<div>withFramePayBankComponent.true</div>'
-        );
+        const { container } = render(<App />);
+        expect(container.firstChild).toMatchInlineSnapshot(`
+            <div>
+              error: 
+              withFramePayBankComponent
+              ready: 
+              true
+            </div>
+        `);
     });
 });

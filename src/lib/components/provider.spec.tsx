@@ -1,14 +1,11 @@
 // tslint:disable:max-classes-per-file
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
-import Provider from '../../../../../src/lib/components/provider';
-import {
-    FRAMEPAY_SCRIPT_LINK,
-    FRAMEPAY_STYLE_LINK
-} from '../../../../../src/lib/constants';
+import { FRAMEPAY_SCRIPT_LINK, FRAMEPAY_STYLE_LINK } from '../constants';
+import Provider from './provider';
 
-describe('lib/components/Provider', () => {
+describe('Provider', () => {
     it('should add the FramePay script on the page', () => {
         const props = { publishableKey: 'pk_sandbox_1234567890' };
 
@@ -20,7 +17,7 @@ describe('lib/components/Provider', () => {
 
         expect(document.head.innerHTML).not.toContain(FRAMEPAY_SCRIPT_LINK);
 
-        mount(
+        render(
             <Provider {...props}>
                 <ChildComponent />
             </Provider>
@@ -41,7 +38,7 @@ describe('lib/components/Provider', () => {
         }
 
         expect(document.head.innerHTML).not.toContain(FRAMEPAY_STYLE_LINK);
-        mount(
+        render(
             <Provider {...props}>
                 <ChildComponent />
             </Provider>
@@ -58,12 +55,16 @@ describe('lib/components/Provider', () => {
             }
         }
 
-        const wrapper = mount(
+        const { container } = render(
             <Provider {...props}>
                 <ChildComponent />
             </Provider>
         );
-        expect(wrapper.html()).toEqual('<div>child</div>');
+        expect(container.firstChild).toMatchInlineSnapshot(`
+            <div>
+              child
+            </div>
+        `);
     });
 
     it('should render with multiple child components', () => {
@@ -77,12 +78,21 @@ describe('lib/components/Provider', () => {
             }
         }
 
-        const wrapper = mount(
+        const { container } = render(
             <Provider {...props}>
                 <ChildComponent title="child-1" />
                 <ChildComponent title="child-2" />
             </Provider>
         );
-        expect(wrapper.html()).toEqual('<div>child-1</div><div>child-2</div>');
+        expect(container).toMatchInlineSnapshot(`
+            <div>
+              <div>
+                child-1
+              </div>
+              <div>
+                child-2
+              </div>
+            </div>
+        `);
     });
 });

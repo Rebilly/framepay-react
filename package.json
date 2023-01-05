@@ -39,7 +39,7 @@
         "test:lint": "tslint --project . && prettier \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\" \"test/**/*.tsx\" \"./*.json\" --list-different",
         "test:unit": "run-s test:unit:*",
         "test:unit:enzyme": "jest --env=node --no-cache --colors --coverage test/unit/specs --setupFilesAfterEnv ./test/unit/setup.js",
-        "test:unit:rtl": "jest src/ --config ./test/unit-rtl/jest.config.js",
+        "test:unit:rtl": "jest --config ./test/unit-rtl/jest.config.js",
         "test:e2e": "run-s test:e2e:*",
         "test:e2e:react-14": "cross-env REACT_VERSION=0.14.0 run-s set-react-14 dotenv build:e2e clean-react-alias run-jest",
         "test:e2e:react-15": "cross-env REACT_VERSION=15.0.0 run-s set-react-15 dotenv build:e2e clean-react-alias run-jest",
