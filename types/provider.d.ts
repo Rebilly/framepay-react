@@ -1,4 +1,5 @@
 interface ProviderProps extends FramePaySettings {
+    children?: React.ReactNode | undefined;
     readonly injectStyle?: boolean;
     readonly injectScript?: boolean;
     readonly onReady?: () => void;
