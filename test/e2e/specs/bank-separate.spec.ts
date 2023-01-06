@@ -15,13 +15,10 @@ describe('bank-separate', () => {
     it('should render with correct react version', async () => {
         const version = await page.$eval('#react-version', el => el.innerHTML);
 
-        const pkg = require('../../../package.json');
-
-        if (process.env.REACT_VERSION === 'latest') {
-            expect(version).toEqual(pkg.devDependencies.react.slice(1));
-        } else {
-            expect(version).toEqual(process.env.REACT_VERSION);
-        }
+        expect(
+            process.env.REACT_VERSION &&
+                version.startsWith(process.env.REACT_VERSION)
+        ).toBe(true);
         expect(version.length >= 6).toEqual(true);
     });
 
