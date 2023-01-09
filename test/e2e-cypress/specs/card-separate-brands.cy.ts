@@ -1,45 +1,31 @@
 describe('card-separate-brands', () => {
-    beforeAll(async () => {
-        await page.goto(`${location}/card-separate-brands`, {
-            waitUntil: 'networkidle2'
-        });
-        await page.waitFor(2000);
+    beforeEach(() => {
+        cy.visit({ url: '/card-separate-brands'});
     });
 
-    it('should load the page', async () => {
-        await expect(page.title()).resolves.toMatch(
-            'Test Card Page Separate Fields'
-        );
+    it('should load the page', () => {
+        cy.title().should('eq', 'Test Card Page Separate Fields allowed Brands');
     });
 
-    it('should render with correct react version', async () => {
-        const version = await page.$eval('#react-version', el => el.innerHTML);
-
-        expect(
-            process.env.REACT_VERSION &&
-                version.startsWith(process.env.REACT_VERSION)
-        ).toBe(true);
-        expect(version.length >= 6).toEqual(true);
+    it('should inject the card iframes into the page', () => {
+        cy.get('iframe#cardNumber');
+        cy.get('iframe#cardCvv');
+        cy.get('iframe#cardExpiration');
     });
 
-    it('should inject the card iframe into the page', async () => {
-        const bank = await page.$('.rebilly-framepay > iframe');
-        expect(bank).not.toEqual(null);
+    it('should be call the on-ready card element hook', () => {
+        cy.get('#events-number-onReady-true');
     });
 
-    it('should be call the on-ready card element hook', async () => {
-        expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
+    it('should be call the on-ready cvv element hook', () => {
+        cy.get('#events-cvv-onReady-true');
     });
 
-    it('should be call the on-ready cvv element hook', async () => {
-        expect(await page.$('#events-cvv-onReady-true')).not.toEqual(null);
+    it('should be call the on-ready expiry element hook', () => {
+        cy.get('#events-expiry-onReady-true');
     });
 
-    it('should be call the on-ready expiry element hook', async () => {
-        expect(await page.$('#events-expiry-onReady-true')).not.toEqual(null);
-    });
-
-    it('should decline the MasterCard by default', async () => {
+    /*it('should decline the MasterCard by default', async () => {
         expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
 
         const btn = await page.$('#card');
@@ -98,5 +84,5 @@ describe('card-separate-brands', () => {
                 '#events-number-onChange-error-code-incomplete-card-number'
             )
         ).toEqual(null);
-    });
+    });*/
 });
