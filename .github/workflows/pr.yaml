@@ -3,15 +3,57 @@ name: Build & Test
 on: pull_request
 
 jobs:
-  frontend-unit-tests:
+  lint:
     runs-on: ubuntu-latest
 
-    name: Run tests
+    name: Lint
     steps:
       - uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: yarn install --frozen-lockfile --non-interactive
+          node-version: 14
+      - uses: bahmutov/npm-install@v1.7.7
+        with:
+          useRollingCache: true
+      - run: yarn test:lint
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    name: Unit tests
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: bahmutov/npm-install@v1.7.7
+        with:
+          useRollingCache: true
       - run: yarn test:unit
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    name: E2E tests
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: bahmutov/npm-install@v1.7.7
+        with:
+          useRollingCache: true
+      - run: yarn test:cypress:ci:all
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/e2e-cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: test/e2e-cypress/videos

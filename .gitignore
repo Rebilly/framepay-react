@@ -11,6 +11,8 @@ coverage
 node_modules
 
 test/e2e/screenshots/*.png
+test/e2e-cypress/screenshots/
+test/e2e-cypress/videos/
 
 *.log
 package-lock.json
