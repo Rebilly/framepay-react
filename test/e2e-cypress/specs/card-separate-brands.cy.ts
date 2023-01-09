@@ -28,7 +28,10 @@ describe('card-separate-brands', () => {
         cy.get('#events-expiry-onReady-true');
     });
 
-    /*it('should decline the MasterCard by default', async () => {
+    /*
+    AM TODO: migrate tests below... (they are in Puppeteer)
+
+    it('should decline the MasterCard by default', async () => {
         expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
 
         const btn = await page.$('#card');
@@ -87,5 +90,6 @@ describe('card-separate-brands', () => {
                 '#events-number-onChange-error-code-incomplete-card-number'
             )
         ).toEqual(null);
-    });*/
+    });
+    */
 });

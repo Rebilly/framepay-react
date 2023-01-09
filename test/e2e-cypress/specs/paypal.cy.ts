@@ -1,3 +1,4 @@
+// TODO: Add more test cases...
 describe('paypal', () => {
     beforeEach(() => {
         cy.visit({ url: '/paypal' });

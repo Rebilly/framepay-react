@@ -21,7 +21,10 @@ describe('multiple-methods', () => {
         cy.get('#events-iban-onReady-false');
     });
 
-    /*it('should load other methods', async () => {
+    /*
+    TODO: Migrate tests below... (They are old Puppeteer tests)
+
+    it('should load other methods', async () => {
         expect(await page.$('#events-card-onReady-true')).not.toEqual(null);
 
         expect(
