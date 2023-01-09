@@ -1,10 +1,13 @@
 describe('card-separate-brands', () => {
     beforeEach(() => {
-        cy.visit({ url: '/card-separate-brands'});
+        cy.visit({ url: '/card-separate-brands' });
     });
 
     it('should load the page', () => {
-        cy.title().should('eq', 'Test Card Page Separate Fields allowed Brands');
+        cy.title().should(
+            'eq',
+            'Test Card Page Separate Fields allowed Brands'
+        );
     });
 
     it('should inject the card iframes into the page', () => {

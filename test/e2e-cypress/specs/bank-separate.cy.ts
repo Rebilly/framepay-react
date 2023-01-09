@@ -1,7 +1,7 @@
 describe('bank-separate', () => {
     beforeEach(() => {
         cy.visit({ url: '/bank-separate' });
-    })
+    });
 
     it('should load the page', () => {
         cy.title().should('eq', 'Test Bank Page Separate Fields');

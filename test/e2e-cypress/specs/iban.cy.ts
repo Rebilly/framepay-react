@@ -1,7 +1,7 @@
 describe('iban', () => {
     beforeEach(() => {
         cy.visit({ url: '/iban' });
-    })
+    });
 
     it('should load the page', () => {
         cy.title().should('eq', 'Test IBAN Field');
