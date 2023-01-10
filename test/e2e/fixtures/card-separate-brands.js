@@ -110,8 +110,9 @@ class CardElementComponent extends Component {
 
     handleUpdateSettings() {
         this.setState({ button: 'update' });
+        console.log('params', params);
 
-        return this.props.Rebilly.update({
+        this.props.Rebilly.update({
             ...params,
             card: { brands: { allowed: null } }
         });
@@ -121,7 +122,7 @@ class CardElementComponent extends Component {
         this.setState({ button: 'restore' });
         console.log('params', params);
 
-        return this.props.Rebilly.update({
+        this.props.Rebilly.update({
             ...params
         });
     }

@@ -43,22 +43,19 @@ describe('card-separate-brands', () => {
         cy.get('iframe#cardCvv');
         cy.get('iframe#cardExpiration');
 
-        cy.iframe('iframe#cardNumber')
-            .findByTestId('cardnumber')
-            .type('4111 1111 1111 1111');
+        cy.iframe('iframe#cardNumber').within(() => {
+            cy.findByTestId('cardnumber').type('4111 1111 1111 1111');
+        })
+
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
 
         cy.get('#btn-update').click();
-
-        cy.wait(3000);
 
         cy.get(
             '#events-number-onChange-error-code-unavailable-card-brand'
         ).should('not.exist');
 
         cy.get('#btn-restore').click();
-
-        cy.wait(3000);
 
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
