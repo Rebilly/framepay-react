@@ -39,10 +39,6 @@ describe('card-separate-brands', () => {
     });
 
     it('should allow the Visa after update and decline after restore', () => {
-        cy.document().then((doc) => {
-            doc.addEventListener('update', cy.stub().as('update'))
-        });
-
         cy.get('iframe#cardNumber');
         cy.get('iframe#cardCvv');
         cy.get('iframe#cardExpiration');
