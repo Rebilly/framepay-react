@@ -39,6 +39,10 @@ describe('card-separate-brands', () => {
     });
 
     it('should allow the Visa after update and decline after restore', () => {
+        cy.document().then((doc) => {
+            doc.addEventListener('update', cy.stub().as('update'))
+        });
+
         cy.get('iframe#cardNumber');
         cy.get('iframe#cardCvv');
         cy.get('iframe#cardExpiration');
@@ -50,9 +54,7 @@ describe('card-separate-brands', () => {
 
         cy.get('#btn-update').click();
 
-        cy.get('iframe#cardNumber');
-        cy.get('iframe#cardCvv');
-        cy.get('iframe#cardExpiration');
+        cy.wait(1500);
 
         cy.get(
             '#events-number-onChange-error-code-unavailable-card-brand'
@@ -60,9 +62,7 @@ describe('card-separate-brands', () => {
 
         cy.get('#btn-restore').click();
 
-        cy.get('iframe#cardNumber');
-        cy.get('iframe#cardCvv');
-        cy.get('iframe#cardExpiration');
+        cy.wait(1500);
 
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
