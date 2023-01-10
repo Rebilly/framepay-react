@@ -1,6 +1,6 @@
 {
     "name": "@rebilly/framepay-react",
-    "version": "1.6.0",
+    "version": "1.5.1",
     "description": "A React wrapper for Rebilly's FramePay offering out-of-the-box support for Redux and other common React features",
     "main": "build/index.js",
     "author": "Rebilly",
