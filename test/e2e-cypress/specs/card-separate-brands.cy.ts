@@ -31,7 +31,9 @@ describe('card-separate-brands', () => {
     it('should decline the MasterCard by default', () => {
         cy.get('#events-number-onReady-true');
 
-        cy.iframe('iframe#cardNumber').findByTestId('cardnumber').type('4111 1111 1111 1111');
+        cy.iframe('iframe#cardNumber')
+            .findByTestId('cardnumber')
+            .type('4111 1111 1111 1111');
 
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
@@ -40,8 +42,10 @@ describe('card-separate-brands', () => {
         cy.get('iframe#cardNumber');
         cy.get('iframe#cardCvv');
         cy.get('iframe#cardExpiration');
-        
-        cy.iframe('iframe#cardNumber').findByTestId('cardnumber').type('4111 1111 1111 1111');
+
+        cy.iframe('iframe#cardNumber')
+            .findByTestId('cardnumber')
+            .type('4111 1111 1111 1111');
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
 
         cy.get('#btn-update').click();
@@ -50,8 +54,10 @@ describe('card-separate-brands', () => {
         cy.get('iframe#cardCvv');
         cy.get('iframe#cardExpiration');
 
-        cy.get('#events-number-onChange-error-code-unavailable-card-brand').should('not.exist');
-        
+        cy.get(
+            '#events-number-onChange-error-code-unavailable-card-brand'
+        ).should('not.exist');
+
         cy.get('#btn-restore').click();
 
         cy.get('iframe#cardNumber');
