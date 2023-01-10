@@ -28,68 +28,36 @@ describe('card-separate-brands', () => {
         cy.get('#events-expiry-onReady-true');
     });
 
-    /*
-    AM TODO: migrate tests below... (they are in Puppeteer)
+    it('should decline the MasterCard by default', () => {
+        cy.get('#events-number-onReady-true');
 
-    it('should decline the MasterCard by default', async () => {
-        expect(await page.$('#events-number-onReady-true')).not.toEqual(null);
+        cy.iframe('iframe#cardNumber').findByTestId('cardnumber').type('4111 1111 1111 1111');
 
-        const btn = await page.$('#card');
-        await btn.click();
-        await page.keyboard.type('4111 1111 1111 111');
-
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-unavailable-card-brand'
-            )
-        ).not.toEqual(null);
+        cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
 
-    it('should allow the Visa after update and decline after restore', async () => {
-        await page.waitFor(1000);
+    it('should allow the Visa after update and decline after restore', () => {
+        cy.get('iframe#cardNumber');
+        cy.get('iframe#cardCvv');
+        cy.get('iframe#cardExpiration');
+        
+        cy.iframe('iframe#cardNumber').findByTestId('cardnumber').type('4111 1111 1111 1111');
+        cy.get('#events-number-onChange-error-code-unavailable-card-brand');
 
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-unavailable-card-brand'
-            )
-        ).not.toEqual(null);
+        cy.get('#btn-update').click();
 
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-incomplete-card-number'
-            )
-        ).toEqual(null);
+        cy.get('iframe#cardNumber');
+        cy.get('iframe#cardCvv');
+        cy.get('iframe#cardExpiration');
 
-        const btn2 = await page.$('#btn-update');
-        await btn2.click();
-        await page.waitFor(1500);
+        cy.get('#events-number-onChange-error-code-unavailable-card-brand').should('not.exist');
+        
+        cy.get('#btn-restore').click();
 
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-unavailable-card-brand'
-            )
-        ).toEqual(null);
-        // deprecated
-        // expect(
-        //     await page.$(
-        //         '#events-number-onChange-error-code-incomplete-card-number'
-        //     )
-        // ).not.toEqual(null);
+        cy.get('iframe#cardNumber');
+        cy.get('iframe#cardCvv');
+        cy.get('iframe#cardExpiration');
 
-        const btn3 = await page.$('#btn-restore');
-        await btn3.click();
-        await page.waitFor(1500);
-
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-unavailable-card-brand'
-            )
-        ).not.toEqual(null);
-        expect(
-            await page.$(
-                '#events-number-onChange-error-code-incomplete-card-number'
-            )
-        ).toEqual(null);
+        cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
-    */
 });
