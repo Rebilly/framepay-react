@@ -45,7 +45,7 @@ describe('card-separate-brands', () => {
 
         cy.iframe('iframe#cardNumber').within(() => {
             cy.findByTestId('cardnumber').type('4111 1111 1111 1111');
-        })
+        });
 
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
 
