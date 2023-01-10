@@ -50,7 +50,7 @@ describe('card-separate-brands', () => {
 
         cy.get('#btn-update').click();
 
-        cy.wait(1500);
+        cy.wait(3000);
 
         cy.get(
             '#events-number-onChange-error-code-unavailable-card-brand'
@@ -58,7 +58,7 @@ describe('card-separate-brands', () => {
 
         cy.get('#btn-restore').click();
 
-        cy.wait(1500);
+        cy.wait(3000);
 
         cy.get('#events-number-onChange-error-code-unavailable-card-brand');
     });
