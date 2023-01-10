@@ -39,15 +39,19 @@ describe('card-separate-brands', () => {
     });
 
     it('should allow the Visa after update and decline after restore', () => {
-        cy.iframe('iframe#cardNumber').findByTestId('cardnumber').type('4111 1111 1111 1111');
+        cy.iframe('iframe#cardNumber')
+            .findByTestId('cardnumber')
+            .type('4111 1111 1111 1111');
 
-        cy.iframe('iframe#cardCvv').findByTestId('cvv').type('123');
+        cy.iframe('iframe#cardCvv')
+            .findByTestId('cvv')
+            .type('123');
 
         cy.iframe('iframe#cardExpiration').within(() => {
             const expiry =
                 String('0' + (new Date().getMonth() + 1)).substr(-2) +
                 String(new Date().getFullYear()).substr(-2);
-            
+
             cy.findByTestId('exp-date').type(expiry);
         });
 
