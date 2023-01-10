@@ -110,18 +110,22 @@ class CardElementComponent extends Component {
 
     handleUpdateSettings() {
         this.setState({ button: 'update' });
-        this.props.Rebilly.update({
-            ...params,
-            card: { brands: { allowed: null } }
-        });
+        setTimeout(() => {
+            this.props.Rebilly.update({
+                ...params,
+                card: { brands: { allowed: null } }
+            });
+        }, 500)
     }
 
     handleRestoreSettings() {
         this.setState({ button: 'restore' });
         console.log('params', params);
-        this.props.Rebilly.update({
-            ...params
-        });
+        setTimeout(() => {
+            this.props.Rebilly.update({
+                ...params
+            });
+        }, 500);
     }
 
     render() {
