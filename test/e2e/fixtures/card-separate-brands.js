@@ -118,7 +118,6 @@ class CardElementComponent extends Component {
 
     handleRestoreSettings() {
         this.setState({ button: 'restore' });
-        console.log('params', params);
         this.props.Rebilly.update({
             ...params
         });

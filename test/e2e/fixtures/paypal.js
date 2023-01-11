@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import { FramePayProvider, withFramePayPaypalComponent } from '../../../build';
-import { ReactVersion } from './util';
+import { prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
 const params = {
@@ -32,6 +32,7 @@ class PaypalElementComponent extends Component {
             <h2>{this.props.title}</h2>
             <h3>FramePay version: {this.props.Rebilly.version}</h3>
             <div className="flex-wrapper">
+                {prettyDebugRender(this.state)}
                 <div className="example-2">
                     <this.props.PaypalElement />
                 </div>
