@@ -1,27 +1,29 @@
 module.exports = {
   rootDir: '../..',
-  testEnvironment: 'jest-environment-jsdom-fifteen',
-  testPathIgnorePatterns: ['.*/e2e/.*'],
-  globals: {
-    'ts-jest': {
-      diagnostics: {
-        warnOnly: true
-      },
-      tsConfig: "tsconfig.spec.json"
-    }
-  },
+  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: [
+    '.*/e2e/.*',
+  ],
   transform: {
-    '.(ts|tsx)': "ts-jest"
+    '.(ts|tsx)': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.spec.json',
+        diagnostics: {
+          warnOnly: true,
+        },
+      },
+    ],
   },
   moduleFileExtensions: [
-    "json",
-    "ts",
-    "tsx",
-    "js"
+    'js',
+    'json',
+    'ts',
+    'tsx',
   ],
   moduleDirectories: [
-    "node_modules",
-    "src",
-    "types"
-  ]
-};
+    'node_modules',
+    'src',
+    'types',
+  ],
+}
