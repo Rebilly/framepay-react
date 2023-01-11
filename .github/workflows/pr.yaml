@@ -8,11 +8,11 @@ jobs:
 
     name: Lint
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
       - uses: bahmutov/npm-install@v1.7.7
         with:
           useRollingCache: true
@@ -23,11 +23,11 @@ jobs:
 
     name: Unit tests
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
       - uses: bahmutov/npm-install@v1.7.7
         with:
           useRollingCache: true
@@ -38,11 +38,11 @@ jobs:
 
     name: E2E tests
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
       - uses: bahmutov/npm-install@v1.7.7
         with:
           useRollingCache: true
