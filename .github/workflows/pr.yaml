@@ -51,9 +51,9 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: test/e2e-cypress/screenshots
+          path: test/e2e/screenshots
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-videos
-          path: test/e2e-cypress/videos
+          path: test/e2e/videos

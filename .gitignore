@@ -10,9 +10,8 @@ dist
 coverage
 node_modules
 
-test/e2e/screenshots/*.png
-test/e2e-cypress/screenshots/
-test/e2e-cypress/videos/
+test/e2e/screenshots/
+test/e2e/videos/
 
 *.log
 package-lock.json

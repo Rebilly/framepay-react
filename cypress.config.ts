@@ -6,12 +6,12 @@ export default defineConfig({
   video: true,
   videoUploadOnPasses: false,
   fixturesFolder: false,
-  videosFolder: 'test/e2e-cypress/videos',
-  screenshotsFolder: 'test/e2e-cypress/screenshots',
+  videosFolder: 'test/e2e/videos',
+  screenshotsFolder: 'test/e2e/screenshots',
   e2e: {
     baseUrl: 'http://localhost:8000',
-    specPattern: 'test/e2e-cypress/specs/**/*.cy.{js,jsx,ts,tsx}',
-    supportFile: 'test/e2e-cypress/cypress-support.js',
+    specPattern: 'test/e2e/specs/**/*.cy.{js,jsx,ts,tsx}',
+    supportFile: 'test/e2e/cypress-support.js',
   },
   env: {
     // Inject the REACT_VERSION env variable, so we can read it in
