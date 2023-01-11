@@ -321,7 +321,7 @@ class SomeComponent extends React.Component {
 ### Developer instructions
 
 #### Prerequisites
-Before installing, [download and install Node.js](https://nodejs.org/en/download/). Node.js v14 or higher is required.
+Before proceeding further, [download and install Node.js](https://nodejs.org/en/download/). Node.js v14 or higher is required.
 
 #### Project setup
 1. Clone the repository
