@@ -65,7 +65,7 @@
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@types/jest": "^29.2.5",
-        "@types/node": "^11.13.0",
+        "@types/node": "^18.11.18",
         "core-js": "3",
         "cross-env": "^5.2.0",
         "cypress": "^12.3.0",
