@@ -36,7 +36,7 @@ export default function() {
 
             const server = AutoEncryptLocalhost.https.createServer(app);
             server.listen(port);
-            console.log(`Running on port ${port}`);
+            console.log(`Running at https://localhost:${port}`);
             resolve({ port, server, app });
         });
     });
