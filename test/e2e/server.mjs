@@ -1,7 +1,14 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const portfinder = require('portfinder');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import portfinder from 'portfinder';
+import AutoEncryptLocalhost from '@small-tech/auto-encrypt-localhost';
+import HttpServer from '@small-tech/auto-encrypt-localhost/lib/HttpServer.js';
+import { fileURLToPath } from 'url';
+
+// __dirname is not available in esmodules, so we must build it
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -21,10 +28,14 @@ const addDirRoutes = (dir, category) => {
 
 addDirRoutes(path.resolve(__dirname, './build'), '');
 
-module.exports = function() {
+export default function() {
     return new Promise((resolve) => {
         portfinder.getPort((err, port) => {
-            const server = app.listen(port);
+            // Do not create a http redirect server
+            HttpServer.instance = true;
+
+            const server = AutoEncryptLocalhost.https.createServer(app);
+            server.listen(port);
             console.log(`Running on port ${port}`);
             resolve({ port, server, app });
         });
