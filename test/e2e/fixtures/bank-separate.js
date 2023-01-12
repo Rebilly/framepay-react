@@ -312,7 +312,7 @@ class App extends Component {
         return (
             <FramePayProvider injectStyle {...params}>
                 <div>
-                    {ReactVersion()};
+                    {ReactVersion()}
                     <BankElement />
                 </div>
             </FramePayProvider>

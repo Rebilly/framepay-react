@@ -34,6 +34,11 @@ This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs
     - [Troubleshooting](#troubleshooting)
         - [Incorrect](#incorrect)
         - [Correct](#correct)
+    - [Developer instructions](#developer-instructions)
+        - [Prerequisites](#prerequisites)
+        - [Project setup](#project-setup)
+        - [How to run unit tests?](#how-to-run-unit-tests)
+        - [How to run E2E tests?](#how-to-run-e2e-tests)
 
 ### FramePay documentation
 For more information on FramePay see its [official documentation](https://www.rebilly.com/docs/dev-docs/framepay/).
@@ -312,3 +317,32 @@ class SomeComponent extends React.Component {
     }
 }
 ```
+
+### Developer instructions
+
+#### Prerequisites
+Before proceeding further, [download and install Node.js](https://nodejs.org/en/download/) in case you have not already. Node.js v12 or higher is required.
+
+#### Project setup
+1. Clone the repository
+1. Install dependencies using [Yarn](https://yarnpkg.com/en/):
+    ```
+    yarn install
+    ```
+
+    Or using NPM:
+    ```
+    npm install
+    ```
+
+#### Manual preview
+In order to manually preview the examples, use `serve:e2e` command. It builds the project and starts the local server on the port 8000.
+
+#### How to run unit tests?
+Unit tests can be run using the `test:unit` command.
+
+#### How to run E2E tests?
+- Ensure you are running the preview examples, otherwise all E2E tests will fail
+- Run one of the following commands:
+    - `test:cypress:run` - runs all tests headlessly
+    - `test:cypress:open` - opens GUI which allows you to interact with each test visually
