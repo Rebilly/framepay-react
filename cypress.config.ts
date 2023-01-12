@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  defaultCommandTimeout: 10000,
   chromeWebSecurity: false,
   screenshotOnRunFailure: true,
   video: true,
@@ -9,7 +10,7 @@ export default defineConfig({
   videosFolder: 'test/e2e/videos',
   screenshotsFolder: 'test/e2e/screenshots',
   e2e: {
-    baseUrl: 'http://localhost:8000',
+    baseUrl: 'https://localhost:8000',
     specPattern: 'test/e2e/specs/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'test/e2e/cypress-support.js',
   },
