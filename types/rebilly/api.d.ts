@@ -28,7 +28,7 @@ interface TokenExtraData {
     readonly leadSource?: object;
 }
 
-type RebillyEventDelegate =  (error: string) => void;
+type RebillyEventDelegate =  (arg: object) => void;
 
 /**
  * The FramePay api interface (external api)

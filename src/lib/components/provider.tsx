@@ -67,7 +67,11 @@ export default class Provider extends React.Component<
                 }
             });
             api.on('error', error => {
-                this.setState({ ready: false, api, error });
+                this.setState({
+                    api,
+                    error: (error as any).code,
+                    ready: false
+                });
 
                 // call error callback
                 if (this.props.onError) {

@@ -4,5 +4,5 @@ interface ProviderProps extends FramePaySettings {
     readonly injectScript?: boolean;
     readonly onReady?: () => void;
     readonly onError?: (error: object) => void;
-    readonly onTokenReady?: (data: string) => void;
+    readonly onTokenReady?: (token: object) => void;
 }
