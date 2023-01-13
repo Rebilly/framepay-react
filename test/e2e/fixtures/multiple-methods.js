@@ -23,9 +23,6 @@ const defaultEvents = () => ({
         onFocus: false,
         onBlur: false
     },
-    googlepay: {
-        onTokenReady: false,
-    },
     bankAccountType: {
         onReady: false,
         onChange: false,
@@ -64,17 +61,10 @@ class PaymentFormComponent extends Component {
                 googlepay: 'googlepay'
             },
             paymentElement: 'card',
-            events: {
-                ...defaultEvents()
-            },
             billingAddress: {
                 firstName: 'first-name-value',
                 lastName: 'last-name-value',
                 country: 'GB'
-            },
-            token: {
-                error: null,
-                data: null
             }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -96,11 +86,360 @@ class PaymentFormComponent extends Component {
             billingAddress
         })
             .then(data => {
-                this.deepUpdateState({ token: { error: false, data: { ...data, method: data.method } } });
+                this.props.onEvent({
+                    token: {
+                        error: false,
+                        data: { ...data, method: data.method }
+                    }
+                });
             })
             .catch(err => {
-                this.deepUpdateState({ token: { error: true, data: err } });
+                this.props.onEvent({ token: { error: true, data: err } });
             });
+    }
+
+    render() {
+        const elements = Object.keys(this.state.paymentElements);
+
+        const changeElement = (element) => {
+            this.setState({
+                paymentElement: element,
+            });
+            // Clear events
+            this.props.onEvent({
+                events: {
+                    ...defaultEvents(),
+                },
+            })
+        }
+
+        return (
+            <div className="example-2">
+                <ul>
+                    {elements.map(element => (
+                        <li key={`payment-method-${element}`}>
+                            <button
+                                id={`set-active-element-${element}`}
+                                onClick={() => changeElement(element)}
+                            >
+                                {element} - isActive:
+                                {String(element === this.state.paymentElement)}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <form
+                    id="form"
+                    ref={node => (this.formNode = node)}
+                    method="post"
+                    onSubmit={this.handleSubmit}
+                >
+                    <fieldset>
+                        <div className="field">
+                            <input
+                                type="text"
+                                name="firstName"
+                                placeholder="First Name"
+                                defaultValue={
+                                    this.state.billingAddress.firstName
+                                }
+                                onChange={e => {
+                                    this.props.onEvent({
+                                        billingAddress: {
+                                            firstName: e.target.value
+                                        }
+                                    });
+                                }}
+                            />
+                        </div>
+                        <div className="field">
+                            <input
+                                type="text"
+                                name="lastName"
+                                placeholder="Last Name"
+                                defaultValue={
+                                    this.state.billingAddress.lastName
+                                }
+                                onChange={e => {
+                                    this.props.onEvent({
+                                        billingAddress: {
+                                            lastName: e.target.value
+                                        }
+                                    });
+                                }}
+                            />
+                        </div>
+                        <hr />
+                        <div className="field" id="field-CardElement">
+                            {this.state.paymentElement === 'card' && (
+                                <this.props.CardElement
+                                    onReady={() =>
+                                        this.props.onEvent({
+                                            events: {
+                                                card: { onReady: true }
+                                            }
+                                        })
+                                    }
+                                    onChange={data =>
+                                        this.props.onEvent({
+                                            events: {
+                                                card: {
+                                                    onChange: {
+                                                        ...data,
+                                                        error: data.error || ''
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    }
+                                    onFocus={() =>
+                                        this.props.onEvent({
+                                            events: {
+                                                card: { onFocus: true }
+                                            }
+                                        })
+                                    }
+                                    onBlur={() =>
+                                        this.props.onEvent({
+                                            events: {
+                                                card: { onBlur: true }
+                                            }
+                                        })
+                                    }
+                                />
+                            )}
+                            {this.state.paymentElement === 'googlepay' && (
+                                <this.props.GooglePayElement />
+                            )}
+                            {this.state.paymentElement === 'bank' && (
+                                <div>
+                                    <div
+                                        className="field"
+                                        id="field-BankAccountTypeElement"
+                                    >
+                                        <label>Account Type</label>
+                                        <this.props.BankAccountTypeElement
+                                            onReady={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountType: {
+                                                            onReady: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onChange={data =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountType: {
+                                                            onChange: {
+                                                                ...data,
+                                                                error:
+                                                                    data.error ||
+                                                                    ''
+                                                            }
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onFocus={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountType: {
+                                                            onFocus: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onBlur={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountType: {
+                                                            onBlur: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                    <div
+                                        className="field"
+                                        id="field-BankRoutingNumberElement"
+                                    >
+                                        <label>Routing Number</label>
+                                        <this.props.BankRoutingNumberElement
+                                            onReady={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankRoutingNumber: {
+                                                            onReady: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onChange={data =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankRoutingNumber: {
+                                                            onChange: {
+                                                                ...data,
+                                                                error:
+                                                                    data.error ||
+                                                                    ''
+                                                            }
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onFocus={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankRoutingNumber: {
+                                                            onFocus: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onBlur={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankRoutingNumber: {
+                                                            onBlur: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                    <div
+                                        className="field"
+                                        id="field-BankAccountNumberElement"
+                                    >
+                                        <label>Account Number</label>
+                                        <this.props.BankAccountNumberElement
+                                            onReady={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountNumber: {
+                                                            onReady: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onChange={data =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountNumber: {
+                                                            onChange: {
+                                                                ...data,
+                                                                error:
+                                                                    data.error ||
+                                                                    ''
+                                                            }
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onFocus={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountNumber: {
+                                                            onFocus: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onBlur={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        bankAccountNumber: {
+                                                            onBlur: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                            {this.state.paymentElement === 'iban' && (
+                                <div>
+                                    <div
+                                        className="field"
+                                        id="field-IBANElement"
+                                    >
+                                        <label>IBAN NUmber</label>
+                                        <this.props.IBANElement
+                                            onReady={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        iban: {
+                                                            onReady: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onChange={data =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        iban: {
+                                                            onChange: {
+                                                                ...data,
+                                                                error:
+                                                                    data.error ||
+                                                                    ''
+                                                            }
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onFocus={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        iban: {
+                                                            onFocus: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            onBlur={() =>
+                                                this.props.onEvent({
+                                                    events: {
+                                                        iban: {
+                                                            onBlur: true
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </fieldset>
+
+                    <hr />
+                    <button id="submit">Make Payment</button>
+                </form>
+            </div>
+        );
+    }
+}
+
+const PaymentForm = withFramePay(PaymentFormComponent);
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            events: {
+                ...defaultEvents()
+            },
+            token: {
+                error: null,
+                data: null
+            }
+        };
     }
 
     deepUpdateState(data) {
@@ -110,333 +449,22 @@ class PaymentFormComponent extends Component {
     }
 
     render() {
-        const elements = Object.keys(this.state.paymentElements);
-
         return (
-            <div>
-                <h2>{this.props.title}</h2>
-                <h3>FramePay version: {this.props.Rebilly.version}</h3>
-                <div className="flex-wrapper">
-                    {prettyDebugRender(this.state)}
-                    <div className="example-2">
-                        <ul>
-                            {elements.map(element => (
-                                <li key={`payment-method-${element}`}>
-                                    <button
-                                        id={`set-active-element-${element}`}
-                                        onClick={() => {
-                                            this.setState({
-                                                paymentElement: element,
-                                                events: {
-                                                    ...defaultEvents()
-                                                }
-                                            });
-                                        }}
-                                    >
-                                        {element} - isActive:
-                                        {String(
-                                            element === this.state.paymentElement
-                                        )}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                        <form
-                            id="form"
-                            ref={node => (this.formNode = node)}
-                            method="post"
-                            onSubmit={this.handleSubmit}
-                        >
-                            <fieldset>
-                                <div className="field">
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        placeholder="First Name"
-                                        defaultValue={
-                                            this.state.billingAddress.firstName
-                                        }
-                                        onChange={e => {
-                                            this.deepUpdateState({
-                                                billingAddress: {
-                                                    firstName: e.target.value
-                                                }
-                                            });
-                                        }}
-                                    />
-                                </div>
-                                <div className="field">
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        placeholder="Last Name"
-                                        defaultValue={
-                                            this.state.billingAddress.lastName
-                                        }
-                                        onChange={e => {
-                                            this.deepUpdateState({
-                                                billingAddress: {
-                                                    lastName: e.target.value
-                                                }
-                                            });
-                                        }}
-                                    />
-                                </div>
-                                <hr/>
-                                <div className="field" id="field-CardElement">
-                                    {this.state.paymentElement === 'card' && (
-                                        <this.props.CardElement
-                                            onReady={() =>
-                                                this.deepUpdateState({
-                                                    events: {
-                                                        card: { onReady: true }
-                                                    }
-                                                })
-                                            }
-                                            onChange={data =>
-                                                this.deepUpdateState({
-                                                    events: {
-                                                        card: { onChange: { ...data, error: data.error || '' } }
-                                                    }
-                                                })
-                                            }
-                                            onFocus={() =>
-                                                this.deepUpdateState({
-                                                    events: {
-                                                        card: { onFocus: true }
-                                                    }
-                                                })
-                                            }
-                                            onBlur={() =>
-                                                this.deepUpdateState({
-                                                    events: {
-                                                        card: { onBlur: true }
-                                                    }
-                                                })
-                                            }
-                                        />
-                                    )}
-                                    {this.state.paymentElement === 'googlepay' && (
-                                        <this.props.GooglePayElement
-                                            onTokenReady={() =>
-                                                this.deepUpdateState({
-                                                    events: {
-                                                        googlepay: { onTokenReady: true }
-                                                    }
-                                                })
-                                            }
-                                        />
-                                    )}
-                                    {this.state.paymentElement === 'bank' && (
-                                        <div>
-                                            <div
-                                                className="field"
-                                                id="field-BankAccountTypeElement"
-                                            >
-                                                <label>Account Type</label>
-                                                <this.props.BankAccountTypeElement
-                                                    onReady={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountType: {
-                                                                    onReady: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onChange={data =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountType: {
-                                                                    onChange: { ...data, error: data.error || '' }
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onFocus={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountType: {
-                                                                    onFocus: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onBlur={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountType: {
-                                                                    onBlur: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                            <div
-                                                className="field"
-                                                id="field-BankRoutingNumberElement"
-                                            >
-                                                <label>Routing Number</label>
-                                                <this.props.BankRoutingNumberElement
-                                                    onReady={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankRoutingNumber: {
-                                                                    onReady: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onChange={data =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankRoutingNumber: {
-                                                                    onChange: { ...data, error: data.error || '' }
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onFocus={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankRoutingNumber: {
-                                                                    onFocus: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onBlur={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankRoutingNumber: {
-                                                                    onBlur: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                            <div
-                                                className="field"
-                                                id="field-BankAccountNumberElement"
-                                            >
-                                                <label>Account Number</label>
-                                                <this.props.BankAccountNumberElement
-                                                    onReady={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountNumber: {
-                                                                    onReady: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onChange={data =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountNumber: {
-                                                                    onChange: { ...data, error: data.error || '' }
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onFocus={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountNumber: {
-                                                                    onFocus: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onBlur={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                bankAccountNumber: {
-                                                                    onBlur: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-                                    {this.state.paymentElement === 'iban' && (
-                                        <div>
-                                            <div
-                                                className="field"
-                                                id="field-IBANElement"
-                                            >
-                                                <label>IBAN NUmber</label>
-                                                <this.props.IBANElement
-                                                    onReady={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                iban: {
-                                                                    onReady: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onChange={data =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                iban: {
-                                                                    onChange: { ...data, error: data.error || '' }
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onFocus={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                iban: {
-                                                                    onFocus: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    onBlur={() =>
-                                                        this.deepUpdateState({
-                                                            events: {
-                                                                iban: {
-                                                                    onBlur: true
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </fieldset>
-
-                            <hr/>
-                            <button id="submit">Make Payment</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-const PaymentForm = withFramePay(PaymentFormComponent);
-
-class App extends Component {
-    render() {
-        return (
-            <FramePayProvider injectStyle {...params}>
+            <FramePayProvider injectStyle {...params} onTokenReady={(token) => this.deepUpdateState({ error: false, data: token })}>
                 <div>
                     {ReactVersion()}
-                    <PaymentForm/>
+                    <div>
+                        <div className="flex-wrapper">
+                            {prettyDebugRender(this.state)}
+                            <PaymentForm
+                                onEvent={data => this.deepUpdateState(data)}
+                            />
+                        </div>
+                    </div>
                 </div>
             </FramePayProvider>
         );
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

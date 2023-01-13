@@ -13,7 +13,8 @@ export default class Provider extends React.Component<
         injectScript: true,
         injectStyle: false,
         onError: () => ({}),
-        onReady: () => ({})
+        onReady: () => ({}),
+        onTokenReady: () => ({})
     };
 
     readonly state: FramePayContext = {
@@ -66,12 +67,21 @@ export default class Provider extends React.Component<
                 }
             });
             api.on('error', error => {
-                this.setState({ ready: false, api, error });
+                this.setState({
+                    api,
+                    error: (error as any).code,
+                    ready: false
+                });
 
                 // call error callback
                 if (this.props.onError) {
                     // @ts-ignore
                     this.props.onError(error);
+                }
+            });
+            api.on('token-ready', token => {
+                if (this.props.onTokenReady) {
+                    this.props.onTokenReady(token);
                 }
             });
         } catch (e) {

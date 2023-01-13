@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayGooglePayComponent } from '../../../build';
+import {
+    FramePayProvider,
+    withFramePayGooglePayComponent
+} from '../../../build';
 import { prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
@@ -12,55 +15,49 @@ const params = {
     transactionData: {
         amount: 10,
         currency: 'USD',
-        label: 'Purchase label 1',
-    },
+        label: 'Purchase label 1'
+    }
 };
 
-class GooglePayElementComponent extends Component {
+class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            token: {
-                error: null,
-                data: null
-            }
+            token: null,
         };
     }
 
     render() {
-        return (<div>
-            <h2>{this.props.title}</h2>
-            <h3>FramePay version: {this.props.Rebilly.version}</h3>
-            <div className="flex-wrapper">
-                {prettyDebugRender(this.state)}
-                <div className="example-2">
-                    <this.props.GooglePayElement />
+        return (
+            <FramePayProvider
+                injectStyle
+                {...params}
+                onReady={() => {
+                    console.log('FramePayProvider.onReady');
+                }}
+                onError={err => {
+                    console.log('FramePayProvider.onError', err);
+                }}
+                onTokenReady={token => this.setState({ token })}
+            >
+                <div>
+                    {ReactVersion()}
+                    <div>
+                        <h3>FramePay version: {this.props.Rebilly.version}</h3>
+                        <div className="flex-wrapper">
+                            {prettyDebugRender(this.state)}
+                            <this.props.GooglePayElement />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>);
+            </FramePayProvider>
+        );
     }
 }
 
-const GooglePayElement = withFramePayGooglePayComponent(GooglePayElementComponent);
-
-class App extends Component {
-
-    render() {
-        return (<FramePayProvider injectStyle
-                                  {...params}
-                                  onReady={() => {
-                                      console.log('FramePayProvider.onReady');
-                                  }}
-                                  onError={(err) => {
-                                      console.log('FramePayProvider.onError', err);
-                                  }}>
-            <div>
-                {ReactVersion()}
-                <GooglePayElement />
-            </div>
-        </FramePayProvider>);
-    }
-}
-
-ReactDOM.render(<App/>, document.getElementById('app'));
+const WrappedApp = withFramePayGooglePayComponent(App);
+ReactDOM.render(
+    <WrappedApp />,
+    document.getElementById('app')
+);
