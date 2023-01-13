@@ -7,7 +7,7 @@ export default class PaypalElement extends BaseElement<
     PaypalState
 > {
     setupElement() {
-        const { Rebilly, onTokenReady } = this.props;
+        const { Rebilly } = this.props;
 
         const makeElement = () => {
             // elementNode already checked in BaseElement.handleSetupElement
@@ -31,21 +31,6 @@ export default class PaypalElement extends BaseElement<
         };
 
         const element = makeElement();
-
-        try {
-            Rebilly.on('token-ready', (token: string) => {
-                if (onTokenReady) {
-                    onTokenReady(token);
-                }
-            });
-
-            this.setState({ element });
-        } catch (e) {
-            throw FramePayError({
-                code: FramePayError.codes.elementMountError,
-                details: `PaypalElement events binding error`,
-                trace: e
-            });
-        }
+        this.setState({ element });
     }
 }

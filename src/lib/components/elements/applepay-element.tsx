@@ -7,7 +7,7 @@ export default class ApplePayElement extends BaseElement<
     ApplePayState
 > {
     setupElement() {
-        const { Rebilly, onTokenReady } = this.props;
+        const { Rebilly } = this.props;
 
         const makeElement = () => {
             // elementNode already checked in BaseElement.handleSetupElement
@@ -31,21 +31,6 @@ export default class ApplePayElement extends BaseElement<
         };
 
         const element = makeElement();
-
-        try {
-            Rebilly.on('token-ready', (token: string) => {
-                if (onTokenReady) {
-                    onTokenReady(token);
-                }
-            });
-
-            this.setState({ element });
-        } catch (e) {
-            throw FramePayError({
-                code: FramePayError.codes.elementMountError,
-                details: `ApplePayElement events binding error`,
-                trace: e
-            });
-        }
+        this.setState({ element });
     }
 }
