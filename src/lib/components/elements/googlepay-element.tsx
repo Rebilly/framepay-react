@@ -33,7 +33,7 @@ export default class GooglePayElement extends BaseElement<
         const element = makeElement();
 
         try {
-            this.addEventHandler('token-ready', (token: string) => {
+            Rebilly.on('token-ready', (token: string) => {
                 if (onTokenReady) {
                     onTokenReady(token);
                 }

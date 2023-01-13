@@ -13,20 +13,9 @@ export default class BaseElement<
     /* tslint:disable:readonly-keyword */
     protected elementNode: HTMLDivElement | null = null;
 
-    private registeredEventHandlers: ReadonlyArray<{
-        event: initRebillyEvents;
-        delegate: RebillyEventDelegate;
-    }> = [];
-
     /* tslint:enable:readonly-keyword */
 
     componentWillUnmount() {
-        // Remove all the registered event handlers
-        const { Rebilly } = this.props;
-        this.registeredEventHandlers.forEach(({ event, delegate }) => {
-            Rebilly.off(event, delegate);
-        });
-
         if (this.state.mounted && !this.state.element) {
             // tslint:disable-next-line:no-console
             console.log(
@@ -107,21 +96,5 @@ export default class BaseElement<
         return (
             <div id={this.props.id} ref={node => (this.elementNode = node)} />
         );
-    }
-
-    /**
-     * Registers a framepay event handler using Rebilly.on(), which will automatically be
-     * disposed of when the element is umounted.
-     */
-    addEventHandler(event: initRebillyEvents, delegate: RebillyEventDelegate) {
-        const { Rebilly } = this.props;
-        Rebilly.on(event, delegate);
-        this.registeredEventHandlers = [
-            ...this.registeredEventHandlers,
-            {
-                delegate,
-                event
-            }
-        ];
     }
 }
