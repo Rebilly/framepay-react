@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FramePayProvider, withFramePayApplePayComponent } from '../../../build';
-import { ReactVersion } from './util';
+import {
+    FramePayProvider,
+    withFramePayApplePayComponent
+} from '../../../build';
+import { prettyDebugRender, ReactVersion } from './util';
 import './style.css';
 
 const params = {
@@ -16,50 +19,45 @@ const params = {
     },
 };
 
-class ApplePayElementComponent extends Component {
+class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            token: {
-                error: null,
-                data: null
-            }
+            token: null,
         };
     }
 
     render() {
-        return (<div>
-            <h2>{this.props.title}</h2>
-            <h3>FramePay version: {this.props.Rebilly.version}</h3>
-            <div className="flex-wrapper">
-                <div className="example-2">
-                    <this.props.ApplePayElement />
+        return (
+            <FramePayProvider
+                injectStyle
+                {...params}
+                onReady={() => {
+                    console.log('FramePayProvider.onReady');
+                }}
+                onError={err => {
+                    console.log('FramePayProvider.onError', err);
+                }}
+                onTokenReady={token => this.setState({ token })}
+            >
+                <div>
+                    {ReactVersion()}
+                    <div>
+                        <h3>FramePay version: {this.props.Rebilly.version}</h3>
+                        <div className="flex-wrapper">
+                            {prettyDebugRender(this.state)}
+                            <this.props.ApplePayElement />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>);
+            </FramePayProvider>
+        );
     }
 }
 
-const ApplePayElement = withFramePayApplePayComponent(ApplePayElementComponent);
-
-class App extends Component {
-
-    render() {
-        return (<FramePayProvider injectStyle
-                                  {...params}
-                                  onReady={() => {
-                                      console.log('FramePayProvider.onReady');
-                                  }}
-                                  onError={(err) => {
-                                      console.log('FramePayProvider.onError', err);
-                                  }}>
-            <div>
-                {ReactVersion()}
-                <ApplePayElement />
-            </div>
-        </FramePayProvider>);
-    }
-}
-
-ReactDOM.render(<App/>, document.getElementById('app'));
+const WrappedApp = withFramePayApplePayComponent(App);
+ReactDOM.render(
+    <WrappedApp />,
+    document.getElementById('app')
+);
