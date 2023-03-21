@@ -1,3 +1,8 @@
+> **Note**
+> This project is still active, however this repository is archived and the source is
+> moved into a private repository. The unmangled source code is still available publically
+> and published as part of the npm package contents.
+
 # framepay-react
 
 [![npm](https://img.shields.io/npm/v/@rebilly/framepay-react.svg)](https://www.npmjs.com/package/@rebilly/framepay-react)
@@ -35,10 +40,11 @@ This package is a wrapper for [FramePay](https://rebilly.github.io/framepay-docs
         - [Incorrect](#incorrect)
         - [Correct](#correct)
     - [Developer instructions](#developer-instructions)
-        - [Prerequisites](#prerequisites)
-        - [Project setup](#project-setup)
-        - [How to run unit tests?](#how-to-run-unit-tests)
-        - [How to run E2E tests?](#how-to-run-e2e-tests)
+      - [Prerequisites](#prerequisites)
+      - [Project setup](#project-setup)
+      - [Manual preview](#manual-preview)
+      - [How to run unit tests?](#how-to-run-unit-tests)
+      - [How to run E2E tests?](#how-to-run-e2e-tests)
 
 ### FramePay documentation
 For more information on FramePay see its [official documentation](https://www.rebilly.com/docs/dev-docs/framepay/).
